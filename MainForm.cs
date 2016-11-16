@@ -110,27 +110,27 @@ namespace UI
             Point temp;
             //控制左侧图片显示框位置及大小
             {
-                temp = this.imageSort.Location;
-                width = this.imageSort.Width;
-                height = this.imageSort.Height;
-                this.imageSortPanel.Location = new Point(temp.X, 0);
-                this.imageSortPanel.Width = width;
-
                 temp = this.imageCompare.Location;
                 width = this.imageCompare.Width;
                 height = this.imageCompare.Height;
-                this.imageComparePanel.Location = new Point(temp.X, 0);
-                this.imageComparePanel.Width = width;
+                this.imageSortPanel.Location = new Point(temp.X, 0);
+                this.imageSortPanel.Width = width;
 
                 temp = this.imageCompress.Location;
                 width = this.imageCompress.Width;
                 height = this.imageCompress.Height;
-                this.imageCompressPanel.Location = new Point(temp.X, 0);
-                this.imageCompressPanel.Width = width;
+                this.imageComparePanel.Location = new Point(temp.X, 0);
+                this.imageComparePanel.Width = width;
 
                 temp = this.imageClear.Location;
                 width = this.imageClear.Width;
                 height = this.imageClear.Height;
+                this.imageCompressPanel.Location = new Point(temp.X, 0);
+                this.imageCompressPanel.Width = width;
+
+                temp = this.imageSort.Location;
+                width = this.imageSort.Width;
+                height = this.imageSort.Height;
                 this.imageClearPanel.Location = new Point(temp.X, 0);
                 this.imageClearPanel.Width = width;
             }
@@ -532,6 +532,14 @@ namespace UI
             }
         }
 
+        //点击工作区隐藏图片清理、图片压缩、图片排序的面板
+        private void result_show_Click(object sender, EventArgs e)
+        {
+            imageSortPanel.Visible = false;
+            imageCompressPanel.Visible = false;
+            imageClearPanel.Visible = false;
+        }
+
         //图片无参考排序
         private void imageSort_none_Click(object sender, EventArgs e)
         {
@@ -640,14 +648,6 @@ namespace UI
             sr.Show();
         }
 
-        //点击工作区隐藏图片清理、图片压缩、图片排序的面板
-        private void result_show_Click(object sender, EventArgs e)
-        {
-            imageSortPanel.Visible = false;
-            imageCompressPanel.Visible = false;
-            imageClearPanel.Visible = false;
-        }
-
         //图片无参考压缩
         private void imageCompress_none_Click(object sender, EventArgs e)
         {
@@ -675,23 +675,7 @@ namespace UI
         //全参考比较的点击事件
         private void imageCompare_full_Click(object sender, EventArgs e)
         {
-            resetComparePanel();
-            imageCompressPanel.Visible = false;
-            int count = 0;
-            for (int i = 0; i < tot; i++)
-            {
-                if (selected[i])
 
-                    ++count;
-
-            }
-            if (count != 2)
-            {
-                MessageBox.Show("请选择两张图片!");
-                return;
-            }
-            CompareForm_none compareForm_none = new CompareForm_none();
-            compareForm_none.Show();
         }
 
         //图片全参考压缩
@@ -841,23 +825,7 @@ namespace UI
 
         private void imageCompare_none_Click(object sender, EventArgs e)
         {
-            resetComparePanel();
-            imageCompressPanel.Visible = false;
-            int count = 0;
-            for (int i = 0; i < tot; i++)
-            {
-                if (selected[i])
-                
-                    ++count;   
-                
-            }
-            if(count != 2)
-            {
-                MessageBox.Show("请选择两张图片!");
-                return;
-            }
-            CompareForm_none compareForm_none = new CompareForm_none();
-            compareForm_none.Show();
+
         }
         private void resetClearPanel()
         {
