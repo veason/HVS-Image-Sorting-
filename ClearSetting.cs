@@ -11,6 +11,7 @@ namespace UI
 {
     public partial class ClearSetting : Form
     {
+        public sortObject[] sortArray;
         public ClearSetting()
         {
             InitializeComponent();
@@ -20,6 +21,12 @@ namespace UI
         {
             InitializeComponent();
             mf = _mf;
+        }
+        public ClearSetting(MainForm _mf, sortObject[] sortArray)
+        {
+            InitializeComponent();
+            mf = _mf;
+            this.sortArray = sortArray;
         }
 
         private void clearRatioBar_Scroll(object sender, EventArgs e)
@@ -31,7 +38,7 @@ namespace UI
         private void button1_Click(object sender, EventArgs e)
         {
             Dispose();
-            ImageDeleteComfirmForm imageDeleteComfirmForm = new ImageDeleteComfirmForm(clearRatioBar.Value, mf);
+            ImageDeleteComfirmForm imageDeleteComfirmForm = new ImageDeleteComfirmForm(clearRatioBar.Value, mf, sortArray);
             imageDeleteComfirmForm.Show();
 
         }

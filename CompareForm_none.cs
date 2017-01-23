@@ -45,41 +45,12 @@ namespace UI
                 }
             }
 
-            string path;
-            Bitmap image;
-            int height;
-            int width;
-            int basement;
-
-            //左边图片
-            path = MainForm.path_name[id1]; //获得被选图片路径
-            image = new Bitmap(path);
-            height = image.Height;
-            width = image.Width;
-            basement = height > width ? height : width;
-            image1.Height = (int)((double)height / basement * 160);
-            image1.Width = (int)((double)width / basement * 160);
-            image1.BorderStyle = BorderStyle.FixedSingle;
-            image1.ImageLocation = path;
-            image1.SizeMode = PictureBoxSizeMode.StretchImage;
-            image1.Anchor = AnchorStyles.None;
-            image1.Location = new Point((compare_image_1.Width - image1.Width) / 2, (compare_image_1.Height - image1.Height) / 2);
-            compare_image_1.Controls.Add(image1);
-
-            //右边图片
-            path = MainForm.path_name[id2]; //获得被选图片路径
-            image = new Bitmap(path);
-            height = image.Height;
-            width = image.Width;
-            basement = height > width ? height : width;
-            image2.Height = (int)((double)height / basement * 160);
-            image2.Width = (int)((double)width / basement * 160);
-            image2.BorderStyle = BorderStyle.FixedSingle;
-            image2.ImageLocation = path;
-            image2.SizeMode = PictureBoxSizeMode.StretchImage;
-            image2.Anchor = AnchorStyles.None;
-            image2.Location = new Point((compare_image_2.Width - image2.Width) / 2, (compare_image_2.Height - image2.Height) / 2);
-            compare_image_2.Controls.Add(image2);
+            picturePanel p1 = new picturePanel();
+            picturePanel p2 = new picturePanel();
+            compare_image_1.Controls.Add(p1);
+            compare_image_2.Controls.Add(p2);
+            p1.init(MainForm.picInfo[MainForm.path_name[id1]].image, MainForm.name[id1]);
+            p2.init(MainForm.picInfo[MainForm.path_name[id2]].image, MainForm.name[id2]);
 
             int score1 = (int)(new Pic(MainForm.path_name[id1])).tenengrad();
             int score2 = (int)(new Pic(MainForm.path_name[id2])).tenengrad();

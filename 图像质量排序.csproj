@@ -104,6 +104,9 @@
     <Compile Include="ImageDeleteComfirmForm.Designer.cs">
       <DependentUpon>ImageDeleteComfirmForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="picturePanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SelectCompressForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -116,6 +119,7 @@
     <Compile Include="SortingResult.Designer.cs">
       <DependentUpon>SortingResult.cs</DependentUpon>
     </Compile>
+    <Compile Include="sortObject.cs" />
     <Compile Include="逻辑测试类.cs" />
     <Compile Include="IconIndexes.cs" />
     <Compile Include="Image.cs" />

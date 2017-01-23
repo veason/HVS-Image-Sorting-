@@ -14,14 +14,17 @@ namespace demo1
     //图片类，封装了bitmap和一些图片操作函数
     public class Pic
     {
-        private Bitmap image;
+        public Bitmap image;
         private BitmapData data;
         public String path; //图像路径
         public String name; //图片名字
         public int height; //图像的高
         public int width; //图像的宽
-        public double grade; //图像得分
+        public double grade_none; //图像无参考得分
+        public double grade_full; //图像全参考得分
         public int[, ,] rgb; //图像rgb
+        public bool state_none; //图片是否已经无参考评分
+        public bool state_full; //图片是否已经全参考评分
 
         //构造方法，对图像信息初始化
         public unsafe Pic(String _path)
@@ -47,12 +50,13 @@ namespace demo1
                 ptr += extra;
             }
             image.UnlockBits(data);
+            state_none = false;
+            state_full = false;
         }
 
         //图像评分，以后再实现
         public void get_grade()
         {
-            grade = 0;
             for (int j = 0; j < height; j++)
             {
                 for (int k = 0; k < width; k++)
@@ -182,16 +186,6 @@ namespace demo1
             //将bmb图像用指定格式按照指定质量参数重新编码，实现质量压缩
             Image pic = System.Drawing.Image.FromStream(me);
             return bmb;
-        }
-    }
-
-    //排序比较类
-    public class PicComparer : IComparer<Pic>
-    {
-        public PicComparer(){}
-        public int Compare(Pic image1,Pic image2)
-        {
-            return image2.grade.CompareTo(image1.grade);
         }
     }
 }

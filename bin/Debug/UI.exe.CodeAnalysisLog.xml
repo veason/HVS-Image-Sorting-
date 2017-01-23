@@ -2,7 +2,7 @@
 <?xml-stylesheet type="text/xsl" href="e:\visual studio\team tools\static analysis tools\fxcop\Xml\CodeAnalysisReport.xsl"?>
 <FxCopReport Version="12.0">
  <Targets>
-  <Target Name="C:\Users\Administrator\Desktop\ImageSorting-master\bin\Debug\UI.exe">
+  <Target Name="C:\Users\Administrator\Desktop\imageSorting-1.19\bin\Debug\UI.exe">
    <Modules>
     <Module Name="ui.exe">
      <Namespaces>
@@ -10,7 +10,7 @@
        <Types>
         <Type Name="Pic" Kind="Class" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2016-11-16 10:06:58Z" FixCategory="DependsOnFix">
+          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2017-01-22 15:07:18Z" FixCategory="DependsOnFix">
            <Issue Name="DependsOnFix" Certainty="95" Level="CriticalError">在 'Pic' 上实现 IDisposable，因为它创建下列 IDisposable 类型的成员:  'Bitmap'。如果以前提供过 'Pic'，对于现有使用者来说，向此类型添加用于实现 IDisposable 的新成员属于重大更改。</Issue>
           </Message>
          </Messages>
@@ -23,11 +23,11 @@
          <Members>
           <Member Name="#Dispose(System.Boolean)" Kind="Method" Static="False" Accessibility="Family" ExternallyVisible="True">
            <Messages>
-            <Message Id="background" TypeName="DisposableFieldsShouldBeDisposed" Category="Microsoft.Usage" CheckId="CA2213" Status="Active" Created="2016-11-16 10:06:58Z" FixCategory="NonBreaking">
-             <Issue Certainty="75" Level="Warning" Path="c:\Users\Administrator\Desktop\ImageSorting-master" File="FloatForm.Designer.cs" Line="15">'FloatForm' 包含 IDisposable 类型的字段 'FloatForm.background':  'Bitmap'。请更改 'FloatForm' 的 Dispose 方法，使其针对该字段调用 Dispose 或 Close。</Issue>
+            <Message Id="background" TypeName="DisposableFieldsShouldBeDisposed" Category="Microsoft.Usage" CheckId="CA2213" Status="Active" Created="2017-01-22 15:07:18Z" FixCategory="NonBreaking">
+             <Issue Certainty="75" Level="Warning" Path="c:\Users\Administrator\Desktop\imageSorting-1.19" File="FloatForm.Designer.cs" Line="15">'FloatForm' 包含 IDisposable 类型的字段 'FloatForm.background':  'Bitmap'。请更改 'FloatForm' 的 Dispose 方法，使其针对该字段调用 Dispose 或 Close。</Issue>
             </Message>
-            <Message Id="bmp" TypeName="DisposableFieldsShouldBeDisposed" Category="Microsoft.Usage" CheckId="CA2213" Status="Active" Created="2016-11-16 10:06:58Z" FixCategory="NonBreaking">
-             <Issue Certainty="75" Level="Warning" Path="c:\Users\Administrator\Desktop\ImageSorting-master" File="FloatForm.Designer.cs" Line="15">'FloatForm' 包含 IDisposable 类型的字段 'FloatForm.bmp':  'Bitmap'。请更改 'FloatForm' 的 Dispose 方法，使其针对该字段调用 Dispose 或 Close。</Issue>
+            <Message Id="bmp" TypeName="DisposableFieldsShouldBeDisposed" Category="Microsoft.Usage" CheckId="CA2213" Status="Active" Created="2017-01-22 15:07:18Z" FixCategory="NonBreaking">
+             <Issue Certainty="75" Level="Warning" Path="c:\Users\Administrator\Desktop\imageSorting-1.19" File="FloatForm.Designer.cs" Line="15">'FloatForm' 包含 IDisposable 类型的字段 'FloatForm.bmp':  'Bitmap'。请更改 'FloatForm' 的 Dispose 方法，使其针对该字段调用 Dispose 或 Close。</Issue>
             </Message>
            </Messages>
           </Member>
