@@ -71,8 +71,6 @@ namespace UI
                         {
                             t.Nodes.Add("");
                         }
-
-
                     }
 
                     //循环文件，判断文件是否是图片，若不是不添加至当前结点
@@ -96,12 +94,8 @@ namespace UI
                             temp.ImageIndex = index;
                             temp.SelectedImageIndex = index;
                             tNode.Nodes.Add(temp);
-                          
                         }
-
-                       
                     }
-                    
                 } 
             }
             catch (Exception ex)

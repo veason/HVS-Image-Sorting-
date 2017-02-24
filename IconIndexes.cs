@@ -12,6 +12,5 @@ namespace UI
         public const int Folder = 9;
         public const int Image= 13;
         public const int FixedDrive = 18;      //磁盘盘符
-        
     }
 }

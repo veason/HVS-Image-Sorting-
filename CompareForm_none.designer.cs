@@ -41,24 +41,24 @@
             // compare_image_1
             // 
             this.compare_image_1.AutoSize = true;
-            this.compare_image_1.Location = new System.Drawing.Point(82, 43);
+            this.compare_image_1.Location = new System.Drawing.Point(120, 40);
             this.compare_image_1.Name = "compare_image_1";
-            this.compare_image_1.Size = new System.Drawing.Size(160, 160);
+            this.compare_image_1.Size = new System.Drawing.Size(225, 225);
             this.compare_image_1.TabIndex = 16;
             // 
             // compare_image_2
             // 
             this.compare_image_2.AutoSize = true;
-            this.compare_image_2.Location = new System.Drawing.Point(345, 43);
+            this.compare_image_2.Location = new System.Drawing.Point(400, 40);
             this.compare_image_2.Name = "compare_image_2";
-            this.compare_image_2.Size = new System.Drawing.Size(160, 160);
+            this.compare_image_2.Size = new System.Drawing.Size(225, 225);
             this.compare_image_2.TabIndex = 17;
             // 
             // compare_image_name_1
             // 
             this.compare_image_name_1.AutoSize = true;
             this.compare_image_name_1.Font = new System.Drawing.Font("宋体", 10F);
-            this.compare_image_name_1.Location = new System.Drawing.Point(138, 223);
+            this.compare_image_name_1.Location = new System.Drawing.Point(200, 280);
             this.compare_image_name_1.Name = "compare_image_name_1";
             this.compare_image_name_1.Size = new System.Drawing.Size(42, 14);
             this.compare_image_name_1.TabIndex = 33;
@@ -68,7 +68,7 @@
             // 
             this.compare_image_score_1.AutoSize = true;
             this.compare_image_score_1.Font = new System.Drawing.Font("宋体", 10F);
-            this.compare_image_score_1.Location = new System.Drawing.Point(131, 254);
+            this.compare_image_score_1.Location = new System.Drawing.Point(200, 310);
             this.compare_image_score_1.Name = "compare_image_score_1";
             this.compare_image_score_1.Size = new System.Drawing.Size(49, 14);
             this.compare_image_score_1.TabIndex = 34;
@@ -78,7 +78,7 @@
             // 
             this.compare_image_name2.AutoSize = true;
             this.compare_image_name2.Font = new System.Drawing.Font("宋体", 10F);
-            this.compare_image_name2.Location = new System.Drawing.Point(403, 223);
+            this.compare_image_name2.Location = new System.Drawing.Point(490, 280);
             this.compare_image_name2.Name = "compare_image_name2";
             this.compare_image_name2.Size = new System.Drawing.Size(42, 14);
             this.compare_image_name2.TabIndex = 35;
@@ -88,7 +88,7 @@
             // 
             this.compare_image_score_2.AutoSize = true;
             this.compare_image_score_2.Font = new System.Drawing.Font("宋体", 10F);
-            this.compare_image_score_2.Location = new System.Drawing.Point(396, 254);
+            this.compare_image_score_2.Location = new System.Drawing.Point(490, 310);
             this.compare_image_score_2.Name = "compare_image_score_2";
             this.compare_image_score_2.Size = new System.Drawing.Size(49, 14);
             this.compare_image_score_2.TabIndex = 36;
@@ -96,9 +96,9 @@
             // 
             // comfirm
             // 
-            this.comfirm.Location = new System.Drawing.Point(249, 302);
+            this.comfirm.Location = new System.Drawing.Point(334, 360);
             this.comfirm.Name = "comfirm";
-            this.comfirm.Size = new System.Drawing.Size(75, 23);
+            this.comfirm.Size = new System.Drawing.Size(78, 34);
             this.comfirm.TabIndex = 37;
             this.comfirm.Text = "确定";
             this.comfirm.UseVisualStyleBackColor = true;
@@ -108,7 +108,7 @@
             // 
             this.op.AutoSize = true;
             this.op.Font = new System.Drawing.Font("宋体", 20F);
-            this.op.Location = new System.Drawing.Point(272, 254);
+            this.op.Location = new System.Drawing.Point(359, 308);
             this.op.Name = "op";
             this.op.Size = new System.Drawing.Size(26, 27);
             this.op.TabIndex = 38;
@@ -118,7 +118,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(595, 364);
+            this.ClientSize = new System.Drawing.Size(784, 441);
             this.Controls.Add(this.op);
             this.Controls.Add(this.comfirm);
             this.Controls.Add(this.compare_image_score_2);
@@ -127,8 +127,9 @@
             this.Controls.Add(this.compare_image_name_1);
             this.Controls.Add(this.compare_image_2);
             this.Controls.Add(this.compare_image_1);
+            this.MaximizeBox = false;
             this.Name = "CompareForm_none";
-            this.Text = "CompareForm";
+            this.Text = "图片比较";
             this.Load += new System.EventHandler(this.CompareForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.reference = new System.Windows.Forms.Panel();
             this.uncompressed = new System.Windows.Forms.Panel();
             this.method_size = new System.Windows.Forms.Label();
             this.cancel = new System.Windows.Forms.Button();
@@ -40,31 +39,21 @@
             this.compressed = new System.Windows.Forms.Panel();
             this.before_compress = new System.Windows.Forms.Label();
             this.after_compress = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.result = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.method_bar)).BeginInit();
             this.SuspendLayout();
-            // 
-            // reference
-            // 
-            this.reference.AutoSize = true;
-            this.reference.Location = new System.Drawing.Point(284, 39);
-            this.reference.Name = "reference";
-            this.reference.Size = new System.Drawing.Size(160, 160);
-            this.reference.TabIndex = 28;
             // 
             // uncompressed
             // 
             this.uncompressed.AutoSize = true;
-            this.uncompressed.Location = new System.Drawing.Point(52, 39);
+            this.uncompressed.Location = new System.Drawing.Point(140, 43);
             this.uncompressed.Name = "uncompressed";
-            this.uncompressed.Size = new System.Drawing.Size(160, 160);
+            this.uncompressed.Size = new System.Drawing.Size(200, 200);
             this.uncompressed.TabIndex = 27;
             // 
             // method_size
             // 
             this.method_size.AutoSize = true;
-            this.method_size.Location = new System.Drawing.Point(472, 301);
+            this.method_size.Location = new System.Drawing.Point(513, 344);
             this.method_size.Name = "method_size";
             this.method_size.Size = new System.Drawing.Size(17, 12);
             this.method_size.TabIndex = 25;
@@ -72,7 +61,7 @@
             // 
             // cancel
             // 
-            this.cancel.Location = new System.Drawing.Point(398, 361);
+            this.cancel.Location = new System.Drawing.Point(426, 391);
             this.cancel.Name = "cancel";
             this.cancel.Size = new System.Drawing.Size(91, 32);
             this.cancel.TabIndex = 24;
@@ -82,7 +71,7 @@
             // 
             // comfirm
             // 
-            this.comfirm.Location = new System.Drawing.Point(226, 361);
+            this.comfirm.Location = new System.Drawing.Point(289, 391);
             this.comfirm.Name = "comfirm";
             this.comfirm.Size = new System.Drawing.Size(91, 32);
             this.comfirm.TabIndex = 23;
@@ -93,7 +82,7 @@
             // method_name_text
             // 
             this.method_name_text.AutoSize = true;
-            this.method_name_text.Location = new System.Drawing.Point(237, 306);
+            this.method_name_text.Location = new System.Drawing.Point(272, 344);
             this.method_name_text.Name = "method_name_text";
             this.method_name_text.Size = new System.Drawing.Size(71, 12);
             this.method_name_text.TabIndex = 21;
@@ -102,7 +91,7 @@
             // 图片格式
             // 
             this.图片格式.AutoSize = true;
-            this.图片格式.Location = new System.Drawing.Point(237, 246);
+            this.图片格式.Location = new System.Drawing.Point(287, 293);
             this.图片格式.Name = "图片格式";
             this.图片格式.Size = new System.Drawing.Size(53, 12);
             this.图片格式.TabIndex = 20;
@@ -116,7 +105,7 @@
             "png",
             "bmp",
             "gif"});
-            this.format_selection.Location = new System.Drawing.Point(309, 243);
+            this.format_selection.Location = new System.Drawing.Point(362, 290);
             this.format_selection.Name = "format_selection";
             this.format_selection.Size = new System.Drawing.Size(132, 20);
             this.format_selection.TabIndex = 19;
@@ -124,7 +113,7 @@
             // 
             // method_bar
             // 
-            this.method_bar.Location = new System.Drawing.Point(300, 289);
+            this.method_bar.Location = new System.Drawing.Point(349, 330);
             this.method_bar.Maximum = 100;
             this.method_bar.Name = "method_bar";
             this.method_bar.Size = new System.Drawing.Size(158, 45);
@@ -135,16 +124,16 @@
             // compressed
             // 
             this.compressed.AutoSize = true;
-            this.compressed.Location = new System.Drawing.Point(515, 39);
+            this.compressed.Location = new System.Drawing.Point(440, 43);
             this.compressed.Name = "compressed";
-            this.compressed.Size = new System.Drawing.Size(160, 160);
+            this.compressed.Size = new System.Drawing.Size(200, 200);
             this.compressed.TabIndex = 29;
             // 
             // before_compress
             // 
             this.before_compress.AutoSize = true;
             this.before_compress.Font = new System.Drawing.Font("宋体", 10F);
-            this.before_compress.Location = new System.Drawing.Point(90, 214);
+            this.before_compress.Location = new System.Drawing.Point(201, 258);
             this.before_compress.Name = "before_compress";
             this.before_compress.Size = new System.Drawing.Size(77, 14);
             this.before_compress.TabIndex = 30;
@@ -154,42 +143,20 @@
             // 
             this.after_compress.AutoSize = true;
             this.after_compress.Font = new System.Drawing.Font("宋体", 10F);
-            this.after_compress.Location = new System.Drawing.Point(559, 214);
+            this.after_compress.Location = new System.Drawing.Point(498, 258);
             this.after_compress.Name = "after_compress";
             this.after_compress.Size = new System.Drawing.Size(77, 14);
             this.after_compress.TabIndex = 31;
             this.after_compress.Text = "图像压缩后";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("宋体", 10F);
-            this.label1.Location = new System.Drawing.Point(333, 214);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 14);
-            this.label1.TabIndex = 32;
-            this.label1.Text = "参照图片";
-            // 
-            // result
-            // 
-            this.result.AutoSize = true;
-            this.result.Location = new System.Drawing.Point(513, 24);
-            this.result.Name = "result";
-            this.result.Size = new System.Drawing.Size(41, 12);
-            this.result.TabIndex = 33;
-            this.result.Text = "result";
-            // 
             // CompressForm_full
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(722, 448);
-            this.Controls.Add(this.result);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(784, 461);
             this.Controls.Add(this.after_compress);
             this.Controls.Add(this.before_compress);
             this.Controls.Add(this.compressed);
-            this.Controls.Add(this.reference);
             this.Controls.Add(this.uncompressed);
             this.Controls.Add(this.method_size);
             this.Controls.Add(this.cancel);
@@ -198,6 +165,7 @@
             this.Controls.Add(this.图片格式);
             this.Controls.Add(this.format_selection);
             this.Controls.Add(this.method_bar);
+            this.MaximizeBox = false;
             this.Name = "CompressForm_full";
             this.Text = "全参考图像压缩";
             this.Load += new System.EventHandler(this.compressForm_full_Load);
@@ -209,7 +177,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel reference;
         private System.Windows.Forms.Panel uncompressed;
         private System.Windows.Forms.Label method_size;
         private System.Windows.Forms.Button cancel;
@@ -221,7 +188,5 @@
         private System.Windows.Forms.Panel compressed;
         private System.Windows.Forms.Label before_compress;
         private System.Windows.Forms.Label after_compress;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label result;
     }
 }
