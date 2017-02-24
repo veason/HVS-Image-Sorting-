@@ -40,7 +40,7 @@
             this.to_compress_rate.TabIndex = 0;
             this.to_compress_rate.Text = "根据压缩程度压缩";
             this.to_compress_rate.UseVisualStyleBackColor = true;
-            this.to_compress_rate.Click += new System.EventHandler(this.to_compress_rate_Click);
+            //this.to_compress_rate.Click += new System.EventHandler(this.to_compress_rate_Click);
             // 
             // to_compress_score
             // 
@@ -50,7 +50,7 @@
             this.to_compress_score.TabIndex = 1;
             this.to_compress_score.Text = "根据质量分数压缩";
             this.to_compress_score.UseVisualStyleBackColor = true;
-            this.to_compress_score.Click += new System.EventHandler(this.to_compress_score_Click);
+            //this.to_compress_score.Click += new System.EventHandler(this.to_compress_score_Click);
             // 
             // SelectCompressMethod
             // 

@@ -8,119 +8,116 @@ using System.Text;
 using System.Windows.Forms;
 using System.Drawing.Imaging;
 using demo1;
+using Microsoft.VisualBasic.FileIO;
+using System.IO;
 
 namespace UI
 {
     public partial class CompressForm_none : Form
     {
+        public string _path;
+        public string _name;
         Dictionary<string, ImageFormat> imageformat = new Dictionary<string,ImageFormat>(); //图像格式字符串映射到c#库的图像格式的索引表
-        public CompressForm_none()
+        public CompressForm_none(string _path,string _name)
         {
             InitializeComponent();
+            this._path = _path;
+            this._name = _name;
             imageformat["jpeg"] = ImageFormat.Jpeg;
             imageformat["png"] = ImageFormat.Png;
             imageformat["bmp"] = ImageFormat.Bmp;
             imageformat["gif"] = ImageFormat.Gif;
-            if (SettingInfo.SELECT_COMPRESS_METHOD == SettingInfo.SELECT_COMPRESS_RATE)
-            {
-                this.method_name_text.Text = "压缩比";
-                this.result.Text = "质量分数";
-            }
-            else if (SettingInfo.SELECT_COMPRESS_METHOD == SettingInfo.SELECT_COMPRESS_SCORE)
-            {
-                this.method_name_text.Text = "质量分数";
-                this.result.Text = "压缩比";
-            }
-            
+            radioButton1.Checked = true;
+            radioButton2.Checked = false;
+            SettingInfo.SELECT_COMPRESS_METHOD = SettingInfo.SELECT_COMPRESS_RATE;
         }
 
         //更新压缩程度/质量分数进度条对应的数值
-        private void quality_bar_Scroll(object sender, EventArgs e)
+        private void rate_bar1_Scroll(object sender, EventArgs e)
         {
-            method_size.Text = method_bar.Value.ToString();
+            rate1.Text = rate_bar1.Value.ToString();
         }
-
-      
-
+        private void rate_bar2_Scroll(object sender, EventArgs e)
+        {
+            rate1.Text = rate_bar2.Value.ToString();
+        }
         private void compressForm_none_Load(object sender, EventArgs e)
         {
-            //添加两个PictureBox作为图像容器
-            PictureBox uncompressed_image = new PictureBox();
-            PictureBox compressed_image = new PictureBox();
-            int id = 0;
-            for(int i=0;i<MainForm.tot;i++)
-            {
-                if(MainForm.selected[i])
-                {
-                    id = i; //获得被选中的图像的id，这里只选一张图片
-                    break;
-                }
-            }
-            string path = MainForm.path_name[id]; //获得被选图片路径
-            Bitmap image = new Bitmap(path);
-            int height = image.Height;
-            int width = image.Width;
-            int basement = height > width ? height : width;
-
-            //左边未压缩图片的缩略图
-            uncompressed_image.Height = (int)((double)height / basement * 160);
-            uncompressed_image.Width = (int)((double)width / basement * 160);
-            uncompressed_image.BorderStyle = BorderStyle.FixedSingle;
-            uncompressed_image.ImageLocation = path;
-            uncompressed_image.SizeMode = PictureBoxSizeMode.StretchImage;
-            uncompressed_image.Anchor = AnchorStyles.None;
-            uncompressed_image.Location = new Point((uncompressed.Width - uncompressed_image.Width) / 2, (uncompressed.Height - uncompressed_image.Height) / 2);
-            uncompressed.Controls.Add(uncompressed_image);
-
-            //右边已经压缩图片的缩略图
-            compressed_image.Height = (int)((double)height / basement * 160);
-            compressed_image.Width = (int)((double)width / basement * 160);
-            compressed_image.BorderStyle = BorderStyle.FixedSingle;
-            compressed_image.SizeMode = PictureBoxSizeMode.StretchImage;
-            compressed_image.Anchor = AnchorStyles.None;
-            compressed_image.Location = new Point((compressed.Width - compressed_image.Width) / 2, (compressed.Height - compressed_image.Height) / 2);
-            compressed.Controls.Add(compressed_image);
+            picturePanel p1 = new picturePanel();
+            uncompressed.Controls.Add(p1);
+            p1.init(MainForm.picInfo[_path].image, _name);
+            picturePanel p2 = new picturePanel();
+            compressed.Controls.Add(p2);
         }
-
         private void comfirm_Click(object sender, EventArgs e)
         {
-            imageformat["gif"] = ImageFormat.Gif;
-            /**
-             * 压缩处理
-             */
             if (SettingInfo.SELECT_COMPRESS_METHOD == SettingInfo.SELECT_COMPRESS_RATE)
             {
-                if (method_bar.Value == 0)
+                if (rate_bar1.Value == 0)
                 {
-                    MessageBox.Show("压缩程度不能为0!");
+                    MessageBox.Show("压缩率不能为0!");
                     return;
                 }
-
-                //保存压缩图片到本地，建议以后动态添加路径
-                Pic image = new Pic(((PictureBox)(uncompressed.Controls[0])).ImageLocation);
-                Bitmap new_image = new Bitmap(image.compress(method_bar.Value, 100, format_selection.Text));
-                new_image.Save("F:\\测试图像\\compressed_image." + format_selection.Text, imageformat[format_selection.Text]);
-                ((PictureBox)(compressed.Controls[0])).ImageLocation = "F:\\测试图像\\compressed_image." + format_selection.Text; //显示压缩后图片的缩略图
-                Pic compress_image = new Pic("F:\\测试图像\\compressed_image." + format_selection.Text);
-                result.Text = "质量分数：" + image.psnr(compress_image, image.height, image.width).ToString();
+                Bitmap new_image = new Bitmap(MainForm.picInfo[_path].compress(rate_bar1.Value, 100, format_selection.Text));
+                new_image.Save("压缩图像\\" + _name + "compressed_image." + format_selection.Text, imageformat[format_selection.Text]);
+                ((picturePanel)(compressed.Controls[0])).init(new_image, _name);
             }
             else if (SettingInfo.SELECT_COMPRESS_METHOD == SettingInfo.SELECT_COMPRESS_SCORE)
             {
-                //保存压缩图片到本地，建议以后动态添加路径
-                Pic image = new Pic(((PictureBox)(uncompressed.Controls[0])).ImageLocation);
-                Bitmap new_image = new Bitmap(image.compress(method_bar.Value, 100, format_selection.Text));
-                new_image.Save("F:\\测试图像\\compressed_image." + format_selection.Text, imageformat[format_selection.Text]);
-                ((PictureBox)(compressed.Controls[0])).ImageLocation = "F:\\测试图像\\compressed_image." + format_selection.Text; //显示压缩后图片的缩略图
-                Pic compress_image = new Pic("F:\\测试图像\\compressed_image." + format_selection.Text);
-                result.Text = "压缩比：" +　image.psnr(compress_image, image.height, image.width).ToString();
+                if (rate_bar2.Value == 0)
+                {
+                    MessageBox.Show("质量分数不能为0!");
+                    return;
+                }
+                int T = 10;
+                int l = 0, r = 100, mid = (l + r) / 2;
+                double baseGrade = MainForm.picInfo[_path].tenengrad();
+                for(int i= 0 ; i < T; i++)
+                {
+                    mid = (l + r) / 2;
+                    Bitmap temp = new Bitmap(MainForm.picInfo[_path].compress(mid, 100, format_selection.Text));
+                    string image_path = "压缩图像\\temp" + i.ToString() + _name + "compressed_image." + format_selection.Text;
+                    temp.Save(image_path, imageformat[format_selection.Text]);
+                    Pic pic = new Pic(image_path);
+                    double grade = pic.tenengrad();
+                    if (grade / baseGrade * 100 > rate_bar2.Value)
+                    {
+                        r = mid;
+                    }
+                    else
+                    {
+                        l = mid;
+                    }
+                    pic.image.Dispose();
+                    temp.Dispose();
+                    if (File.Exists(image_path))
+                    {
+                        FileSystem.DeleteFile(image_path, UIOption.OnlyErrorDialogs, RecycleOption.DeletePermanently);
+                    }
+                }
+                Bitmap new_image = new Bitmap(MainForm.picInfo[_path].compress(mid, 100, format_selection.Text));
+                new_image.Save("压缩图像\\" + _name + "compressed_image." + format_selection.Text, imageformat[format_selection.Text]);
+                ((picturePanel)(compressed.Controls[0])).init(new_image, _name);
             }
-
-          
         }
 
         private void cancel_Click(object sender, EventArgs e)
         {
             ((Button)sender).Parent.Dispose();
+        }
+
+        private void radioButton1_Click(object sender, EventArgs e)
+        {
+            radioButton1.Checked = true;
+            radioButton2.Checked = false;
+            SettingInfo.SELECT_COMPRESS_METHOD = SettingInfo.SELECT_COMPRESS_RATE;
+        }
+
+        private void radioButton2_Click(object sender, EventArgs e)
+        {
+            radioButton1.Checked = false;
+            radioButton2.Checked = true;
+            SettingInfo.SELECT_COMPRESS_METHOD = SettingInfo.SELECT_COMPRESS_SCORE;
         }
     }
 }

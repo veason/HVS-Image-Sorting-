@@ -25,12 +25,10 @@ namespace UI
             if (SettingInfo.SELECT_COMPRESS_METHOD == SettingInfo.SELECT_COMPRESS_RATE)
             {
                 this.method_name_text.Text = "压缩比";
-                this.result.Text = "质量分数";
             }
             else if (SettingInfo.SELECT_COMPRESS_METHOD == SettingInfo.SELECT_COMPRESS_SCORE)
             {
                 this.method_name_text.Text = "质量分数";
-                this.result.Text = "压缩比";
             }
             
         }
@@ -44,73 +42,22 @@ namespace UI
       
         private void compressForm_full_Load(object sender, EventArgs e)
         {
-            //添加三个PictureBox作为图像容器
-            PictureBox uncompressed_image = new PictureBox();
-            PictureBox reference_image = new PictureBox();
-            PictureBox compressed_image = new PictureBox();
-            int id1 = 0, id2 = 0;
+            int id = 0;
             for (int i = 0; i < MainForm.tot; i++)
             {
                 if (MainForm.selected[i])
                 {
-                    id1 = i; //获得被选中的图像的id，这里只选一张图片
-                    break;
-                }
-            }
-            for (int i = id1 + 1; i < MainForm.tot; i++)
-            {
-                if (MainForm.selected[i])
-                {
-                    id2 = i; //获得被选中的图像的id，这里只选一张图片
+                    id = i; //获得被选中的图像的id，这里只选一张图片
                     break;
                 }
             }
 
-            string path;
-            Bitmap image;
-            int height;
-            int width;
-            int basement;
-
-            //左边未压缩图片的缩略图
-            path = MainForm.path_name[id1]; //获得被选图片路径
-            image = new Bitmap(path);
-            height = image.Height;
-            width = image.Width;
-            basement = height > width ? height : width;
-            uncompressed_image.Height = (int)((double)height / basement * 160);
-            uncompressed_image.Width = (int)((double)width / basement * 160);
-            uncompressed_image.BorderStyle = BorderStyle.FixedSingle;
-            uncompressed_image.ImageLocation = path;
-            uncompressed_image.SizeMode = PictureBoxSizeMode.StretchImage;
-            uncompressed_image.Anchor = AnchorStyles.None;
-            uncompressed_image.Location = new Point((uncompressed.Width - uncompressed_image.Width) / 2, (uncompressed.Height - uncompressed_image.Height) / 2);
-            uncompressed.Controls.Add(uncompressed_image);
-
-            //右边已经压缩图片的缩略图
-            compressed_image.Height = (int)((double)height / basement * 160);
-            compressed_image.Width = (int)((double)width / basement * 160);
-            compressed_image.BorderStyle = BorderStyle.FixedSingle;
-            compressed_image.SizeMode = PictureBoxSizeMode.StretchImage;
-            compressed_image.Anchor = AnchorStyles.None;
-            compressed_image.Location = new Point((compressed.Width - compressed_image.Width) / 2, (compressed.Height - compressed_image.Height) / 2);
-            compressed.Controls.Add(compressed_image);
-
-            //中间参照图片的缩略图
-            path = MainForm.path_name[id2]; //获得被选图片路径
-            image = new Bitmap(path);
-            height = image.Height;
-            width = image.Width;
-            basement = height > width ? height : width;
-            reference_image.Height = (int)((double)height / basement * 160);
-            reference_image.Width = (int)((double)width / basement * 160);
-            reference_image.BorderStyle = BorderStyle.FixedSingle;
-            reference_image.ImageLocation = path;
-            reference_image.SizeMode = PictureBoxSizeMode.StretchImage;
-            reference_image.Anchor = AnchorStyles.None;
-            reference_image.Location = new Point((reference.Width - reference_image.Width) / 2, (reference.Height - reference_image.Height) / 2);
-            reference.Controls.Add(reference_image);
-
+            picturePanel p1 = new picturePanel();
+            picturePanel p2 = new picturePanel();
+            uncompressed.Controls.Add(p1);
+            compressed.Controls.Add(p2);
+            p1.init(MainForm.picInfo[MainForm.path_name[id]].image, null);
+            p2.init(null, null);
         }
 
         private void comfirm_Click(object sender, EventArgs e)
@@ -126,25 +73,18 @@ namespace UI
                     MessageBox.Show("压缩程度不能为0!");
                     return;
                 }
-
-                //保存压缩图片到本地，建议以后动态添加路径
                 Pic image = new Pic(((PictureBox)(uncompressed.Controls[0])).ImageLocation);
                 Bitmap new_image = new Bitmap(image.compress(method_bar.Value, 100, format_selection.Text));
                 new_image.Save("F:\\测试图像\\compressed_image." + format_selection.Text, imageformat[format_selection.Text]);
-                ((PictureBox)(compressed.Controls[0])).ImageLocation = "F:\\测试图像\\compressed_image." + format_selection.Text; //显示压缩后图片的缩略图
-                Pic compress_image = new Pic("F:\\测试图像\\compressed_image." + format_selection.Text);
-                result.Text = "质量分数：" + image.psnr(compress_image, image.height, image.width).ToString();
-
+                ((picturePanel)compressed.Controls[1]).init(new_image, null);
             }
             else if (SettingInfo.SELECT_COMPRESS_METHOD == SettingInfo.SELECT_COMPRESS_SCORE)
             {
-                //保存压缩图片到本地，建议以后动态添加路径
                 Pic image = new Pic(((PictureBox)(uncompressed.Controls[0])).ImageLocation);
                 Bitmap new_image = new Bitmap(image.compress(method_bar.Value,100, format_selection.Text));
                 new_image.Save("F:\\测试图像\\compressed_image." + format_selection.Text, imageformat[format_selection.Text]);
                 ((PictureBox)(compressed.Controls[0])).ImageLocation = "F:\\测试图像\\compressed_image." + format_selection.Text; //显示压缩后图片的缩略图
                 Pic compress_image = new Pic("F:\\测试图像\\compressed_image." + format_selection.Text);
-                result.Text = "压缩比：" + image.psnr(compress_image, image.height, image.width).ToString();
             }
         }
 
