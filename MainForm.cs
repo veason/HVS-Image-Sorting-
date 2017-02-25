@@ -84,9 +84,19 @@ namespace UI
         //左侧结果显示控件被双击后弹出图片浏览界面
         private void result_show_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            Form imageshow = new ImageView();
-            imageshow.Size = new Size(this.Width, this.Height);
-            imageshow.Show();
+            /*
+             * 判断左侧图片展示区是否有图片，tot为左侧图片总数
+             **/
+            if (MainForm.tot> 0)
+            {
+                Form imageshow = new ImageView();
+                imageshow.Size = new Size(this.Width, this.Height);
+                imageshow.Show();
+            }
+            else
+            {
+                
+            }
         }
         
         //主界面窗口变化事件，相应的调整控件位置及大小
