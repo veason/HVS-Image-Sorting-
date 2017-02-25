@@ -44,7 +44,7 @@ namespace UI
             string[] sArray = path.Split( '\\');
             name = sArray[sArray.Length - 1];
             this.Text = name;
-
+            
             //将第一张图片添加到picturebox
             PictureBox image = this.pictureBox1;
             FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
