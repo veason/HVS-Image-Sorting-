@@ -82,22 +82,23 @@ namespace UI
         }
 
         //左侧结果显示控件被双击后弹出图片浏览界面
-        private void result_show_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            /*
-             * 判断左侧图片展示区是否有图片，tot为左侧图片总数
-             **/
-            if (MainForm.tot> 0)
-            {
-                Form imageshow = new ImageView();
-                imageshow.Size = new Size(this.Width, this.Height);
-                imageshow.Show();
-            }
-            else
-            {
-                
-            }
-        }
+//         private void result_show_MouseDoubleClick(object sender, MouseEventArgs e)
+//         {
+//             /*
+//              * 判断左侧图片展示区是否有图片，tot为左侧图片总数
+//              **/
+//             if (MainForm.tot> 0)
+//             {
+//                 
+//                 Form imageshow = new ImageView();
+//                 imageshow.Size = new Size(this.Width, this.Height);
+//                 imageshow.Show();
+//             }
+//             else
+//             {
+//                 
+//             }
+//         }
         
         //主界面窗口变化事件，相应的调整控件位置及大小
         private void MainForm_Resize(object sender, EventArgs e) 
@@ -112,20 +113,6 @@ namespace UI
             Point temp;
             //控制左侧图片显示框位置及大小
             {
-                temp = this.imageCompare.Location;
-                width = this.imageCompare.Width;
-                height = this.imageCompare.Height;
-
-                temp = this.imageCompress.Location;
-                width = this.imageCompress.Width;
-                height = this.imageCompress.Height;
-
-                temp = this.imageClear.Location;
-                width = this.imageClear.Width;
-                height = this.imageClear.Height;
-                this.imageClearPanel.Location = new Point(temp.X, 0);
-                this.imageClearPanel.Width = width;
-
                 temp = this.imageSort.Location;
                 width = this.imageSort.Width;
                 height = this.imageSort.Height;
@@ -321,7 +308,7 @@ namespace UI
             p.Name = tot.ToString();
             p.BackColor = unselected_color;
             p.image.MouseDoubleClick += new MouseEventHandler(image_MouseDoubleClick);
-
+            p.image.Name = tot.ToString();
             result_show.Controls.Add(p, tot % 5, tot / 5);
             p.init(MainForm.picInfo[path].image, _name);
             path_name[tot] = path;
@@ -397,7 +384,9 @@ namespace UI
         //用于双击显示界面
         private void image_MouseDoubleClick(object sender, MouseEventArgs e) 
         {
-            Form imageshow = new ImageView();
+            PictureBox curPictuer = (PictureBox)sender;
+            int position =int.Parse(curPictuer.Name);
+            Form imageshow = new ImageView(position);
             imageshow.Size = new Size(this.Width, this.Height);//新窗口界面大小和原窗口同样大
             imageshow.Show();
         }

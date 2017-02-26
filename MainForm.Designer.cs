@@ -351,7 +351,7 @@ namespace UI
             this.result_show.Click += new System.EventHandler(this.result_show_Click);
             this.result_show.DragDrop += new System.Windows.Forms.DragEventHandler(this.result_show_DragDrop);
             this.result_show.DragEnter += new System.Windows.Forms.DragEventHandler(this.result_show_DragEnter);
-            this.result_show.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.result_show_MouseDoubleClick);
+            //this.result_show.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.result_show_MouseDoubleClick);
             this.result_show.Resize += new System.EventHandler(this.result_show_Resize);
             // 
             // tableLayoutPanel2
