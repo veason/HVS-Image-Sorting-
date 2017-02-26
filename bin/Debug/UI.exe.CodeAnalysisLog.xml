@@ -10,14 +10,14 @@
        <Types>
         <Type Name="Pic" Kind="Class" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2017-02-25 11:22:36Z" FixCategory="DependsOnFix">
+          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2017-02-26 08:51:20Z" FixCategory="DependsOnFix">
            <Issue Name="DependsOnFix" Certainty="95" Level="CriticalError">在 'Pic' 上实现 IDisposable，因为它创建下列 IDisposable 类型的成员: 'Bitmap'。如果以前提供过 'Pic'，对于现有使用者来说，向此类型添加用于实现 IDisposable 的新成员属于重大更改。</Issue>
           </Message>
          </Messages>
          <Members>
           <Member Name="#.ctor(System.String)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="DoNotIndirectlyExposeMethodsWithLinkDemands" Category="Microsoft.Security" CheckId="CA2122" Status="Active" Created="2017-02-25 11:22:36Z" FixCategory="NonBreaking">
+            <Message TypeName="DoNotIndirectlyExposeMethodsWithLinkDemands" Category="Microsoft.Security" CheckId="CA2122" Status="Active" Created="2017-02-26 08:51:20Z" FixCategory="NonBreaking">
              <Issue Certainty="33" Level="CriticalError" Path="E:\project\imageprocess\ImageSorting" File="Image.cs" Line="30">'Pic.Pic(string)' 调入具有 LinkDemand 的 'Bitmap.LockBits(Rectangle, ImageLockMode, PixelFormat)'。通过此调用，'Bitmap.LockBits(Rectangle, ImageLockMode, PixelFormat)' 被间接公开给用户代码。检查以下可能公开避开安全保护的方法的调用堆栈: &#xD;&#xA;   -&gt;'Pic.Pic(string)'&#xD;&#xA;   -&gt;'Pic.Pic(string)'</Issue>
              <Issue Certainty="33" Level="CriticalError" Path="E:\project\imageprocess\ImageSorting" File="Image.cs" Line="30">'Pic.Pic(string)' 调入具有 LinkDemand 的 'Bitmap.UnlockBits(BitmapData)'。通过此调用，'Bitmap.UnlockBits(BitmapData)' 被间接公开给用户代码。检查以下可能公开避开安全保护的方法的调用堆栈: &#xD;&#xA;   -&gt;'Pic.Pic(string)'&#xD;&#xA;   -&gt;'Pic.Pic(string)'</Issue>
             </Message>
@@ -25,7 +25,7 @@
           </Member>
           <Member Name="#compress(System.Int32,System.Int32,System.String)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-25 11:22:36Z" FixCategory="DependsOnFix">
+            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-26 08:51:20Z" FixCategory="DependsOnFix">
              <Issue Name="ExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="Image.cs" Line="171">在方法 'Pic.compress(int, int, string)' 中，'bmb' 对象未按所有异常路径释放。请在对 'bmb' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
              <Issue Name="ExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="Image.cs" Line="174">在方法 'Pic.compress(int, int, string)' 中，'p' 对象未按所有异常路径释放。请在对 'p' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
              <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="Image.cs" Line="182">在方法 'Pic.compress(int, int, string)' 中，请在对 'me' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
@@ -43,7 +43,7 @@
          <Members>
           <Member Name="#button1_Click(System.Object,System.EventArgs)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-25 11:22:36Z" FixCategory="DependsOnFix">
+            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-26 08:51:20Z" FixCategory="DependsOnFix">
              <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="ClearSetting.cs" Line="41">在方法 'ClearSetting.button1_Click(object, EventArgs)' 中，请在对 'imageDeleteComfirmForm' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
             </Message>
            </Messages>
@@ -54,7 +54,7 @@
          <Members>
           <Member Name="#CompareForm_Load(System.Object,System.EventArgs)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-25 11:22:36Z" FixCategory="DependsOnFix">
+            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-26 08:51:20Z" FixCategory="DependsOnFix">
              <Issue Name="ExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="CompareForm_none.cs" Line="48">在方法 'CompareForm_none.CompareForm_Load(object, EventArgs)' 中，'p1' 对象未按所有异常路径释放。请在对 'p1' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
              <Issue Name="ExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="CompareForm_none.cs" Line="49">在方法 'CompareForm_none.CompareForm_Load(object, EventArgs)' 中，'p2' 对象未按所有异常路径释放。请在对 'p2' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
              <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="CompareForm_none.cs" Line="28">在方法 'CompareForm_none.CompareForm_Load(object, EventArgs)' 中，请在对 'image1' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
@@ -68,7 +68,7 @@
          <Members>
           <Member Name="#comfirm_Click(System.Object,System.EventArgs)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-25 11:22:36Z" FixCategory="DependsOnFix">
+            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-26 08:51:20Z" FixCategory="DependsOnFix">
              <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="CompressForm_full.cs" Line="77">在方法 'CompressForm_full.comfirm_Click(object, EventArgs)' 中，请在对 'new_image' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
              <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="CompressForm_full.cs" Line="84">在方法 'CompressForm_full.comfirm_Click(object, EventArgs)' 中，请在对 'new_image' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
             </Message>
@@ -76,7 +76,7 @@
           </Member>
           <Member Name="#compressForm_full_Load(System.Object,System.EventArgs)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-25 11:22:36Z" FixCategory="DependsOnFix">
+            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-26 08:51:20Z" FixCategory="DependsOnFix">
              <Issue Name="ExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="CompressForm_full.cs" Line="55">在方法 'CompressForm_full.compressForm_full_Load(object, EventArgs)' 中，'p1' 对象未按所有异常路径释放。请在对 'p1' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
              <Issue Name="ExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="CompressForm_full.cs" Line="56">在方法 'CompressForm_full.compressForm_full_Load(object, EventArgs)' 中，'p2' 对象未按所有异常路径释放。请在对 'p2' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
             </Message>
@@ -88,7 +88,7 @@
          <Members>
           <Member Name="#comfirm_Click(System.Object,System.EventArgs)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-25 11:22:36Z" FixCategory="DependsOnFix">
+            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-26 08:51:20Z" FixCategory="DependsOnFix">
              <Issue Name="ExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="CompressForm_none.cs" Line="78">在方法 'CompressForm_none.comfirm_Click(object, EventArgs)' 中，'temp' 对象未按所有异常路径释放。请在对 'temp' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
              <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="CompressForm_none.cs" Line="61">在方法 'CompressForm_none.comfirm_Click(object, EventArgs)' 中，请在对 'new_image' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
              <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="CompressForm_none.cs" Line="98">在方法 'CompressForm_none.comfirm_Click(object, EventArgs)' 中，请在对 'new_image' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
@@ -101,10 +101,10 @@
          <Members>
           <Member Name="#Dispose(System.Boolean)" Kind="Method" Static="False" Accessibility="Family" ExternallyVisible="True">
            <Messages>
-            <Message Id="background" TypeName="DisposableFieldsShouldBeDisposed" Category="Microsoft.Usage" CheckId="CA2213" Status="Active" Created="2017-02-25 11:22:36Z" FixCategory="NonBreaking">
+            <Message Id="background" TypeName="DisposableFieldsShouldBeDisposed" Category="Microsoft.Usage" CheckId="CA2213" Status="Active" Created="2017-02-26 08:51:20Z" FixCategory="NonBreaking">
              <Issue Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="FloatForm.Designer.cs" Line="15">'FloatForm' 包含 IDisposable 类型的字段 'FloatForm.background': 'Bitmap'。请更改 'FloatForm' 的 Dispose 方法，使其针对该字段调用 Dispose 或 Close。</Issue>
             </Message>
-            <Message Id="bmp" TypeName="DisposableFieldsShouldBeDisposed" Category="Microsoft.Usage" CheckId="CA2213" Status="Active" Created="2017-02-25 11:22:36Z" FixCategory="NonBreaking">
+            <Message Id="bmp" TypeName="DisposableFieldsShouldBeDisposed" Category="Microsoft.Usage" CheckId="CA2213" Status="Active" Created="2017-02-26 08:51:20Z" FixCategory="NonBreaking">
              <Issue Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="FloatForm.Designer.cs" Line="15">'FloatForm' 包含 IDisposable 类型的字段 'FloatForm.bmp': 'Bitmap'。请更改 'FloatForm' 的 Dispose 方法，使其针对该字段调用 Dispose 或 Close。</Issue>
             </Message>
            </Messages>
@@ -115,7 +115,7 @@
          <Members>
           <Member Name="#ImageDeleteComfirmForm_Load(System.Object,System.EventArgs)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-25 11:22:36Z" FixCategory="DependsOnFix">
+            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-26 08:51:20Z" FixCategory="DependsOnFix">
              <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="ImageDeleteComfirmForm.cs" Line="88">在方法 'ImageDeleteComfirmForm.ImageDeleteComfirmForm_Load(object, EventArgs)' 中，请在对 'p' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
             </Message>
            </Messages>
@@ -126,22 +126,22 @@
          <Members>
           <Member Name="#imageButton1_Click(System.Object,System.EventArgs)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-25 11:22:36Z" FixCategory="DependsOnFix">
-             <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="ImageView.cs" Line="96">在方法 'ImageView.imageButton1_Click(object, EventArgs)' 中，请在对 'fs' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
+            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-26 08:51:20Z" FixCategory="DependsOnFix">
+             <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="ImageView.cs" Line="104">在方法 'ImageView.imageButton1_Click(object, EventArgs)' 中，请在对 'fs' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#imageButton2_Click(System.Object,System.EventArgs)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-25 11:22:36Z" FixCategory="DependsOnFix">
-             <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="ImageView.cs" Line="126">在方法 'ImageView.imageButton2_Click(object, EventArgs)' 中，请在对 'fs' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
+            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-26 08:51:20Z" FixCategory="DependsOnFix">
+             <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="ImageView.cs" Line="134">在方法 'ImageView.imageButton2_Click(object, EventArgs)' 中，请在对 'fs' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#ImageView_Load(System.Object,System.EventArgs)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-25 11:22:36Z" FixCategory="DependsOnFix">
-             <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="ImageView.cs" Line="50">在方法 'ImageView.ImageView_Load(object, EventArgs)' 中，请在对 'fs' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
+            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-26 08:51:20Z" FixCategory="DependsOnFix">
+             <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="ImageView.cs" Line="51">在方法 'ImageView.ImageView_Load(object, EventArgs)' 中，请在对 'fs' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
             </Message>
            </Messages>
           </Member>
@@ -151,99 +151,92 @@
          <Members>
           <Member Name="#add_image(System.String,System.String)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-25 11:22:36Z" FixCategory="DependsOnFix">
-             <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="MainForm.cs" Line="320">在方法 'MainForm.add_image(string, string)' 中，请在对 'p' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
+            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-26 08:51:20Z" FixCategory="DependsOnFix">
+             <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="MainForm.cs" Line="307">在方法 'MainForm.add_image(string, string)' 中，请在对 'p' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#delete()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-25 11:22:36Z" FixCategory="DependsOnFix">
-             <Issue Name="ExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="MainForm.cs" Line="375">在方法 'MainForm.delete()' 中，'fs' 对象未按所有异常路径释放。请在对 'fs' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
+            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-26 08:51:20Z" FixCategory="DependsOnFix">
+             <Issue Name="ExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="MainForm.cs" Line="362">在方法 'MainForm.delete()' 中，'fs' 对象未按所有异常路径释放。请在对 'fs' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#image_MouseDoubleClick(System.Object,System.Windows.Forms.MouseEventArgs)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-25 11:22:36Z" FixCategory="DependsOnFix">
-             <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="MainForm.cs" Line="400">在方法 'MainForm.image_MouseDoubleClick(object, MouseEventArgs)' 中，请在对 'imageshow' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
+            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-26 08:51:20Z" FixCategory="DependsOnFix">
+             <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="MainForm.cs" Line="389">在方法 'MainForm.image_MouseDoubleClick(object, MouseEventArgs)' 中，请在对 'imageshow' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#imageClear_full_Click(System.Object,System.EventArgs)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-25 11:22:36Z" FixCategory="DependsOnFix">
-             <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="MainForm.cs" Line="790">在方法 'MainForm.imageClear_full_Click(object, EventArgs)' 中，请在对 'cs' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
+            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-26 08:51:20Z" FixCategory="DependsOnFix">
+             <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="MainForm.cs" Line="779">在方法 'MainForm.imageClear_full_Click(object, EventArgs)' 中，请在对 'cs' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#imageClear_none_Click(System.Object,System.EventArgs)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-25 11:22:36Z" FixCategory="DependsOnFix">
-             <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="MainForm.cs" Line="749">在方法 'MainForm.imageClear_none_Click(object, EventArgs)' 中，请在对 'cs' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
+            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-26 08:51:20Z" FixCategory="DependsOnFix">
+             <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="MainForm.cs" Line="738">在方法 'MainForm.imageClear_none_Click(object, EventArgs)' 中，请在对 'cs' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#imageCompare_Click(System.Object,System.EventArgs)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-25 11:22:36Z" FixCategory="DependsOnFix">
-             <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="MainForm.cs" Line="230">在方法 'MainForm.imageCompare_Click(object, EventArgs)' 中，请在对 'compareForm_none' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
+            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-26 08:51:20Z" FixCategory="DependsOnFix">
+             <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="MainForm.cs" Line="217">在方法 'MainForm.imageCompare_Click(object, EventArgs)' 中，请在对 'compareForm_none' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#imageCompare_full_Click(System.Object,System.EventArgs)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-25 11:22:36Z" FixCategory="DependsOnFix">
-             <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="MainForm.cs" Line="813">在方法 'MainForm.imageCompare_full_Click(object, EventArgs)' 中，请在对 'compareForm_none' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
+            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-26 08:51:20Z" FixCategory="DependsOnFix">
+             <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="MainForm.cs" Line="802">在方法 'MainForm.imageCompare_full_Click(object, EventArgs)' 中，请在对 'compareForm_none' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#imageCompare_none_Click(System.Object,System.EventArgs)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-25 11:22:36Z" FixCategory="DependsOnFix">
-             <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="MainForm.cs" Line="879">在方法 'MainForm.imageCompare_none_Click(object, EventArgs)' 中，请在对 'compareForm_none' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
+            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-26 08:51:20Z" FixCategory="DependsOnFix">
+             <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="MainForm.cs" Line="868">在方法 'MainForm.imageCompare_none_Click(object, EventArgs)' 中，请在对 'compareForm_none' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#imageCompress_Click(System.Object,System.EventArgs)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-25 11:22:36Z" FixCategory="DependsOnFix">
-             <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="MainForm.cs" Line="201">在方法 'MainForm.imageCompress_Click(object, EventArgs)' 中，请在对 'cn' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
+            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-26 08:51:20Z" FixCategory="DependsOnFix">
+             <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="MainForm.cs" Line="188">在方法 'MainForm.imageCompress_Click(object, EventArgs)' 中，请在对 'cn' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#imageSort_full_Click(System.Object,System.EventArgs)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-25 11:22:36Z" FixCategory="DependsOnFix">
-             <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="MainForm.cs" Line="720">在方法 'MainForm.imageSort_full_Click(object, EventArgs)' 中，请在对 'sr' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
+            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-26 08:51:20Z" FixCategory="DependsOnFix">
+             <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="MainForm.cs" Line="709">在方法 'MainForm.imageSort_full_Click(object, EventArgs)' 中，请在对 'sr' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#imageSort_none_Click(System.Object,System.EventArgs)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-25 11:22:36Z" FixCategory="DependsOnFix">
-             <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="MainForm.cs" Line="656">在方法 'MainForm.imageSort_none_Click(object, EventArgs)' 中，请在对 'sr' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
+            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-26 08:51:20Z" FixCategory="DependsOnFix">
+             <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="MainForm.cs" Line="645">在方法 'MainForm.imageSort_none_Click(object, EventArgs)' 中，请在对 'sr' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#progress_thread()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-25 11:22:36Z" FixCategory="DependsOnFix">
-             <Issue Name="ExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="MainForm.cs" Line="593">在方法 'MainForm.progress_thread()' 中，'sp' 对象未按所有异常路径释放。请在对 'sp' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
-            </Message>
-           </Messages>
-          </Member>
-          <Member Name="#result_show_MouseDoubleClick(System.Object,System.Windows.Forms.MouseEventArgs)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
-           <Messages>
-            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-25 11:22:36Z" FixCategory="DependsOnFix">
-             <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="MainForm.cs" Line="92">在方法 'MainForm.result_show_MouseDoubleClick(object, MouseEventArgs)' 中，请在对 'imageshow' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
+            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-26 08:51:20Z" FixCategory="DependsOnFix">
+             <Issue Name="ExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="MainForm.cs" Line="582">在方法 'MainForm.progress_thread()' 中，'sp' 对象未按所有异常路径释放。请在对 'sp' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#settingButton_Click(System.Object,System.EventArgs)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-25 11:22:36Z" FixCategory="DependsOnFix">
-             <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="MainForm.cs" Line="858">在方法 'MainForm.settingButton_Click(object, EventArgs)' 中，请在对 'settingForm' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
+            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-26 08:51:20Z" FixCategory="DependsOnFix">
+             <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="MainForm.cs" Line="847">在方法 'MainForm.settingButton_Click(object, EventArgs)' 中，请在对 'settingForm' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
             </Message>
            </Messages>
           </Member>
@@ -253,7 +246,7 @@
          <Members>
           <Member Name="#SortingResult_Load(System.Object,System.EventArgs)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-25 11:22:36Z" FixCategory="DependsOnFix">
+            <Message TypeName="丢失范围之前释放对象" Category="Microsoft.Reliability" CheckId="CA2000" Status="Active" Created="2017-02-26 08:51:20Z" FixCategory="DependsOnFix">
              <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="SortingResult.cs" Line="58">在方法 'SortingResult.SortingResult_Load(object, EventArgs)' 中，请在对 'p' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
              <Issue Name="NonExceptionEdge" Certainty="75" Level="Warning" Path="E:\project\imageprocess\ImageSorting" File="SortingResult.cs" Line="66">在方法 'SortingResult.SortingResult_Load(object, EventArgs)' 中，请在对 'p' 对象的所有引用超出范围之前，对该对象调用 System.IDisposable.Dispose。</Issue>
             </Message>

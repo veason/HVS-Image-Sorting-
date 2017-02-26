@@ -13,20 +13,21 @@ namespace UI
     public partial class ImageView : Form
     {
         private int position;
-        public ImageView()
+        public ImageView(int position)
         {
+            this.position = position;
             InitializeComponent();
            
         }
         
-        //显示第一张图片
+        //显示双击的图片
         private void ImageView_Load(object sender, EventArgs e)
         {
             //控制图片大小以及按钮大小
+           
             int formWidth=this.Width;
             int formHeight=this.Height;
             int height = (int)(((double)formHeight - 50) / 2-25);
-            position = 0;
             string path = MainForm.path_name[position];
             this.tableLayoutPanel1.Width = formWidth;
             this.tableLayoutPanel1.Height = formHeight;
@@ -45,12 +46,19 @@ namespace UI
             name = sArray[sArray.Length - 1];
             this.Text = name;
             
-            //将第一张图片添加到picturebox
+            //将所点击的图片添加到picturebox
             PictureBox image = this.pictureBox1;
             FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
             image.Image = Image.FromStream(fs);
-            this.imageButton1.Visible = false;
-            
+            //左右图片按钮显示
+            if(position<1)
+                this.imageButton1.Visible = false;
+            else
+                this.imageButton1.Visible = true;
+            if(position>=MainForm.tot-1)
+                this.imageButton2.Visible = false;
+            else
+                this.imageButton2.Visible = true;
         }
 
         //窗口大小自适应
