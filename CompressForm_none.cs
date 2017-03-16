@@ -17,6 +17,7 @@ namespace UI
     {
         public string _path;
         public string _name;
+        private const double size_rate = 0.85;
         Dictionary<string, ImageFormat> imageformat = new Dictionary<string,ImageFormat>(); //图像格式字符串映射到c#库的图像格式的索引表
         public CompressForm_none(string _path,string _name)
         {
@@ -39,18 +40,47 @@ namespace UI
         }
         private void rate_bar2_Scroll(object sender, EventArgs e)
         {
-            rate1.Text = rate_bar2.Value.ToString();
+            rate2.Text = rate_bar2.Value.ToString();
         }
         private void compressForm_none_Load(object sender, EventArgs e)
         {
+            this.Width = (int)(System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Width * size_rate);
+            this.Height = (int)(System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Height * size_rate);
+            this.Location = new Point((System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Width - this.Width) / 3 * 2, (System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Height - this.Height) / 3 * 2);
+            uncompressed_image.Width = uncompressed_image.Height = compressed_image.Width = compressed_image.Height = (int)(this.Height * 0.6);
+            uncompressed_image.Location = new Point((int)(this.Width * 0.1), (int)(this.Height * 0.02));
+            compressed_image.Location = new Point((int)(this.Width * 0.55), (int)(this.Height * 0.02));
+            before_compress_hint.Location = new Point((int)(this.Width * 0.22), (int)(this.Height * 0.64));
+            after_compress_hint.Location = new Point((int)(this.Width * 0.68), (int)(this.Height * 0.64));
+            image_format.Location = new Point((int)(this.Width * 0.352), (int)(this.Height * 0.7));
+            format_selection.Location = new Point((int)(this.Width * 0.46), (int)(this.Height * 0.7));
+            hint1.Location = new Point((int)(image_format.Location.X + image_format.Width - hint1.Width), (int)(this.Height * 0.76));
+            hint2.Location = new Point((int)(image_format.Location.X + image_format.Width - hint2.Width), (int)(this.Height * 0.82));
+            rate_bar1.Location = new Point((int)(format_selection.Location.X + (format_selection.Width - rate_bar1.Width) / 2), (int)(this.Height * 0.76));
+            rate_bar2.Location = new Point((int)(format_selection.Location.X + (format_selection.Width - rate_bar2.Width) / 2), (int)(this.Height * 0.82));
+            rate1.Location = new Point((int)(this.Width * 0.59), (int)(this.Height * 0.76));
+            rate2.Location = new Point((int)(this.Width * 0.59), (int)(this.Height * 0.82));
+            radioButton1.Location = new Point((int)(this.Width * 0.62), (int)(this.Height * 0.766));
+            radioButton2.Location = new Point((int)(this.Width * 0.62), (int)(this.Height * 0.826));
+            confirm.Location = new Point((int)(this.Width * 0.39), (int)(this.Height * 0.89));
+            cancel.Location = new Point((int)(this.Width * 0.52), (int)(this.Height * 0.89));
+
             picturePanel p1 = new picturePanel();
-            uncompressed.Controls.Add(p1);
+            uncompressed_image.Controls.Add(p1);
             p1.init(MainForm.picInfo[_path].image, _name);
             picturePanel p2 = new picturePanel();
-            compressed.Controls.Add(p2);
+            compressed_image.Controls.Add(p2);
         }
         private void comfirm_Click(object sender, EventArgs e)
         {
+            if (SettingInfo.save_path == null)
+            {
+                SettingInfo.save_path = "default";
+                if (Directory.Exists("default") == false)
+                {
+                    Directory.CreateDirectory("default");
+                }
+            }
             if (SettingInfo.SELECT_COMPRESS_METHOD == SettingInfo.SELECT_COMPRESS_RATE)
             {
                 if (rate_bar1.Value == 0)
@@ -59,8 +89,8 @@ namespace UI
                     return;
                 }
                 Bitmap new_image = new Bitmap(MainForm.picInfo[_path].compress(rate_bar1.Value, 100, format_selection.Text));
-                new_image.Save("压缩图像\\" + _name + "compressed_image." + format_selection.Text, imageformat[format_selection.Text]);
-                ((picturePanel)(compressed.Controls[0])).init(new_image, _name);
+                new_image.Save(SettingInfo.save_path + "\\" + _name + "compressed_image." + format_selection.Text, imageformat[format_selection.Text]);
+                ((picturePanel)(compressed_image.Controls[0])).init(new_image, _name);
             }
             else if (SettingInfo.SELECT_COMPRESS_METHOD == SettingInfo.SELECT_COMPRESS_SCORE)
             {
@@ -76,9 +106,9 @@ namespace UI
                 {
                     mid = (l + r) / 2;
                     Bitmap temp = new Bitmap(MainForm.picInfo[_path].compress(mid, 100, format_selection.Text));
-                    string image_path = "压缩图像\\temp" + i.ToString() + _name + "compressed_image." + format_selection.Text;
+                    string image_path = SettingInfo.save_path + "\\temp" + i.ToString() + _name + "compressed_image." + format_selection.Text;
                     temp.Save(image_path, imageformat[format_selection.Text]);
-                    Pic pic = new Pic(image_path);
+                    Pic pic = new Pic(image_path, null);
                     double grade = pic.tenengrad();
                     if (grade / baseGrade * 100 > rate_bar2.Value)
                     {
@@ -96,8 +126,8 @@ namespace UI
                     }
                 }
                 Bitmap new_image = new Bitmap(MainForm.picInfo[_path].compress(mid, 100, format_selection.Text));
-                new_image.Save("压缩图像\\" + _name + "compressed_image." + format_selection.Text, imageformat[format_selection.Text]);
-                ((picturePanel)(compressed.Controls[0])).init(new_image, _name);
+                new_image.Save(SettingInfo.save_path + "\\" + _name + "compressed_image." + format_selection.Text, imageformat[format_selection.Text]);
+                ((picturePanel)(compressed_image.Controls[0])).init(new_image, _name);
             }
         }
 
@@ -118,6 +148,27 @@ namespace UI
             radioButton1.Checked = false;
             radioButton2.Checked = true;
             SettingInfo.SELECT_COMPRESS_METHOD = SettingInfo.SELECT_COMPRESS_SCORE;
+        }
+
+        private void CompressForm_none_Resize(object sender, EventArgs e)
+        {
+            uncompressed_image.Width = uncompressed_image.Height = compressed_image.Width = compressed_image.Height = (int)(this.Height * 0.6);
+            uncompressed_image.Location = new Point((int)(this.Width * 0.1), (int)(this.Height * 0.02));
+            compressed_image.Location = new Point((int)(this.Width * 0.6), (int)(this.Height * 0.02));
+            before_compress_hint.Location = new Point((int)(this.Width * 0.22), (int)(this.Height * 0.64));
+            after_compress_hint.Location = new Point((int)(this.Width * 0.73), (int)(this.Height * 0.64));
+            image_format.Location = new Point((int)(this.Width * 0.352), (int)(this.Height * 0.7));
+            format_selection.Location = new Point((int)(this.Width * 0.46), (int)(this.Height * 0.7));
+            hint1.Location = new Point((int)(image_format.Location.X + image_format.Width - hint1.Width), (int)(this.Height * 0.76));
+            hint2.Location = new Point((int)(image_format.Location.X + image_format.Width - hint2.Width), (int)(this.Height * 0.82));
+            rate_bar1.Location = new Point((int)(format_selection.Location.X + (format_selection.Width - rate_bar1.Width) / 2), (int)(this.Height * 0.76));
+            rate_bar2.Location = new Point((int)(format_selection.Location.X + (format_selection.Width - rate_bar2.Width) / 2), (int)(this.Height * 0.82));
+            rate1.Location = new Point((int)(this.Width * 0.59), (int)(this.Height * 0.76));
+            rate2.Location = new Point((int)(this.Width * 0.59), (int)(this.Height * 0.82));
+            radioButton1.Location = new Point((int)(this.Width * 0.62), (int)(this.Height * 0.766));
+            radioButton2.Location = new Point((int)(this.Width * 0.62), (int)(this.Height * 0.826));
+            confirm.Location = new Point((int)(this.Width * 0.39), (int)(this.Height * 0.89));
+            cancel.Location = new Point((int)(this.Width * 0.57), (int)(this.Height * 0.89));
         }
     }
 }

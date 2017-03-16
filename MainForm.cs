@@ -22,28 +22,37 @@ namespace UI
         public static bool[] selected; //每张图片是否被选中，true表示被选中，false表示没被选中
         public static string[] name; //图片名字
         public static string[] path_name; //图片路径，记录第i张图片的地址
-        public static string[] name_copy; //用于图片排序展示的副本
-        public static string[] path_name_copy; //用于图片排序展示的副本
-        public static bool[] state; //图片状态
+        public static bool[] imageToDelete; //图片状态
         public static int progress; //排序进度
         public static int clear_ratio = 50; //图片清理率，也就是清除图片评分后百分之几的图片
         public static List<string> existed_images; //记录图片是否已经添加，防止重复添加一张图片
         public static Dictionary<string, Pic> picInfo; //图片信息，键值对<图片路径,Pic对象>，可以根据路径名得到图片信息，包括图片的bitmap类对象(封装在Pic类中)，可用于控件的图像展示
         private const int SIZE = 10000; //初始化常量
-        public string last_pic = null; //上一次全参考选择的图像
+        private const double size_rate = 0.85;
+        public static string previous_pic = null; //上一次全参考选择的图像
+        public static string referenceImage = null; //参考图像
+        public static string referenceImage_temp = null;
+        public static int panel_temp = -1;
+        public static int previous_panel_temp = -1;
+        public static int previous_select = -1; //上一次选中的图像序号 
 
         TreeViewEventArgs ee; //用于右侧目录树缩略图加载函数loadjiedian中获取treeview控件
         string tag = "True"; //Tag标签，用于检测被check的结点（每个被check的结点的tag属性被设置为true）
         TreeNode rootNode; //用于设置目录树根节点（我的电脑）
         bool select_all = false; //是否全选
-        Color unselected_color = Color.FromArgb(128, 208, 255); //图片未选择时背景颜色
-        Color selected_color = Color.FromArgb(92, 199, 249); //图片选择时背景颜色
+        public static Color unselected_color = Color.FromArgb(128, 208, 255); //图片未选择时背景颜色
+        public static Color selected_color = Color.FromArgb(92, 199, 249); //图片选择时背景颜色
         int sizeF = 5; //缩放等级，缩放等级越小图片越大
-        bool result_show_flag = false; //记录ctrl键是否键下，用于图片缩放
+        bool control_flag = false; //记录ctrl键是否键下，用于图片缩放
+        bool shift_flag = false; //记录shift键是否键下，用于连续选择
+        PictureBox referenceMark;
 
-        EventHandler e1; //点击单元格panel改变选择状态的事件
-        EventHandler e2; //点击单元格panel改变选择状态的事件
-        EventHandler e3; //点击单元格panel改变选择状态的事件
+        MouseEventHandler e1; //点击单元格panel改变选择状态的事件
+        MouseEventHandler e2; //点击单元格panel改变选择状态的事件
+        MouseEventHandler e3; //点击单元格panel改变选择状态的事件
+        EventHandler de1; //双击单元格打开图片查看器
+        EventHandler de2; //双击单元格打开图片查看器
+        EventHandler de3; //双击单元格打开图片查看器
 
         //主窗口初始化变量
         public MainForm()
@@ -51,27 +60,38 @@ namespace UI
             InitializeComponent();
             Control.CheckForIllegalCrossThreadCalls = false;
             selected = new bool[SIZE];
-            state = new bool[SIZE];
+            imageToDelete = new bool[SIZE];
             name = new string[SIZE];
-            name_copy = new string[SIZE];
             path_name = new string[SIZE];
-            path_name_copy = new string[SIZE];
             existed_images = new List<string>();
             picInfo = new Dictionary<string, Pic>();
             for (int i = 0; i < SIZE; i++)
             {
                 selected[i] = false;
-                state[i] = false;
+                imageToDelete[i] = false;
             }
-            e1 = new EventHandler(item_click);
-            e2 = new EventHandler(pictureBox_click);
-            e3 = new EventHandler(label_click);
+            e1 = new MouseEventHandler(item_click);
+            e2 = new MouseEventHandler(pictureBox_click);
+            e3 = new MouseEventHandler(label_click);
+            de1 = new EventHandler(item_double_click);
+            de2 = new EventHandler(pictureBox_double_click);
+            de3 = new EventHandler(label_double_click);
             result_show.Width = splitContainer2.Panel1.Width / sizeF * 5;
             if (sizeF != 5)
             {
                 result_show.Width += sizeF * 5;
             }
             result_show.MouseWheel += new System.Windows.Forms.MouseEventHandler(changeSize);
+            referenceMark = new PictureBox();
+            referenceMark.Width = 25;
+            referenceMark.Height = 25;
+            referenceMark.Image = Properties.Resources.done;
+            referenceMark.SizeMode = PictureBoxSizeMode.StretchImage;
+            result_show.HorizontalScroll.Enabled = true;
+            result_show.HorizontalScroll.Visible = true;
+            this.Width = (int)(System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Width * size_rate);
+            this.Height = (int)(System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Height * size_rate);
+            this.Location = new Point((System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Width - this.Width) / 3 * 2, (System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Height - this.Height) / 3 * 2);
         }
 
         //窗口加载
@@ -80,25 +100,6 @@ namespace UI
             //加载目录树
             directoryTree();
         }
-
-        //左侧结果显示控件被双击后弹出图片浏览界面
-//         private void result_show_MouseDoubleClick(object sender, MouseEventArgs e)
-//         {
-//             /*
-//              * 判断左侧图片展示区是否有图片，tot为左侧图片总数
-//              **/
-//             if (MainForm.tot> 0)
-//             {
-//                 
-//                 Form imageshow = new ImageView();
-//                 imageshow.Size = new Size(this.Width, this.Height);
-//                 imageshow.Show();
-//             }
-//             else
-//             {
-//                 
-//             }
-//         }
         
         //主界面窗口变化事件，相应的调整控件位置及大小
         private void MainForm_Resize(object sender, EventArgs e) 
@@ -118,6 +119,13 @@ namespace UI
                 height = this.imageSort.Height;
                 this.imageSortPanel.Location = new Point(temp.X, 0);
                 this.imageSortPanel.Width = width;
+                this.imageSortPanel.Height = width * 165 / 195;
+                temp = this.imageClear.Location;
+                width = this.imageClear.Width;
+                height = this.imageClear.Height;
+                this.imageClearPanel.Location = new Point(temp.X, 0);
+                this.imageClearPanel.Width = width;
+                this.imageClearPanel.Height = width * 165 / 195;
             }
         }
         
@@ -223,60 +231,304 @@ namespace UI
         {
             imageSortPanel.Visible = false;
             imageClearPanel.Visible = false;
+            groupStatement gs = new groupStatement();
+            gs.Show();
         } 
 
         //点击图片改变选择状态
-        private void item_click(object sender, EventArgs e)
+        private void item_click(object sender, MouseEventArgs e)
         {
-            Panel p=(Panel)sender;
-            int id = int.Parse(p.Name);
-            selected[id] = !selected[id];
-            if (p.BackColor == unselected_color)
+            if (e.Button == MouseButtons.Left)
             {
-                p.BackColor = selected_color;
-                selected[id] = true;
+                Panel p = (Panel)sender;
+                int id = int.Parse(p.Name);
+                selected[id] = !selected[id];
+                if (p.BackColor == unselected_color)
+                {
+                    if(previous_panel_temp == id)
+                    {
+                        return;
+                    }
+                    p.BackColor = selected_color;
+                    selected[id] = true;
+                    if (previous_select == -1)
+                    {
+                        previous_select = id;
+                    }
+                    else
+                    {
+                       if (shift_flag)
+                       {
+                           int start, end;
+                           if (previous_select < id)
+                           {
+                               start = previous_select;
+                               end = id;
+                           }
+                           else
+                           {
+                               start = id;
+                               end = previous_select;
+                           }
+                           for (int i = start; i <= end; i++)
+                           {
+                               if (i == previous_panel_temp)
+                               {
+                                   continue;
+                               }
+                               selected[i] = true;
+                               ((Panel)result_show.Controls[i]).BackColor = selected_color;
+                           }
+                       }
+                       else
+                       {
+                           previous_select = id;
+                       }
+                    }
+                }
+                else
+                {
+                    p.BackColor = unselected_color;
+                    selected[id] = false;
+                    previous_select = -1;
+                }
             }
-            else
+            else if(e.Clicks == 1)
             {
-                p.BackColor = unselected_color;
-                selected[id] = false;
+                selectionMenu.Show(Cursor.Position);
+                Panel p = (Panel)sender;
+                int id = int.Parse(p.Name);
+                referenceImage_temp = path_name[id];
+                panel_temp = id;
+                if(selected[id])
+                {
+                    selectionMenu.Items[0].Enabled = false;
+                    selectionMenu.Items[1].Enabled = false;
+                }
+                else if(referenceImage == referenceImage_temp)
+                {
+                    selectionMenu.Items[0].Enabled = false;
+                    selectionMenu.Items[1].Enabled = true;
+                }
+                else 
+                {
+                    selectionMenu.Items[0].Enabled = true;
+                    selectionMenu.Items[1].Enabled = false;
+                }
             }
         }
 
-        //点击图片改变选择状态
-        private void pictureBox_click(object sender, EventArgs e)
+        //双击单元格
+        private void item_double_click(object sender, EventArgs e)
         {
-            Panel p = (Panel)(((PictureBox)sender).Parent);
-            int id = int.Parse(p.Name);
-            selected[id] = !selected[id];
-            if (p.BackColor == unselected_color)
+            Panel p = (Panel)sender;
+            PictureBox curPicture = (PictureBox)(p.Controls[0]);
+            int position = int.Parse(curPicture.Name);
+            string[] picList = new string[tot];
+            for (int i = 0; i < tot; i++)
             {
-                p.BackColor = selected_color;
-                selected[id] = true;
+                picList[i] = path_name[i];
             }
-            else
-            {
-                p.BackColor = unselected_color;
-                selected[id] = false;
-            }
+            Form imageshow = new ImageView(picList, position);
+            imageshow.Size = new Size(1024, 800); //新窗口界面大小和原窗口同样大
+            imageshow.Show();
         }
 
         //点击图片改变选择状态
-        private void label_click(object sender, EventArgs e)
+        private void pictureBox_click(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                Panel p = (Panel)(((PictureBox)sender).Parent);
+                int id = int.Parse(p.Name);
+                selected[id] = !selected[id];
+                if (p.BackColor == unselected_color)
+                {
+                    if (previous_panel_temp == id)
+                    {
+                        return;
+                    }
+                    p.BackColor = selected_color;
+                    selected[id] = true;
+                    if (previous_select == -1)
+                    {
+                        previous_select = id;
+                    }
+                    else
+                    {
+                        if (shift_flag)
+                        {
+                            int start, end;
+                            if (previous_select < id)
+                            {
+                                start = previous_select;
+                                end = id;
+                            }
+                            else
+                            {
+                                start = id;
+                                end = previous_select;
+                            }
+                            for (int i = start; i <= end; i++)
+                            {
+                                if (i == previous_panel_temp)
+                                {
+                                    continue;
+                                }
+                                selected[i] = true;
+                                ((Panel)result_show.Controls[i]).BackColor = selected_color;
+                            }
+                        }
+                        else
+                        {
+                            previous_select = id;
+                        }
+                    }
+                }
+                else
+                {
+                    p.BackColor = unselected_color;
+                    selected[id] = false;
+                    previous_select = -1;
+                }
+            }
+            else if (e.Clicks == 1)
+            {
+                selectionMenu.Show(Cursor.Position);
+                Panel p = (Panel)(((PictureBox)sender).Parent);
+                int id = int.Parse(p.Name);
+                referenceImage_temp = path_name[id];
+                panel_temp = id;
+                if (selected[id])
+                {
+                    selectionMenu.Items[0].Enabled = false;
+                    selectionMenu.Items[1].Enabled = false;
+                }
+                else if (referenceImage == referenceImage_temp)
+                {
+                    selectionMenu.Items[0].Enabled = false;
+                    selectionMenu.Items[1].Enabled = true;
+                }
+                else
+                {
+                    selectionMenu.Items[0].Enabled = true;
+                    selectionMenu.Items[1].Enabled = false;
+                }
+            }
+        }
+
+        //双击图片
+        private void pictureBox_double_click(object sender, EventArgs e)
+        {
+            PictureBox curPicture = (PictureBox)(sender);
+            int position = int.Parse(curPicture.Name);
+            string[] picList = new string[tot];
+            for (int i = 0; i < tot; i++)
+            {
+                picList[i] = path_name[i];
+            }
+            Form imageshow = new ImageView(picList, position);
+            imageshow.Size = new Size(1024, 800); //新窗口界面大小和原窗口同样大
+            imageshow.Show();
+        }
+
+        //点击图片改变选择状态
+        private void label_click(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                Panel p = (Panel)(((Label)sender).Parent);
+                int id = int.Parse(p.Name);
+                selected[id] = !selected[id];
+                if (p.BackColor == unselected_color)
+                {
+                    if (previous_panel_temp == id)
+                    {
+                        return;
+                    }
+                    p.BackColor = selected_color;
+                    selected[id] = true;
+                    if (previous_select == -1)
+                    {
+                        previous_select = id;
+                    }
+                    else
+                    {
+                        if (shift_flag)
+                        {
+                            int start, end;
+                            if (previous_select < id)
+                            {
+                                start = previous_select;
+                                end = id;
+                            }
+                            else
+                            {
+                                start = id;
+                                end = previous_select;
+                            }
+                            for (int i = start; i <= end; i++)
+                            {
+                                if (i == previous_panel_temp)
+                                {
+                                    continue;
+                                }
+                                selected[i] = true;
+                                ((Panel)result_show.Controls[i]).BackColor = selected_color;
+                            }
+                        }
+                        else
+                        {
+                            previous_select = id;
+                        }
+                    }
+                }
+                else
+                {
+                    p.BackColor = unselected_color;
+                    selected[id] = false;
+                    previous_select = -1;
+                }
+            }
+            else if (e.Clicks == 1)
+            {
+                selectionMenu.Show(Cursor.Position);
+                Panel p = (Panel)(((Label)sender).Parent);
+                int id = int.Parse(p.Name);
+                referenceImage_temp = path_name[id];
+                panel_temp = id;
+                if (selected[id])
+                {
+                    selectionMenu.Items[0].Enabled = false;
+                    selectionMenu.Items[1].Enabled = false;
+                }
+                else if (referenceImage == referenceImage_temp)
+                {
+                    selectionMenu.Items[0].Enabled = false;
+                    selectionMenu.Items[1].Enabled = true;
+                }
+                else
+                {
+                    selectionMenu.Items[0].Enabled = true;
+                    selectionMenu.Items[1].Enabled = false;
+                }
+            }
+        }
+
+        //双击文字
+        private void label_double_click(object sender, EventArgs e)
         {
             Panel p = (Panel)(((Label)sender).Parent);
-            int id = int.Parse(p.Name);
-            selected[id] = !selected[id];
-            if (p.BackColor == unselected_color)
+            PictureBox curPicture = (PictureBox)(p.Controls[0]);
+            int position = int.Parse(curPicture.Name);
+            string[] picList = new string[tot];
+            for(int i = 0 ; i < tot; i++)
             {
-                p.BackColor = selected_color;
-                selected[id] = true;
+                picList[i] = path_name[i];
             }
-            else
-            {
-                p.BackColor = unselected_color;
-                selected[id] = false;
-            }
+            Form imageshow = new ImageView(picList, position);
+            imageshow.Size = new Size(1024, 800); //新窗口界面大小和原窗口同样大
+            imageshow.Show();
         }
 
         //添加图片到左边工作区
@@ -287,7 +539,7 @@ namespace UI
                 return false; //图片已经存在，添加失败
             }
             existed_images.Add(path);
-            Pic pic = new Pic(path);
+            Pic pic = new Pic(path, _name);
             picInfo.Add(path, pic);
 
             //添加新的图片单元格
@@ -307,7 +559,7 @@ namespace UI
             picturePanel p = new picturePanel();
             p.Name = tot.ToString();
             p.BackColor = unselected_color;
-            p.image.MouseDoubleClick += new MouseEventHandler(image_MouseDoubleClick);
+            //p.image.MouseDoubleClick += new MouseEventHandler(image_MouseDoubleClick);
             p.image.Name = tot.ToString();
             result_show.Controls.Add(p, tot % 5, tot / 5);
             p.init(MainForm.picInfo[path].image, _name);
@@ -317,87 +569,15 @@ namespace UI
             return true; //成功添加图片
         }
 
-        //删除工作区中的图片
-        public void delete()
-        {
-            picturePanel p1, p2;
-            PictureBox pb1, pb2;
-            Label l1, l2;
-            int i = 0, k = tot - 1;
-            for (; i < k; i++)
-            {
-                if (state[i])
-                {
-                    existed_images.Remove(path_name[i]);
-                    picInfo.Remove(path_name[i]);
-                    for (; k > i; k--)
-                    {
-                        if (!state[k])
-                        {
-                            break;
-                        }
-                    }
-                    if (k == i)
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        state[i] = false;
-                        state[k] = true;
-                        path_name[i] = path_name[k];
-                        path_name[k] = null;
-
-                        p1 = (picturePanel)result_show.GetControlFromPosition(i % 5, i / 5);
-                        p2 = (picturePanel)result_show.GetControlFromPosition(k % 5, k / 5);
-                        pb1 = (PictureBox)p1.Controls[0];
-                        pb2 = (PictureBox)p2.Controls[0];
-                        l1 = (Label)p1.Controls[1];
-                        l2 = (Label)p2.Controls[1];
-
-                        pb1.Location = pb2.Location;
-                        l1.Location = l2.Location;
-                        pb1.Height = pb2.Height;
-                        pb1.Width = pb2.Width;
-                        FileStream fs = new FileStream(path_name[i], FileMode.Open, FileAccess.Read);
-                        pb1.Image = Image.FromStream(fs);
-                        fs.Close();
-                        l1.Text = l2.Text;
-                        l1.Location = l2.Location;
-                        l1.Width = l2.Width;
-                        l1.Height = l2.Height;
-                    }
-                }
-            }
-            while (tot > 0 && state[tot - 1])
-            {
-                result_show.Controls[tot - 1].Dispose();
-                tot--;
-            }
-            while (result_show.RowCount > 1 && (result_show.RowCount - 2) * 5 >= tot)
-            {
-                result_show.RowStyles.RemoveAt(result_show.RowCount - 1);
-                result_show.RowCount--;
-            }
-        }
-
-        //用于双击显示界面
-        private void image_MouseDoubleClick(object sender, MouseEventArgs e) 
-        {
-            PictureBox curPictuer = (PictureBox)sender;
-            int position =int.Parse(curPictuer.Name);
-            Form imageshow = new ImageView(position);
-            imageshow.Size = new Size(this.Width, this.Height);//新窗口界面大小和原窗口同样大
-            imageshow.Show();
-        }
-
         #region //线程，用于加快左侧目录树缩略图的显示,当展开事件发生时被激活
         public delegate void MyInvoke();
+
         public void loadthread() 
         {
             MyInvoke mi = new MyInvoke(loadjiedian);
             BeginInvoke(mi);
         }
+
         public void loadjiedian()
         {
             TreeViewItems.Add(ee.Node, this.treeView1);
@@ -425,15 +605,22 @@ namespace UI
                 string name= "";
                 name = path;
                 string[] sArray =path.Split(new char[2] { '\\', '.' });
+                if(sArray.Length < 2)
+                {
+                    return;
+                }
                 name = sArray[sArray.Length - 2];
                 if (add_image(path, name))
                 {
                     Panel pa = (Panel)result_show.GetControlFromPosition((tot - 1) % 5, (tot - 1) / 5);
                     PictureBox pb = (PictureBox)pa.Controls[0];
                     Label l = (Label)pa.Controls[1];
-                    pa.Click += e1;
-                    pb.Click += e2;
-                    l.Click += e3;
+                    pa.MouseClick += e1;
+                    pb.MouseClick += e2;
+                    l.MouseClick += e3;
+                    pa.DoubleClick += de1;
+                    pb.DoubleClick += de2;
+                    l.DoubleClick += de3;
                     e.Node.Tag = null;
                     e.Node.Checked = false;
                 }
@@ -443,13 +630,11 @@ namespace UI
         //目录树结点拖拽事件
         private void treeView1_ItemDrag(object sender, ItemDragEventArgs e)
         {
-
             //将被拖拽结点的check设置为true并设置tag为true以便将其加入到result_show
             TreeNode hi = (TreeNode)e.Item;
             hi.Checked = true;
             hi.Tag = tag;
             DoDragDrop(e.Item, DragDropEffects.Move);
-           
         }
 
         //result_show控件拖入事件
@@ -491,7 +676,9 @@ namespace UI
                     for (int i = 0; i < e.Node.Parent.Nodes.Count; i++)
                     {
                         if (!e.Node.Parent.Nodes[i].Checked)
+                        {
                             bol = false;
+                        }
                     }
                     e.Node.Parent.Checked = bol;
                     ////记得如果父节点被选中或取消，记得设置它的tag哦
@@ -513,9 +700,13 @@ namespace UI
             foreach (TreeNode node in treeNode.Nodes)
             {
                 if (node.Tag == null)
+                {
                     node.Tag = tag;//附加结点信息
+                }
                 else
+                {
                     node.Tag = null;
+                }
                 node.Checked = nodeChecked;
               
                 if (node.Nodes.Count > 0)
@@ -536,6 +727,11 @@ namespace UI
                     string path = node.Name;
                     string name = path;
                     string[] sArray = path.Split(new char[2] { '\\', '.' });
+                    
+                    if(sArray.Length < 2)
+                    {
+                        return;
+                    }
                     name = sArray[sArray.Length - 2];
                     if(!add_image(path, name))
                     {
@@ -570,9 +766,12 @@ namespace UI
                 pa = (picturePanel)result_show.GetControlFromPosition(i % 5, i / 5);
                 pb = (PictureBox)pa.Controls[0];
                 l = (Label)pa.Controls[1];
-                pa.Click += e1;
-                pb.Click += e2;
-                l.Click += e3;
+                pa.MouseClick += e1;
+                pb.MouseClick += e2;
+                l.MouseClick += e3;
+                pa.DoubleClick += de1;
+                pb.DoubleClick += de2;
+                l.DoubleClick += de3;
             }
         }
 
@@ -609,40 +808,44 @@ namespace UI
         {
             resetSortPanel();
             this.Refresh();
+            int picNum = 0;
+            for (int i = 0; i<tot;i++ )
+            {
+                if(selected[i])
+                {
+                    picNum++;
+                }
+            }
+            if (picNum == 0)
+            {
+                MessageBox.Show("请选择至少一张图片");
+                return;
+            }
+
             progress = 0;
+            int id = 0;
             Thread progressThread = new Thread(progress_thread);
             progressThread.IsBackground = true;
             progressThread.Start();
-            sortObject[] sortArray = new sortObject[tot];
+            sortObject[] originArray = new sortObject[picNum];
+            sortObject[] sortedArray = new sortObject[picNum];
             for (int i = 0; i < tot; i++)
             {
-                name_copy[i] = name[i];
-                path_name_copy[i] = path_name[i];
-                if (!picInfo[path_name[i]].state_none)
+                if (selected[i])
                 {
-                    picInfo[path_name[i]].grade_none = picInfo[path_name[i]].tenengrad();
-                    picInfo[path_name[i]].state_none = true;
+                    if (!picInfo[path_name[i]].state_none)
+                    {
+                        picInfo[path_name[i]].grade_none = picInfo[path_name[i]].tenengrad();
+                        picInfo[path_name[i]].state_none = true;
+                    }
+                    originArray[id] = new sortObject(picInfo[path_name[i]].grade_none, path_name[i], name[i]);
+                    sortedArray[id++] = new sortObject(picInfo[path_name[i]].grade_none, path_name[i], name[i]);
                 }
-                sortArray[i] = new sortObject(picInfo[path_name[i]].grade_none, path_name[i], name[i]);
-                progress = 950 * (i + 1) / tot;
+                progress = 1000 * id / picNum;
             }
-            Array.Sort(sortArray, new sortObjectComparer()); //图片排序调用
-            progress = 950;
+            Array.Sort(sortedArray, new sortObjectComparer()); //图片排序调用
 
-            //直接在原来pictureBox上加载图片
-            picturePanel picPanel;
-            for (int i = 0; i < tot; i++)
-            {
-                picPanel = (picturePanel)result_show.GetControlFromPosition(i % 5, i / 5);
-                path_name[i] = sortArray[i].path;
-                name[i] = sortArray[i].name;
-                picPanel.init(picInfo[path_name[i]].image, name[i]);
-                selected[i] = false;
-                picPanel.BackColor = unselected_color;
-                progress = 950 + 50 * (i + 1) / tot;
-            }
-            progress = 1000;
-            SortingResult sr = new SortingResult();
+            SortingResult sr = new SortingResult(picNum, originArray, sortedArray);
             sr.Show();
         }
 
@@ -651,132 +854,123 @@ namespace UI
         {
             resetSortPanel();
             this.Refresh();
-            int cnt = 0;
-            string _path = null;
+            int picNum = 0;
             for (int i = 0; i < tot; i++)
             {
                 if (selected[i])
                 {
-                    cnt++;
-                    _path = path_name[i];
+                    picNum++;
                 }
             }
-            if (cnt == 0)
+            if (picNum == 0)
             {
-                MessageBox.Show("请选一张图片作为参考图像");
+                MessageBox.Show("请选择至少一张图片");
                 return;
             }
-            else if (cnt > 1)
+            if(referenceImage==null)
             {
-                MessageBox.Show("只能选一张图片作为参考图像");
+                MessageBox.Show("请至少选择一张图片作为参考图像");
                 return;
+            }
+            int standard_width = picInfo[referenceImage].width;
+            int standard_height = picInfo[referenceImage].height;
+            for (int i = 0; i < tot; i++)
+            {
+                if (selected[i])
+                {
+                    if(picInfo[path_name[i]].width!=standard_width||picInfo[path_name[i]].height!=standard_height)
+                    {
+                        MessageBox.Show("所选图像与参考图像尺寸不一致，无法进行全参考排序");
+                        return;
+                    }
+                }
             }
 
             progress = 0;
+            int id = 0;
             Thread progressThread = new Thread(progress_thread);
             progressThread.IsBackground = true;
             progressThread.Start();
-            sortObject[] sortArray = new sortObject[tot];
+            sortObject[] originArray = new sortObject[picNum];
+            sortObject[] sortedArray = new sortObject[picNum];
             for (int i = 0; i < tot; i++)
             {
-                name_copy[i] = name[i];
-                path_name_copy[i] = path_name[i];
-                if (!picInfo[path_name[i]].state_full || last_pic != _path)
+                if (selected[i])
                 {
-                    picInfo[path_name[i]].grade_full = picInfo[path_name[i]].psnr(picInfo[_path], picInfo[path_name[i]].height, picInfo[path_name[i]].width);
-                    picInfo[path_name[i]].state_full = true;
+                    //图像全参考评分
+                    if (!picInfo[path_name[i]].state_full || previous_pic != referenceImage)
+                    {
+                        if (SettingInfo.image_sort_full == "PSNR")
+                        {
+                            picInfo[path_name[i]].grade_full = picInfo[path_name[i]].psnr(picInfo[referenceImage]);
+                        }
+                        else
+                        {
+                            picInfo[path_name[i]].grade_full = picInfo[path_name[i]].LBPdiffer(picInfo[referenceImage]);
+                        }
+                        picInfo[path_name[i]].state_full = true;
+                    }
+                    originArray[id] = new sortObject(picInfo[path_name[i]].grade_full, path_name[i], name[i]);
+                    sortedArray[id++] = new sortObject(picInfo[path_name[i]].grade_full, path_name[i], name[i]);
+                    progress = 1000 * id / picNum;
                 }
-                sortArray[i] = new sortObject(picInfo[path_name[i]].grade_full, path_name[i], name[i]);
-                progress = 950 * (i + 1) / tot;
             }
-            last_pic = _path;
-            Array.Sort(sortArray, new sortObjectComparer()); //图片排序调用
-            progress = 950;
+            previous_pic = referenceImage;
+            Array.Sort(sortedArray, new sortObjectComparer()); //图片排序调用
 
-            //直接在原来pictureBox上加载图片
-            picturePanel picPanel;
-            for (int i = 0; i < tot; i++)
-            {
-                picPanel = (picturePanel)result_show.GetControlFromPosition(i % 5, i / 5);
-                path_name[i] = sortArray[i].path;
-                name[i] = sortArray[i].name;
-                picPanel.init(picInfo[path_name[i]].image, name[i]);
-                selected[i] = false;
-                picPanel.BackColor = unselected_color;
-                progress = 950 + 50 * (i + 1) / tot;
-            }
-            progress = 1000;
-            SortingResult sr = new SortingResult(_path);
+            SortingResult sr = new SortingResult(referenceImage, picNum, originArray, sortedArray);
             sr.Show();
-        }
-
-        //图片无参考压缩
-        private void imageCompress_none_Click(object sender, EventArgs e)
-        {
-        }
-
-        //图片全参考压缩
-        private void imageCompress_full_Click(object sender, EventArgs e)
-        {
         }
 
         //图片无参考清理
         private void imageClear_none_Click(object sender, EventArgs e)
         {
-            sortObject[] sortArray = new sortObject[tot];
-            for (int i = 0; i < tot; i++)
+            imageClearPanel.Visible = false;
+            if (tot == 0)
             {
-                if (!picInfo[path_name[i]].state_none)
-                {
-                    picInfo[path_name[i]].grade_none = picInfo[path_name[i]].tenengrad();
-                    picInfo[path_name[i]].state_none = true;
-                }
-                sortArray[i] = new sortObject(picInfo[path_name[i]].grade_none, path_name[i], name[i]);
+                MessageBox.Show("请添加至少一张图片");
+                return;
             }
-            Array.Sort(sortArray, new sortObjectComparer());
-
-            ClearSetting cs = new ClearSetting(this, sortArray);
+            ClearSetting cs = new ClearSetting(this);
             cs.Show();
         }
 
         //图片全参考清理
-        private void imageClear_full_Click(object sender, EventArgs e)
+        private void imageClear_full_Click(object sender, EventArgs e) 
         {
-            int cnt = 0;
-            int id = 0;
+            imageClearPanel.Visible = false;
+            int picNum = 0;
             for (int i = 0; i < tot; i++)
             {
                 if (selected[i])
                 {
-                    cnt++;
-                    id = i;
+                    picNum++;
                 }
             }
-            if (cnt == 0)
+            if (picNum == 0)
             {
-                MessageBox.Show("请选一张图片作为参考图像");
+                MessageBox.Show("请选择至少一张图片");
                 return;
             }
-            else if (cnt > 1)
+            if (referenceImage == null)
             {
-                MessageBox.Show("只能选一张图片作为参考图像");
+                MessageBox.Show("请至少选择一张图片作为参考图像");
                 return;
             }
-
-            sortObject[] sortArray = new sortObject[tot];
+            int standard_width = picInfo[referenceImage].width;
+            int standard_height = picInfo[referenceImage].height;
             for (int i = 0; i < tot; i++)
             {
-                if (!picInfo[path_name[i]].state_full || last_pic != path_name[id])
+                if (selected[i])
                 {
-                    picInfo[path_name[i]].grade_full = picInfo[path_name[i]].psnr(picInfo[path_name[id]], picInfo[path_name[i]].height, picInfo[path_name[i]].width);
-                    picInfo[path_name[i]].state_full = true;
+                    if (picInfo[path_name[i]].width != standard_width || picInfo[path_name[i]].height != standard_height)
+                    {
+                        MessageBox.Show("所选图像与参考图像尺寸不一致，无法进行全参考排序");
+                        return;
+                    }
                 }
-                sortArray[i] = new sortObject(picInfo[path_name[i]].grade_full, path_name[i], name[i]);
             }
-            Array.Sort(sortArray, new sortObjectComparer());
-            last_pic = path_name[id];
-
-            ClearSetting cs = new ClearSetting(this, sortArray);
+            ClearSetting cs = new ClearSetting(this, referenceImage);
             cs.Show();
         }
 
@@ -792,7 +986,6 @@ namespace UI
                 {
                     count++;
                 }
-
             }
             if (count != 2)
             {
@@ -803,12 +996,75 @@ namespace UI
             compareForm_none.Show();
         }
 
+        //删除工作区中的图片
+        public void delete()
+        {
+            picturePanel p;
+            int i = 0, k = tot - 1;
+            for (; i <= k; i++)
+            {
+                if (imageToDelete[i])
+                {
+                    existed_images.Remove(path_name[i]);
+                    picInfo.Remove(path_name[i]);
+                    if (previous_panel_temp == i)
+                    {
+                        previous_panel_temp = -1;
+                        referenceImage = null;
+                        delete_mark(i);
+                    }
+                    for (; k > i; k--)
+                    {
+                        if (!imageToDelete[k])
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            existed_images.Remove(path_name[k]);
+                            picInfo.Remove(path_name[k]);
+                            if(previous_panel_temp == k)
+                            {
+                                previous_panel_temp = -1;
+                                referenceImage = null;
+                                delete_mark(k);
+                            }
+                        }
+                    }
+                    if (k == i)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        imageToDelete[i] = false;
+                        imageToDelete[k] = true;
+                        path_name[i] = path_name[k];
+                        path_name[k--] = null;
+
+                        p = (picturePanel)result_show.GetControlFromPosition(i % 5, i / 5);
+                        p.init(picInfo[path_name[i]].image, picInfo[path_name[i]].name);
+                    }
+                }
+            }
+            while (tot > 0 && imageToDelete[tot - 1])
+            {
+                result_show.Controls[tot - 1].Dispose();
+                tot--;
+            }
+            while (result_show.RowCount > 1 && (result_show.RowCount - 2) * 5 >= tot)
+            {
+                result_show.RowStyles.RemoveAt(result_show.RowCount - 1);
+                result_show.RowCount--;
+            }
+        }
+
         //删除图片按钮点击事件
         private void deleteImage_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < tot; i++)
             {
-                state[i] = selected[i];
+                imageToDelete[i] = selected[i];
                 if (selected[i])
                 {
                     selected[i] = false;
@@ -819,13 +1075,17 @@ namespace UI
         }
 
         //添加图片按钮点击事件
-        private void addImage_Click(object sender, EventArgs e)
+        private void selectAll_Click(object sender, EventArgs e)
         {
             if (!select_all)
             {
                 select_all = true;
                 for (int i = 0; i < tot; i++)
                 {
+                    if(i == previous_panel_temp)
+                    {
+                        continue;
+                    }
                     selected[i] = true;
                     ((Panel)result_show.GetControlFromPosition(i % 5, i / 5)).BackColor = selected_color;
                 }
@@ -902,13 +1162,23 @@ namespace UI
                 style.SizeType = SizeType.Absolute;
                 style.Height = result_show.Width / 5;
             }
+            if (previous_panel_temp != -1)
+            {
+                int x = result_show.Controls[previous_panel_temp].Size.Width;
+                int y = result_show.Controls[previous_panel_temp].Size.Height;
+                referenceMark.Location = new Point(x - 25, y - 25);
+            }
         }
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Modifiers.CompareTo(Keys.Control) == 0)
             {
-                result_show_flag = true;
+                control_flag = true;
+            }
+            if (e.Modifiers.CompareTo(Keys.Shift) == 0)
+            {
+                shift_flag = true;
             }
         }
 
@@ -916,13 +1186,34 @@ namespace UI
         {
             if (e.KeyData == Keys.ControlKey)
             {
-                result_show_flag = false;
+                control_flag = false;
+            }
+            if (e.KeyData == Keys.ShiftKey)
+            {
+                shift_flag = false;
+                previous_select = -1;
+            }
+            if (e.Control && e.KeyCode == Keys.A)
+            {
+                if (tot > 0)
+                {
+                    select_all = true;
+                }
+                for (int i = 0; i < tot; i++)
+                {
+                    if(i == previous_panel_temp)
+                    {
+                        continue;
+                    }
+                    selected[i] = true;
+                    ((Panel)result_show.GetControlFromPosition(i % 5, i / 5)).BackColor = selected_color;
+                }
             }
         }
 
         private void changeSize(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            if (result_show_flag && (result_show.RectangleToClient(this.ClientRectangle).Contains(MousePosition)||true))
+            if (control_flag && result_show.Bounds.Contains(e.X,e.Y))
             {
                 if(e.Delta<0)
                 {
@@ -952,7 +1243,53 @@ namespace UI
                     style.SizeType = SizeType.Absolute;
                     style.Height = result_show.Width / 5;
                 }
+                if (previous_panel_temp != -1)
+                {
+                    int x = result_show.Controls[previous_panel_temp].Size.Width;
+                    int y = result_show.Controls[previous_panel_temp].Size.Height;
+                    referenceMark.Location = new Point(x - 25, y - 25);
+                }
             }
+        }
+
+        private void selectionMenu_Opening(object sender, CancelEventArgs e)
+        {
+            this.item1.MouseDown += item1_Click;
+            this.item2.MouseDown += item2_Click;
+        }
+
+        private void item1_Click(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                referenceImage = referenceImage_temp;
+                previous_panel_temp = panel_temp;
+                add_mark(panel_temp);
+            }
+        }
+
+        private void item2_Click(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                referenceImage = null;
+                delete_mark(panel_temp);
+                previous_panel_temp = -1;
+            }
+        }
+
+        private void add_mark(int i)
+        {
+            result_show.Controls[i].Controls.Add(referenceMark);
+            result_show.Controls[i].Controls[2].BringToFront();
+            int x = result_show.Controls[i].Size.Width;
+            int y = result_show.Controls[i].Size.Height;
+            referenceMark.Location = new Point(x - 25, y - 25);
+        }
+
+        private void delete_mark(int i)
+        {
+            result_show.Controls[i].Controls.Remove(referenceMark);
         }
     }
 }
