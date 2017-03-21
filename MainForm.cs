@@ -243,7 +243,7 @@ namespace UI
         }
 
         //用户设置面板
-        private void personalSetting_Click(object sender, EventArgs e)
+        private void aboutUs_Click(object sender, EventArgs e)
         {
             imageSortPanel.Visible = false;
             imageClearPanel.Visible = false;

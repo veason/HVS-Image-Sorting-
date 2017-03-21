@@ -35,12 +35,12 @@ namespace UI
             this.skinToolTip1 = new CCWin.SkinToolTip(this.components);
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.setting = new LT.WinForm.ImageButton.ImageButton();
+            this.aboutUs = new LT.WinForm.ImageButton.ImageButton();
             this.imageCompress = new LT.WinForm.ImageButton.ImageButton();
             this.imageSort = new LT.WinForm.ImageButton.ImageButton();
             this.imageClear = new LT.WinForm.ImageButton.ImageButton();
             this.imageCompare = new LT.WinForm.ImageButton.ImageButton();
-            this.setting = new LT.WinForm.ImageButton.ImageButton();
-            this.aboutUs = new LT.WinForm.ImageButton.ImageButton();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.imageSortPanel = new System.Windows.Forms.TableLayoutPanel();
             this.imageSort_full = new LT.WinForm.ImageButton.ImageButton();
@@ -60,6 +60,7 @@ namespace UI
             this.selectionMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.item1 = new System.Windows.Forms.ToolStripMenuItem();
             this.item2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -114,19 +115,20 @@ namespace UI
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(200)))), ((int)(((byte)(249)))));
-            this.tableLayoutPanel1.ColumnCount = 6;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.36249F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.3625F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.3625F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.3625F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.55F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 19.99999F));
+            this.tableLayoutPanel1.ColumnCount = 7;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.5F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.5F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.5F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.5F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel1.Controls.Add(this.setting, 5, 0);
+            this.tableLayoutPanel1.Controls.Add(this.aboutUs, 6, 0);
             this.tableLayoutPanel1.Controls.Add(this.imageCompress, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.imageSort, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.imageClear, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.imageCompare, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.setting, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.aboutUs, 5, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -135,18 +137,48 @@ namespace UI
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1189, 95);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
+            // setting
+            // 
+            this.setting.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.setting.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.setting.ButtonImage = global::UI.Properties.Resources.settings;
+            this.setting.ButtonText = "";
+            this.setting.Location = new System.Drawing.Point(954, 10);
+            this.setting.Margin = new System.Windows.Forms.Padding(4);
+            this.setting.MouseClickImage = global::UI.Properties.Resources.settings;
+            this.setting.MouseOverImage = global::UI.Properties.Resources.settings;
+            this.setting.Name = "setting";
+            this.setting.Size = new System.Drawing.Size(110, 75);
+            this.setting.TabIndex = 6;
+            this.setting.Click += new LT.WinForm.ImageButton.ImageButton.ClickEventHandler(this.settingButton_Click);
+            // 
+            // aboutUs
+            // 
+            this.aboutUs.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.aboutUs.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.aboutUs.ButtonImage = global::UI.Properties.Resources.person;
+            this.aboutUs.ButtonText = "";
+            this.aboutUs.Location = new System.Drawing.Point(1072, 5);
+            this.aboutUs.Margin = new System.Windows.Forms.Padding(4);
+            this.aboutUs.MouseClickImage = global::UI.Properties.Resources.person;
+            this.aboutUs.MouseOverImage = global::UI.Properties.Resources.person;
+            this.aboutUs.Name = "aboutUs";
+            this.aboutUs.Size = new System.Drawing.Size(85, 85);
+            this.aboutUs.TabIndex = 5;
+            this.aboutUs.Click += new LT.WinForm.ImageButton.ImageButton.ClickEventHandler(this.aboutUs_Click);
+            // 
             // imageCompress
             // 
             this.imageCompress.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.imageCompress.ButtonImage = global::UI.Properties.Resources.compress_normal;
             this.imageCompress.ButtonText = "";
             this.imageCompress.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.imageCompress.Location = new System.Drawing.Point(198, 4);
+            this.imageCompress.Location = new System.Drawing.Point(200, 4);
             this.imageCompress.Margin = new System.Windows.Forms.Padding(4);
             this.imageCompress.MouseClickImage = global::UI.Properties.Resources.compress_selected;
             this.imageCompress.MouseOverImage = global::UI.Properties.Resources.compress_selected;
             this.imageCompress.Name = "imageCompress";
-            this.imageCompress.Size = new System.Drawing.Size(186, 87);
+            this.imageCompress.Size = new System.Drawing.Size(188, 87);
             this.imageCompress.TabIndex = 4;
             this.imageCompress.Click += new LT.WinForm.ImageButton.ImageButton.ClickEventHandler(this.imageCompress_Click);
             // 
@@ -161,7 +193,7 @@ namespace UI
             this.imageSort.MouseClickImage = global::UI.Properties.Resources.sort_selected;
             this.imageSort.MouseOverImage = global::UI.Properties.Resources.sort_selected;
             this.imageSort.Name = "imageSort";
-            this.imageSort.Size = new System.Drawing.Size(186, 87);
+            this.imageSort.Size = new System.Drawing.Size(188, 87);
             this.imageSort.TabIndex = 0;
             this.imageSort.Click += new LT.WinForm.ImageButton.ImageButton.ClickEventHandler(this.imageSort_Click);
             // 
@@ -171,12 +203,12 @@ namespace UI
             this.imageClear.ButtonImage = global::UI.Properties.Resources.clean_normal;
             this.imageClear.ButtonText = "";
             this.imageClear.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.imageClear.Location = new System.Drawing.Point(392, 4);
+            this.imageClear.Location = new System.Drawing.Point(396, 4);
             this.imageClear.Margin = new System.Windows.Forms.Padding(4);
             this.imageClear.MouseClickImage = global::UI.Properties.Resources.clean_selected;
             this.imageClear.MouseOverImage = global::UI.Properties.Resources.clean_selected;
             this.imageClear.Name = "imageClear";
-            this.imageClear.Size = new System.Drawing.Size(186, 87);
+            this.imageClear.Size = new System.Drawing.Size(188, 87);
             this.imageClear.TabIndex = 1;
             this.imageClear.Click += new LT.WinForm.ImageButton.ImageButton.ClickEventHandler(this.imageClear_Click);
             // 
@@ -186,45 +218,14 @@ namespace UI
             this.imageCompare.ButtonImage = global::UI.Properties.Resources.compare_normal;
             this.imageCompare.ButtonText = "";
             this.imageCompare.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.imageCompare.Location = new System.Drawing.Point(586, 4);
+            this.imageCompare.Location = new System.Drawing.Point(592, 4);
             this.imageCompare.Margin = new System.Windows.Forms.Padding(4);
             this.imageCompare.MouseClickImage = global::UI.Properties.Resources.compare_selected;
             this.imageCompare.MouseOverImage = global::UI.Properties.Resources.compare_selected;
             this.imageCompare.Name = "imageCompare";
-            this.imageCompare.Size = new System.Drawing.Size(186, 87);
+            this.imageCompare.Size = new System.Drawing.Size(188, 87);
             this.imageCompare.TabIndex = 2;
             this.imageCompare.Click += new LT.WinForm.ImageButton.ImageButton.ClickEventHandler(this.imageCompare_Click);
-            // 
-            // setting
-            // 
-            this.setting.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.setting.ButtonImage = global::UI.Properties.Resources.settings;
-            this.setting.ButtonText = "";
-            this.setting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.setting.Location = new System.Drawing.Point(780, 4);
-            this.setting.Margin = new System.Windows.Forms.Padding(4);
-            this.setting.MouseClickImage = global::UI.Properties.Resources.用户设置_高亮;
-            this.setting.MouseOverImage = global::UI.Properties.Resources.用户设置_高亮;
-            this.setting.Name = "setting";
-            this.setting.Size = new System.Drawing.Size(164, 87);
-            this.setting.TabIndex = 3;
-            this.setting.Click += new LT.WinForm.ImageButton.ImageButton.ClickEventHandler(this.settingButton_Click);
-            // 
-            // aboutUs
-            // 
-            this.aboutUs.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.aboutUs.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.aboutUs.ButtonImage = global::UI.Properties.Resources.person;
-            this.aboutUs.ButtonText = "";
-            this.aboutUs.Enabled = false;
-            this.aboutUs.Location = new System.Drawing.Point(952, 4);
-            this.aboutUs.Margin = new System.Windows.Forms.Padding(4);
-            this.aboutUs.MouseClickImage = global::UI.Properties.Resources.用户设置_高亮;
-            this.aboutUs.MouseOverImage = global::UI.Properties.Resources.用户设置_高亮;
-            this.aboutUs.Name = "aboutUs";
-            this.aboutUs.Size = new System.Drawing.Size(233, 87);
-            this.aboutUs.TabIndex = 5;
-            this.aboutUs.Click += new LT.WinForm.ImageButton.ImageButton.ClickEventHandler(this.personalSetting_Click);
             // 
             // splitContainer2
             // 
@@ -253,7 +254,7 @@ namespace UI
             this.splitContainer2.Panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(211)))), ((int)(((byte)(255)))));
             this.splitContainer2.Panel2.Controls.Add(this.tableLayoutPanel2);
             this.splitContainer2.Panel2.Controls.Add(this.tableLayoutPanel3);
-            this.splitContainer2.Size = new System.Drawing.Size(1189, 498);
+            this.splitContainer2.Size = new System.Drawing.Size(1189, 494);
             this.splitContainer2.SplitterDistance = 902;
             this.splitContainer2.SplitterWidth = 1;
             this.splitContainer2.TabIndex = 0;
@@ -370,8 +371,8 @@ namespace UI
             this.result_show.Margin = new System.Windows.Forms.Padding(0);
             this.result_show.Name = "result_show";
             this.result_show.RowCount = 1;
-            this.result_show.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 534F));
-            this.result_show.Size = new System.Drawing.Size(900, 518);
+            this.result_show.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 536F));
+            this.result_show.Size = new System.Drawing.Size(900, 514);
             this.result_show.TabIndex = 1;
             this.result_show.Click += new System.EventHandler(this.result_show_Click);
             this.result_show.DragDrop += new System.Windows.Forms.DragEventHandler(this.result_show_DragDrop);
@@ -384,21 +385,21 @@ namespace UI
             this.tableLayoutPanel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(211)))), ((int)(((byte)(255)))));
             this.tableLayoutPanel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.tableLayoutPanel2.ColumnCount = 4;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 46F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 18F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 18F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 18F));
             this.tableLayoutPanel2.Controls.Add(this.deleteImage, 3, 0);
             this.tableLayoutPanel2.Controls.Add(this.addImageSet, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.selectALL, 2, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.tableLayoutPanel2.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 458);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 437);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(286, 40);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(286, 57);
             this.tableLayoutPanel2.TabIndex = 2;
             // 
             // deleteImage
@@ -411,11 +412,11 @@ namespace UI
             this.deleteImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.deleteImage.ButtonImage = ((System.Drawing.Image)(resources.GetObject("deleteImage.ButtonImage")));
             this.deleteImage.ButtonText = "";
-            this.deleteImage.Location = new System.Drawing.Point(244, 3);
+            this.deleteImage.Location = new System.Drawing.Point(236, 3);
             this.deleteImage.MouseClickImage = null;
             this.deleteImage.MouseOverImage = ((System.Drawing.Image)(resources.GetObject("deleteImage.MouseOverImage")));
             this.deleteImage.Name = "deleteImage";
-            this.deleteImage.Size = new System.Drawing.Size(39, 34);
+            this.deleteImage.Size = new System.Drawing.Size(47, 51);
             this.deleteImage.TabIndex = 2;
             this.deleteImage.Click += new LT.WinForm.ImageButton.ImageButton.ClickEventHandler(this.deleteImage_Click);
             // 
@@ -429,11 +430,11 @@ namespace UI
             this.addImageSet.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.addImageSet.ButtonImage = ((System.Drawing.Image)(resources.GetObject("addImageSet.ButtonImage")));
             this.addImageSet.ButtonText = "";
-            this.addImageSet.Location = new System.Drawing.Point(160, 3);
+            this.addImageSet.Location = new System.Drawing.Point(134, 3);
             this.addImageSet.MouseClickImage = null;
             this.addImageSet.MouseOverImage = ((System.Drawing.Image)(resources.GetObject("addImageSet.MouseOverImage")));
             this.addImageSet.Name = "addImageSet";
-            this.addImageSet.Size = new System.Drawing.Size(36, 34);
+            this.addImageSet.Size = new System.Drawing.Size(45, 51);
             this.addImageSet.TabIndex = 1;
             this.addImageSet.Click += new LT.WinForm.ImageButton.ImageButton.ClickEventHandler(this.addImageSet_Click);
             // 
@@ -447,11 +448,11 @@ namespace UI
             this.selectALL.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.selectALL.ButtonImage = ((System.Drawing.Image)(resources.GetObject("selectALL.ButtonImage")));
             this.selectALL.ButtonText = "";
-            this.selectALL.Location = new System.Drawing.Point(202, 3);
+            this.selectALL.Location = new System.Drawing.Point(185, 3);
             this.selectALL.MouseClickImage = null;
             this.selectALL.MouseOverImage = ((System.Drawing.Image)(resources.GetObject("selectALL.MouseOverImage")));
             this.selectALL.Name = "selectALL";
-            this.selectALL.Size = new System.Drawing.Size(36, 34);
+            this.selectALL.Size = new System.Drawing.Size(45, 51);
             this.selectALL.TabIndex = 0;
             this.selectALL.Click += new LT.WinForm.ImageButton.ImageButton.ClickEventHandler(this.selectAll_Click);
             // 
@@ -468,7 +469,7 @@ namespace UI
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 93F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(435, 435);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(441, 431);
             this.tableLayoutPanel3.TabIndex = 3;
             // 
             // treeView1
@@ -491,7 +492,7 @@ namespace UI
             this.treeView1.Margin = new System.Windows.Forms.Padding(0);
             this.treeView1.Name = "treeView1";
             this.treeView1.SelectedImageIndex = 0;
-            this.treeView1.Size = new System.Drawing.Size(435, 435);
+            this.treeView1.Size = new System.Drawing.Size(441, 431);
             this.treeView1.TabIndex = 0;
             this.treeView1.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterCheck);
             this.treeView1.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterExpand);
@@ -549,18 +550,29 @@ namespace UI
             this.item2.Size = new System.Drawing.Size(172, 22);
             this.item2.Text = "取消选择";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Location = new System.Drawing.Point(24, 7);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(161, 19);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "图像质量排序系统";
+            // 
             // MainForm
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1202, 644);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.splitContainer1);
             this.Cursor = System.Windows.Forms.Cursors.Default;
             this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(1198, 600);
             this.Name = "MainForm";
-            this.Text = "图像质量排序系统";
+            this.Text = "";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyUp);
@@ -581,6 +593,7 @@ namespace UI
             this.tableLayoutPanel3.ResumeLayout(false);
             this.selectionMenu.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -614,6 +627,7 @@ namespace UI
         private System.Windows.Forms.ToolStripMenuItem item2;
         private LT.WinForm.ImageButton.ImageButton setting;
         private LT.WinForm.ImageButton.ImageButton aboutUs;
+        private System.Windows.Forms.Label label1;
 
     }
 }

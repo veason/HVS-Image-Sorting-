@@ -110,7 +110,6 @@ C:\Users\Administrator\Desktop\ImageSorting\bin\Release\UiaComWrapper.dll
 C:\Users\Administrator\Desktop\ImageSorting\obj\Release\UI.ClearSetting.resources
 C:\Users\Administrator\Desktop\ImageSorting\obj\Release\UI.CompareForm_none.resources
 C:\Users\Administrator\Desktop\ImageSorting\obj\Release\UI.CompressForm_none.resources
-C:\Users\Administrator\Desktop\ImageSorting\obj\Release\UI.FloatForm.resources
 C:\Users\Administrator\Desktop\ImageSorting\obj\Release\UI.groupStatement.resources
 C:\Users\Administrator\Desktop\ImageSorting\obj\Release\UI.ImageDeleteComfirmForm.resources
 C:\Users\Administrator\Desktop\ImageSorting\obj\Release\UI.ImageView.resources
@@ -179,3 +178,4 @@ C:\Users\Administrator\Desktop\周四demo\ImageSorting\obj\Release\UI.SortingRes
 C:\Users\Administrator\Desktop\周四demo\ImageSorting\obj\Release\图像质量排序.csproj.GenerateResource.Cache
 C:\Users\Administrator\Desktop\周四demo\ImageSorting\obj\Release\UI.exe.licenses
 C:\Users\Administrator\Desktop\周四demo\ImageSorting\obj\Release\图像质量排序.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Desktop\ImageSorting\obj\Release\图像质量排序.csprojResolveAssemblyReference.cache
