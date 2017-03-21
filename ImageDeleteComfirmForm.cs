@@ -80,13 +80,15 @@ namespace UI
 
         private void ImageDeleteComfirmForm_Load(object sender, EventArgs e)
         {
-            this.Width = (int)(System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Width * size_rate);
-            this.Height = (int)(this.Width * 0.45);
-            this.Location = new Point((System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Width - this.Width) / 3 * 2, (System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Height - this.Height) / 3 * 2);
+            //this.Width = (int)(System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Width * size_rate);
+            //this.Height = (int)(this.Width * 0.45);
+            //this.Location = new Point((System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Width - this.Width) / 3 * 2, (System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Height - this.Height) / 3 * 2);
+            this.WindowState = FormWindowState.Maximized;
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
             result.Width = (int)(this.Width * 0.9);
-            result.Height = (int)(result.Width / 4);
-            result.Location = new Point((int)(this.Width * 0.05), (int)(this.Height * 0.1));
-            hint.Location = new Point((int)(this.Width * 0.43), (int)(this.Height * 0.65));
+            result.Height = (int)(result.Width * 0.25);
+            result.Location = new Point((int)(this.Width * 0.04), (int)(this.Height * 0.25));
+            hint.Location = new Point((int)(result.Location.X + (result.Width - hint.Width) / 2), (int)(this.Height * 0.15));
             confirm.Location = new Point((int)(this.Width * 0.37), (int)(this.Height * 0.82));
             cancel.Location = new Point((int)(this.Width * 0.57), (int)(this.Height * 0.82));
 
@@ -103,6 +105,8 @@ namespace UI
                 }
                 result.Controls.Add(p, tot % 4, tot / 4);
                 p.init(MainForm.picInfo[sortedArray[i].path].image, "质量分数：" + (sortedArray[i].grade / sortedArray[0].grade * 100).ToString("f2"));
+                p.image_name.Height = 28;
+                p.image_name.Font = new Font("微软雅黑", 16);
                 p.DoubleClick += e1;
                 ((PictureBox)(p.Controls[0])).DoubleClick += e2;
                 ((Label)(p.Controls[1])).DoubleClick += e3;
@@ -115,7 +119,11 @@ namespace UI
                 style.SizeType = SizeType.Absolute;
                 style.Height = result.Height - 4;
             }
-            this.Refresh();
+            result.Width = result.Height * 4 + tot / 4 * 15;
+            if(result.Width + result.Location.X + 20 > this.Width)
+            {
+                result.Width = this.Width - result.Location.X - 20;
+            }
         }
 
         //双击单元格
@@ -149,21 +157,14 @@ namespace UI
             imageshow.Show();
         }
 
-        private void ImageDeleteComfirmForm_Resize(object sender, EventArgs e)
+        protected override void WndProc(ref Message m)
         {
-            result.Width = (int)(this.Width * 0.9);
-            result.Height = (int)(result.Width / 4);
-            result.Location = new Point((int)(this.Width * 0.05), (int)(this.Height * 0.1));
-            hint.Location = new Point((int)(this.Width * 0.43), (int)(this.Height * 0.65));
-            confirm.Location = new Point((int)(this.Width * 0.37), (int)(this.Height * 0.82));
-            cancel.Location = new Point((int)(this.Width * 0.57), (int)(this.Height * 0.82));
-            TableLayoutRowStyleCollection rowstyles;
-            rowstyles = result.RowStyles;
-            foreach (RowStyle style in rowstyles)
+            if (m.Msg == 0x112 && (int)m.WParam == 0xf122)
             {
-                style.SizeType = SizeType.Absolute;
-                style.Height = result.Height - 4;
+                m.WParam = IntPtr.Zero;
+                return;
             }
-        }
+            base.WndProc(ref m);
+        } 
     }
 }

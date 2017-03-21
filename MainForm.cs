@@ -25,7 +25,6 @@ namespace UI
         public static bool[] imageToDelete; //图片状态
         public static int progress; //排序进度
         public static int clear_ratio = 50; //图片清理率，也就是清除图片评分后百分之几的图片
-        public static List<string> existed_images; //记录图片是否已经添加，防止重复添加一张图片
         public static Dictionary<string, Pic> picInfo; //图片信息，键值对<图片路径,Pic对象>，可以根据路径名得到图片信息，包括图片的bitmap类对象(封装在Pic类中)，可用于控件的图像展示
         private const int SIZE = 10000; //初始化常量
         private const double size_rate = 0.85;
@@ -36,7 +35,7 @@ namespace UI
         public static int previous_panel_temp = -1;
         public static int previous_select = -1; //上一次选中的图像序号 
 
-        TreeViewEventArgs ee; //用于右侧目录树缩略图加载函数loadjiedian中获取treeview控件
+        TreeViewEventArgs ee; //用于右侧目录树缩略图加载函数中获取treeview控件
         string tag = "True"; //Tag标签，用于检测被check的结点（每个被check的结点的tag属性被设置为true）
         TreeNode rootNode; //用于设置目录树根节点（我的电脑）
         bool select_all = false; //是否全选
@@ -58,12 +57,13 @@ namespace UI
         public MainForm()
         {
             InitializeComponent();
+            this.WindowState = FormWindowState.Maximized;
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
             Control.CheckForIllegalCrossThreadCalls = false;
             selected = new bool[SIZE];
             imageToDelete = new bool[SIZE];
             name = new string[SIZE];
             path_name = new string[SIZE];
-            existed_images = new List<string>();
             picInfo = new Dictionary<string, Pic>();
             for (int i = 0; i < SIZE; i++)
             {
@@ -92,6 +92,9 @@ namespace UI
             this.Width = (int)(System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Width * size_rate);
             this.Height = (int)(System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Height * size_rate);
             this.Location = new Point((System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Width - this.Width) / 3 * 2, (System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Height - this.Height) / 3 * 2);
+          
+            this.FormBorderStyle = FormBorderStyle.None;
+            result_show.ColumnCount = 1;
         }
 
         //窗口加载
@@ -104,6 +107,7 @@ namespace UI
         //主界面窗口变化事件，相应的调整控件位置及大小
         private void MainForm_Resize(object sender, EventArgs e) 
         {
+           
             result_show.Width = splitContainer2.Panel1.Width / sizeF * 5;
             if(sizeF!=5)
             {
@@ -126,6 +130,8 @@ namespace UI
                 this.imageClearPanel.Location = new Point(temp.X, 0);
                 this.imageClearPanel.Width = width;
                 this.imageClearPanel.Height = width * 165 / 195;
+                this.setting.Height = width * 165 / 195;
+                
             }
         }
         
@@ -210,11 +216,21 @@ namespace UI
             imageClearPanel.Visible = false;
             imageSortPanel.Visible = false;
             int cnt = 0;
+            int id1 = -1;
+            int id2 = -1;
             for (int i = 0; i < tot; i++)
             {
                 if (selected[i])
                 {
                     cnt++;
+                    if(id1 == -1)
+                    {
+                        id1 = i;
+                    }
+                    else
+                    {
+                        id2 = i;
+                    }
                 }
             }
             if (cnt != 2)
@@ -222,7 +238,7 @@ namespace UI
                 MessageBox.Show("请选择两张图片!");
                 return;
             }
-            CompareForm_none compareForm_none = new CompareForm_none();
+            CompareForm_none compareForm_none = new CompareForm_none(id1, id2);
             compareForm_none.Show();
         }
 
@@ -247,6 +263,7 @@ namespace UI
                 {
                     if(previous_panel_temp == id)
                     {
+                        selected[id] = false;
                         return;
                     }
                     p.BackColor = selected_color;
@@ -330,7 +347,7 @@ namespace UI
                 picList[i] = path_name[i];
             }
             Form imageshow = new ImageView(picList, position);
-            imageshow.Size = new Size(1024, 800); //新窗口界面大小和原窗口同样大
+            imageshow.Size = new Size(1024, 800);
             imageshow.Show();
         }
 
@@ -346,6 +363,7 @@ namespace UI
                 {
                     if (previous_panel_temp == id)
                     {
+                        selected[id] = false;
                         return;
                     }
                     p.BackColor = selected_color;
@@ -428,7 +446,7 @@ namespace UI
                 picList[i] = path_name[i];
             }
             Form imageshow = new ImageView(picList, position);
-            imageshow.Size = new Size(1024, 800); //新窗口界面大小和原窗口同样大
+            imageshow.Size = new Size(1024, 800);
             imageshow.Show();
         }
 
@@ -444,6 +462,7 @@ namespace UI
                 {
                     if (previous_panel_temp == id)
                     {
+                        selected[id] = false;
                         return;
                     }
                     p.BackColor = selected_color;
@@ -527,21 +546,23 @@ namespace UI
                 picList[i] = path_name[i];
             }
             Form imageshow = new ImageView(picList, position);
-            imageshow.Size = new Size(1024, 800); //新窗口界面大小和原窗口同样大
+            imageshow.Size = new Size(1024, 800);
             imageshow.Show();
         }
 
         //添加图片到左边工作区
         bool add_image(string path, string _name)
         {
-            if (existed_images.Contains(path))
+            if (picInfo.ContainsKey(path))
             {
                 return false; //图片已经存在，添加失败
             }
-            existed_images.Add(path);
             Pic pic = new Pic(path, _name);
             picInfo.Add(path, pic);
-
+            if(tot == 0)
+            {
+                result_show.ColumnCount = 5;
+            }
             //添加新的图片单元格
             if (tot % 5 == 0)
             {
@@ -559,6 +580,8 @@ namespace UI
             picturePanel p = new picturePanel();
             p.Name = tot.ToString();
             p.BackColor = unselected_color;
+            p.image_name.Height = 25;
+            p.image_name.Font = new Font("微软雅黑", 12);
             //p.image.MouseDoubleClick += new MouseEventHandler(image_MouseDoubleClick);
             p.image.Name = tot.ToString();
             result_show.Controls.Add(p, tot % 5, tot / 5);
@@ -646,8 +669,24 @@ namespace UI
         //result_show控件转入释放事件：遍历目录树所有结点，将其中被check的图片添加到result_show中
         private void result_show_DragDrop(object sender, DragEventArgs e)
         {
+            int i = tot;
             TreeNode topnode = rootNode;//得到TreeView的根结点，注意根结点只有一个
             TraversNodes(topnode);//遍历根结点
+            picturePanel pa;
+            PictureBox pb;
+            Label l;
+            for (; i < tot; i++)
+            {
+                pa = (picturePanel)result_show.GetControlFromPosition(i % 5, i / 5);
+                pb = (PictureBox)pa.Controls[0];
+                l = (Label)pa.Controls[1];
+                pa.MouseClick += e1;
+                pb.MouseClick += e2;
+                l.MouseClick += e3;
+                pa.DoubleClick += de1;
+                pb.DoubleClick += de2;
+                l.DoubleClick += de3;
+            }
         }
 
         //目录树结点被check事件：检查当前被check结点是否有子结点，若有将所有子节点设置为checked；检查是否有父节点，若有，判断该父节点所有子节点是否都被checked，若是，将父节点设置为checked
@@ -974,28 +1013,6 @@ namespace UI
             cs.Show();
         }
 
-        //图片全参考比较
-        private void imageCompare_full_Click(object sender, EventArgs e)
-        {
-            resetComparePanel();
-            imageClearPanel.Visible = false;
-            int count = 0;
-            for (int i = 0; i < tot; i++)
-            {
-                if (selected[i])
-                {
-                    count++;
-                }
-            }
-            if (count != 2)
-            {
-                MessageBox.Show("请选择两张图片!");
-                return;
-            }
-            CompareForm_none compareForm_none = new CompareForm_none();
-            compareForm_none.Show();
-        }
-
         //删除工作区中的图片
         public void delete()
         {
@@ -1005,7 +1022,6 @@ namespace UI
             {
                 if (imageToDelete[i])
                 {
-                    existed_images.Remove(path_name[i]);
                     picInfo.Remove(path_name[i]);
                     if (previous_panel_temp == i)
                     {
@@ -1021,7 +1037,6 @@ namespace UI
                         }
                         else
                         {
-                            existed_images.Remove(path_name[k]);
                             picInfo.Remove(path_name[k]);
                             if(previous_panel_temp == k)
                             {
@@ -1040,6 +1055,21 @@ namespace UI
                         imageToDelete[i] = false;
                         imageToDelete[k] = true;
                         path_name[i] = path_name[k];
+                        selected[i] = selected[k];
+                        if(selected[i])
+                        {
+                            ((Panel)result_show.GetControlFromPosition(i % 5, i / 5)).BackColor = selected_color;
+                        }
+                        else
+                        {
+                            ((Panel)result_show.GetControlFromPosition(i % 5, i / 5)).BackColor = unselected_color;
+                        }
+                        if (previous_panel_temp == k)
+                        {
+                            delete_mark(k);
+                            previous_panel_temp = i;
+                            add_mark(i);
+                        }
                         path_name[k--] = null;
 
                         p = (picturePanel)result_show.GetControlFromPosition(i % 5, i / 5);
@@ -1056,6 +1086,10 @@ namespace UI
             {
                 result_show.RowStyles.RemoveAt(result_show.RowCount - 1);
                 result_show.RowCount--;
+            }
+            if(tot == 0)
+            {
+                result_show.ColumnCount = 1;
             }
         }
 
@@ -1104,29 +1138,12 @@ namespace UI
         //设置按钮点击事件
         private void settingButton_Click(object sender, EventArgs e)
         {
-            SettingForm settingForm = new SettingForm();
-            settingForm.Show();
-        }
-
-        private void imageCompare_none_Click(object sender, EventArgs e)
-        {
-            resetComparePanel();
-            imageClearPanel.Visible = false;
-            int count = 0;
-            for (int i = 0; i < tot; i++)
+            if (SettingForm.flag)
             {
-                if (selected[i])
-                {
-                    count++;
-                }
-            }
-            if(count != 2)
-            {
-                MessageBox.Show("请选择两张图片!");
                 return;
             }
-            CompareForm_none compareForm_none = new CompareForm_none();
-            compareForm_none.Show();
+            SettingForm settingForm = new SettingForm();
+            settingForm.Show();
         }
 
         private void resetClearPanel()

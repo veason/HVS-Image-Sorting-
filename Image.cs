@@ -31,6 +31,11 @@ namespace demo1
         public int[] value;
         public int[] sum;
 
+        public unsafe Pic(Bitmap image)
+        {
+            this.image = image;
+        }
+
         //构造方法，对图像信息初始化
         public unsafe Pic(String _path,String _name)
         {
@@ -250,7 +255,7 @@ namespace demo1
         }
 
         //图像压缩，quality为质量分数，取值范围为[0,100]，size为压缩百分比，取值为(0，100]
-        public Image compress(int quality,int size,string format)
+        public Image compress(int quality, int size, string format)
         {
             int _height = height * size / 100; 
             int _witdh = width * size / 100;

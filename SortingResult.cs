@@ -62,18 +62,20 @@ namespace UI
 
         private void SortingResult_Load(object sender, EventArgs e)
         {
-            this.Width = (int)(System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Width * 0.95);
-            this.Height = (int)(System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Height * 0.9);
-            this.Location = new Point((System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Width - this.Width) / 3 * 2, (System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Height - this.Height) / 3 * 2);
-            beforeSortingPanel.Height = afterSortingPanel.Height = (int)(this.Height * 0.36);
+            //this.Width = (int)(System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Width * 0.95);
+            //this.Height = (int)(System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Height * 0.9);
+            //this.Location = new Point((System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Width - this.Width) / 3 * 2, (System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Height - this.Height) / 3 * 2);
+            this.WindowState = FormWindowState.Maximized;
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            beforeSortingPanel.Height = afterSortingPanel.Height = (int)(this.Height * 0.34);
             beforeSortingPanel.Width = afterSortingPanel.Width = beforeSortingPanel.Height * 4;
             beforeSortingPanel.Location = new Point((int)(this.Width * 0.01), (int)(this.Height * 0.1));
             afterSortingPanel.Location = new Point((int)(this.Width * 0.01), (int)(this.Height * 0.57));
-            beforeSortingHint.Location = new Point((int)(this.Width * 0.35), (int)(this.Height * 0.05));
-            afterSortingHint.Location = new Point((int)(this.Width * 0.35), (int)(this.Height * 0.52));
-            referenceImage.Height = referenceImage.Width = (int)(this.Width * 0.95 - beforeSortingPanel.Width);
-            referenceImage.Location = new Point((int)(this.Width * 0.03 + beforeSortingPanel.Width), (int)(this.Height * 0.33));
-            hint.Location = new Point((int)(this.Width * 0.83), (int)(this.Height * 0.28));
+            beforeSortingHint.Location = new Point((int)((beforeSortingPanel.Width - beforeSortingHint.Width) / 2 + beforeSortingPanel.Location.X), (int)(this.Height * 0.05));
+            afterSortingHint.Location = new Point((int)((beforeSortingPanel.Width - beforeSortingHint.Width) / 2 + beforeSortingPanel.Location.X), (int)(this.Height * 0.52));
+            referenceImage.Height = referenceImage.Width = (int)(this.Width * 0.9575 - beforeSortingPanel.Width);
+            referenceImage.Location = new Point((int)(this.Width * 0.03 + beforeSortingPanel.Width - 5), (int)(this.Height * 0.33));
+            hint.Location = new Point((int)(this.Width * 0.83), (int)(this.Height * 0.3));
             TableLayoutColumnStyleCollection columnstyles = beforeSortingPanel.ColumnStyles;
             foreach (ColumnStyle style in columnstyles)
             {
@@ -91,7 +93,9 @@ namespace UI
             {
                 picturePanel p = new picturePanel();
                 referenceImage.Controls.Add(p);
-                p.init(MainForm.picInfo[_path].image,null);
+                p.init(MainForm.picInfo[_path].image, MainForm.picInfo[_path].name);
+                p.image_name.Font = new Font("微软雅黑", 17);
+                p.image_name.Height = 32;
                 hint.Text = "全参考排序参考图";
             }
             originPicList = new string[picNum];
@@ -102,7 +106,7 @@ namespace UI
                 beforeSortingPanel.Controls.Add(p, i, 0);
                 p.init(MainForm.picInfo[originArray[i].path].image, originArray[i].name);
                 p.image_name.Height = 25;
-                p.image_name.Font = new Font("微软雅黑", 12);
+                p.image_name.Font = new Font("微软雅黑", 13);
                 p.DoubleClick += origin_e1;
                 ((PictureBox)(p.Controls[0])).DoubleClick += origin_e2;
                 ((Label)(p.Controls[1])).DoubleClick += origin_e3;
@@ -116,6 +120,8 @@ namespace UI
                 afterSortingPanel.ColumnStyles.Insert(afterSortingPanel.ColumnCount++, new ColumnStyle(SizeType.Absolute, afterSortingPanel.Height));
                 afterSortingPanel.Controls.Add(p, i, 0);
                 p.init(MainForm.picInfo[sortedArray[i].path].image, sortedArray[i].name);
+                p.image_name.Height = 25;
+                p.image_name.Font = new Font("微软雅黑", 13);
                 p.DoubleClick += sorted_e1;
                 ((PictureBox)(p.Controls[0])).DoubleClick += sorted_e2;
                 ((Label)(p.Controls[1])).DoubleClick += sorted_e3;
@@ -208,6 +214,16 @@ namespace UI
                 style.SizeType = SizeType.Absolute;
                 style.Width = afterSortingPanel.Height;
             }
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == 0x112 && (int)m.WParam == 0xf122)
+            {
+                m.WParam = IntPtr.Zero;
+                return;
+            }
+            base.WndProc(ref m);
         }
     }
 }

@@ -51,10 +51,11 @@ namespace UI
             // 
             // clearRatioBar
             // 
-            this.clearRatioBar.Location = new System.Drawing.Point(143, 82);
+            this.clearRatioBar.Location = new System.Drawing.Point(191, 109);
+            this.clearRatioBar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.clearRatioBar.Maximum = 100;
             this.clearRatioBar.Name = "clearRatioBar";
-            this.clearRatioBar.Size = new System.Drawing.Size(104, 45);
+            this.clearRatioBar.Size = new System.Drawing.Size(139, 45);
             this.clearRatioBar.TabIndex = 0;
             this.clearRatioBar.Value = 50;
             this.clearRatioBar.Scroll += new System.EventHandler(this.clearRatioBar_Scroll);
@@ -63,7 +64,8 @@ namespace UI
             // 
             this.text.AutoSize = true;
             this.text.Font = new System.Drawing.Font("宋体", 10F);
-            this.text.Location = new System.Drawing.Point(48, 92);
+            this.text.Location = new System.Drawing.Point(64, 123);
+            this.text.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.text.Name = "text";
             this.text.Size = new System.Drawing.Size(77, 14);
             this.text.TabIndex = 1;
@@ -73,7 +75,8 @@ namespace UI
             // 
             this.ratio.AutoSize = true;
             this.ratio.Font = new System.Drawing.Font("宋体", 10F);
-            this.ratio.Location = new System.Drawing.Point(267, 92);
+            this.ratio.Location = new System.Drawing.Point(356, 123);
+            this.ratio.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ratio.Name = "ratio";
             this.ratio.Size = new System.Drawing.Size(28, 14);
             this.ratio.TabIndex = 2;
@@ -81,9 +84,10 @@ namespace UI
             // 
             // confirm
             // 
-            this.confirm.Location = new System.Drawing.Point(315, 84);
+            this.confirm.Location = new System.Drawing.Point(420, 112);
+            this.confirm.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.confirm.Name = "confirm";
-            this.confirm.Size = new System.Drawing.Size(70, 30);
+            this.confirm.Size = new System.Drawing.Size(93, 40);
             this.confirm.TabIndex = 3;
             this.confirm.Text = "确定";
             this.confirm.UseVisualStyleBackColor = true;
@@ -91,13 +95,15 @@ namespace UI
             // 
             // ClearSetting
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(434, 211);
+            this.ClientSize = new System.Drawing.Size(579, 281);
             this.Controls.Add(this.confirm);
             this.Controls.Add(this.ratio);
             this.Controls.Add(this.text);
             this.Controls.Add(this.clearRatioBar);
+            this.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "ClearSetting";
             this.Text = "ClearSetting";
             ((System.ComponentModel.ISupportInitialize)(this.clearRatioBar)).EndInit();

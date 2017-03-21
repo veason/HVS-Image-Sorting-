@@ -34,7 +34,7 @@
             this.format_selection = new System.Windows.Forms.ComboBox();
             this.image_format = new System.Windows.Forms.Label();
             this.hint1 = new System.Windows.Forms.Label();
-            this.confirm = new System.Windows.Forms.Button();
+            this.save = new System.Windows.Forms.Button();
             this.cancel = new System.Windows.Forms.Button();
             this.rate1 = new System.Windows.Forms.Label();
             this.uncompressed_image = new System.Windows.Forms.Panel();
@@ -51,20 +51,20 @@
             // before_compress_hint
             // 
             this.before_compress_hint.AutoSize = true;
-            this.before_compress_hint.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.before_compress_hint.Font = new System.Drawing.Font("微软雅黑", 18F);
             this.before_compress_hint.Location = new System.Drawing.Point(195, 335);
             this.before_compress_hint.Name = "before_compress_hint";
-            this.before_compress_hint.Size = new System.Drawing.Size(107, 25);
+            this.before_compress_hint.Size = new System.Drawing.Size(134, 31);
             this.before_compress_hint.TabIndex = 2;
             this.before_compress_hint.Text = "图像压缩前";
             // 
             // after_compress_hint
             // 
             this.after_compress_hint.AutoSize = true;
-            this.after_compress_hint.Font = new System.Drawing.Font("微软雅黑", 14.25F);
+            this.after_compress_hint.Font = new System.Drawing.Font("微软雅黑", 18F);
             this.after_compress_hint.Location = new System.Drawing.Point(600, 335);
             this.after_compress_hint.Name = "after_compress_hint";
-            this.after_compress_hint.Size = new System.Drawing.Size(107, 25);
+            this.after_compress_hint.Size = new System.Drawing.Size(134, 31);
             this.after_compress_hint.TabIndex = 3;
             this.after_compress_hint.Text = "图像压缩后";
             // 
@@ -85,8 +85,7 @@
             this.format_selection.Items.AddRange(new object[] {
             "jpeg",
             "png",
-            "bmp",
-            "gif"});
+            "bmp"});
             this.format_selection.Location = new System.Drawing.Point(434, 385);
             this.format_selection.Name = "format_selection";
             this.format_selection.Size = new System.Drawing.Size(140, 21);
@@ -96,33 +95,33 @@
             // image_format
             // 
             this.image_format.AutoSize = true;
-            this.image_format.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.image_format.Location = new System.Drawing.Point(308, 385);
+            this.image_format.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.image_format.Location = new System.Drawing.Point(279, 385);
             this.image_format.Name = "image_format";
-            this.image_format.Size = new System.Drawing.Size(88, 25);
+            this.image_format.Size = new System.Drawing.Size(110, 31);
             this.image_format.TabIndex = 8;
             this.image_format.Text = "图片格式";
             // 
             // hint1
             // 
             this.hint1.AutoSize = true;
-            this.hint1.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.hint1.Location = new System.Drawing.Point(270, 430);
+            this.hint1.Font = new System.Drawing.Font("微软雅黑", 18F);
+            this.hint1.Location = new System.Drawing.Point(241, 430);
             this.hint1.Name = "hint1";
-            this.hint1.Size = new System.Drawing.Size(126, 25);
+            this.hint1.Size = new System.Drawing.Size(158, 31);
             this.hint1.TabIndex = 9;
             this.hint1.Text = "按压缩率压缩";
             // 
-            // confirm
+            // save
             // 
-            this.confirm.Font = new System.Drawing.Font("微软雅黑", 10.5F);
-            this.confirm.Location = new System.Drawing.Point(347, 525);
-            this.confirm.Name = "confirm";
-            this.confirm.Size = new System.Drawing.Size(80, 35);
-            this.confirm.TabIndex = 11;
-            this.confirm.Text = "确定";
-            this.confirm.UseVisualStyleBackColor = true;
-            this.confirm.Click += new System.EventHandler(this.comfirm_Click);
+            this.save.Font = new System.Drawing.Font("微软雅黑", 10.5F);
+            this.save.Location = new System.Drawing.Point(347, 525);
+            this.save.Name = "save";
+            this.save.Size = new System.Drawing.Size(80, 35);
+            this.save.TabIndex = 11;
+            this.save.Text = "保存";
+            this.save.UseVisualStyleBackColor = true;
+            this.save.Click += new System.EventHandler(this.save_Click);
             // 
             // cancel
             // 
@@ -164,10 +163,10 @@
             // hint2
             // 
             this.hint2.AutoSize = true;
-            this.hint2.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.hint2.Location = new System.Drawing.Point(251, 476);
+            this.hint2.Font = new System.Drawing.Font("微软雅黑", 18F);
+            this.hint2.Location = new System.Drawing.Point(222, 476);
             this.hint2.Name = "hint2";
-            this.hint2.Size = new System.Drawing.Size(145, 25);
+            this.hint2.Size = new System.Drawing.Size(182, 31);
             this.hint2.TabIndex = 17;
             this.hint2.Text = "按质量分数压缩";
             // 
@@ -227,18 +226,18 @@
             this.Controls.Add(this.uncompressed_image);
             this.Controls.Add(this.rate1);
             this.Controls.Add(this.cancel);
-            this.Controls.Add(this.confirm);
+            this.Controls.Add(this.save);
             this.Controls.Add(this.hint1);
             this.Controls.Add(this.image_format);
             this.Controls.Add(this.format_selection);
             this.Controls.Add(this.rate_bar1);
             this.Controls.Add(this.after_compress_hint);
             this.Controls.Add(this.before_compress_hint);
+            this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(1024, 640);
             this.Name = "CompressForm_none";
             this.Text = "无参考图像压缩";
             this.Load += new System.EventHandler(this.compressForm_none_Load);
-            this.Resize += new System.EventHandler(this.CompressForm_none_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.rate_bar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rate_bar2)).EndInit();
             this.ResumeLayout(false);
@@ -254,7 +253,7 @@
         private System.Windows.Forms.ComboBox format_selection;
         private System.Windows.Forms.Label image_format;
         private System.Windows.Forms.Label hint1;
-        private System.Windows.Forms.Button confirm;
+        private System.Windows.Forms.Button save;
         private System.Windows.Forms.Button cancel;
         private System.Windows.Forms.Label rate1;
         private System.Windows.Forms.Panel uncompressed_image;

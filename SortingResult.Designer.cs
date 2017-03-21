@@ -86,10 +86,10 @@
             // hint
             // 
             this.hint.AutoSize = true;
-            this.hint.Font = new System.Drawing.Font("微软雅黑", 15.75F);
+            this.hint.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.hint.Location = new System.Drawing.Point(1020, 120);
             this.hint.Name = "hint";
-            this.hint.Size = new System.Drawing.Size(0, 28);
+            this.hint.Size = new System.Drawing.Size(0, 31);
             this.hint.TabIndex = 4;
             // 
             // referenceImage
@@ -113,6 +113,7 @@
             this.Controls.Add(this.beforeSortingPanel);
             this.Controls.Add(this.afterSortingHint);
             this.Controls.Add(this.beforeSortingHint);
+            this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(1520, 774);
             this.Name = "SortingResult";
             this.Text = "排序结果";

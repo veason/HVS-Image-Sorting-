@@ -109,12 +109,6 @@
     <Compile Include="CompressForm_none.Designer.cs">
       <DependentUpon>CompressForm_none.cs</DependentUpon>
     </Compile>
-    <Compile Include="FloatForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FloatForm.Designer.cs">
-      <DependentUpon>FloatForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="groupStatement.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -183,9 +177,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CompressForm_none.resx">
       <DependentUpon>CompressForm_none.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FloatForm.resx">
-      <DependentUpon>FloatForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="groupStatement.resx">
       <DependentUpon>groupStatement.cs</DependentUpon>

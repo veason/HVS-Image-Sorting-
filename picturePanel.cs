@@ -53,10 +53,8 @@ namespace UI
             image.Width = (int)(w * F);
 
             image.Image = bitmap;
-            image_name.Height = 20;
             image_name.Width = image.Width;
             image_name.TextAlign = ContentAlignment.MiddleCenter;
-            image_name.Font = new Font("微软雅黑", 10);
             image_name.Text = name;
             image.Anchor = AnchorStyles.None;
             image_name.Dock = DockStyle.Bottom;
