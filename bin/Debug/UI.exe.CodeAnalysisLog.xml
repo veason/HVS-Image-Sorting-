@@ -2,7 +2,7 @@
 <?xml-stylesheet type="text/xsl" href="e:\visual studio\team tools\static analysis tools\fxcop\Xml\CodeAnalysisReport.xsl"?>
 <FxCopReport Version="12.0">
  <Targets>
-  <Target Name="C:\Users\Administrator\Desktop\ImageSorting\bin\Debug\UI.exe">
+  <Target Name="C:\Users\Administrator\Desktop\新建文件夹 (2)\ImageSorting\bin\Debug\UI.exe">
    <Modules>
     <Module Name="ui.exe">
      <Namespaces>
@@ -10,7 +10,7 @@
        <Types>
         <Type Name="Pic" Kind="Class" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2017-03-21 17:09:28Z" FixCategory="DependsOnFix">
+          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2017-03-28 04:47:46Z" FixCategory="DependsOnFix">
            <Issue Name="DependsOnFix" Certainty="95" Level="CriticalError">在 'Pic' 上实现 IDisposable，因为它创建下列 IDisposable 类型的成员:  'Bitmap'。如果以前提供过 'Pic'，对于现有使用者来说，向此类型添加用于实现 IDisposable 的新成员属于重大更改。</Issue>
           </Message>
          </Messages>
@@ -23,15 +23,15 @@
          <Members>
           <Member Name="#Dispose(System.Boolean)" Kind="Method" Static="False" Accessibility="Family" ExternallyVisible="True">
            <Messages>
-            <Message Id="temp_image" TypeName="DisposableFieldsShouldBeDisposed" Category="Microsoft.Usage" CheckId="CA2213" Status="Active" Created="2017-03-21 17:09:28Z" FixCategory="NonBreaking">
-             <Issue Certainty="75" Level="Warning" Path="c:\Users\Administrator\Desktop\ImageSorting" File="CompressForm_none.Designer.cs" Line="15">'CompressForm_none' 包含 IDisposable 类型的字段 'CompressForm_none.temp_image':  'Bitmap'。请更改 'CompressForm_none' 的 Dispose 方法，使其针对该字段调用 Dispose 或 Close。</Issue>
+            <Message Id="temp_image" TypeName="DisposableFieldsShouldBeDisposed" Category="Microsoft.Usage" CheckId="CA2213" Status="Active" Created="2017-03-28 04:47:46Z" FixCategory="NonBreaking">
+             <Issue Certainty="75" Level="Warning" Path="c:\Users\Administrator\Desktop\新建文件夹 (2)\ImageSorting" File="CompressForm_none.Designer.cs" Line="15">'CompressForm_none' 包含 IDisposable 类型的字段 'CompressForm_none.temp_image':  'Bitmap'。请更改 'CompressForm_none' 的 Dispose 方法，使其针对该字段调用 Dispose 或 Close。</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#save_Click(System.Object,System.EventArgs)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="不要多次释放对象" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2017-03-21 17:09:28Z" FixCategory="DependsOnFix">
-             <Issue Certainty="75" Level="Warning" Path="c:\Users\Administrator\Desktop\ImageSorting" File="CompressForm_none.cs" Line="204">可以在方法 'CompressForm_none.save_Click(object, EventArgs)' 中多次释放对象 'this'。若要避免生成 System.ObjectDisposedException，不应对一个对象多次调用 Dispose。: Lines: 204</Issue>
+            <Message TypeName="不要多次释放对象" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2017-03-28 04:47:46Z" FixCategory="DependsOnFix">
+             <Issue Certainty="75" Level="Warning" Path="c:\Users\Administrator\Desktop\新建文件夹 (2)\ImageSorting" File="CompressForm_none.cs" Line="156">可以在方法 'CompressForm_none.save_Click(object, EventArgs)' 中多次释放对象 'this'。若要避免生成 System.ObjectDisposedException，不应对一个对象多次调用 Dispose。: Lines: 156</Issue>
             </Message>
            </Messages>
           </Member>
@@ -68,7 +68,7 @@
   <Rule TypeName="不要多次释放对象" Category="Microsoft.Usage" CheckId="CA2202">
    <Name>不要多次释放对象</Name>
    <Description>可以多次调用正确实现的 Dispose 方法，而不会引发异常。但是，并不保证所有情况下都会如此。若要避免生成 System.ObjectDisposedException，您不应对一个对象多次调用 Dispose。</Description>
-   <Resolution Name="Default">可以在方法 {1} 中多次释放对象 {0}。若要避免生成 System.ObjectDisposedException，不应对一个对象多次调用 Dispose。: Lines: 204</Resolution>
+   <Resolution Name="Default">可以在方法 {1} 中多次释放对象 {0}。若要避免生成 System.ObjectDisposedException，不应对一个对象多次调用 Dispose。: Lines: 156</Resolution>
    <Owner>RuleOwner</Owner>
    <Url>http://msdn.microsoft.com/library/ms182334.aspx</Url>
    <Email />

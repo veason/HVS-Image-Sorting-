@@ -19,6 +19,8 @@ namespace UI
         static string previous_image_comparation_none;
         static string previous_image_sorting_full;
         static string previous_image_sorting_none;
+        public static string storage_path = "default";
+        public static SortedSet<string> item_name = new SortedSet<string>();
         public SettingForm()
         {
             flag = true;
@@ -45,7 +47,7 @@ namespace UI
             sorting_full_combobox.Location = new Point((int)(this.Width * 0.475), (int)(this.Height * 0.45));
             sorting_none_combobox.Location = new Point((int)(this.Width * 0.475), (int)(this.Height * 0.545));
             comparation_none_combobox.Location = new Point((int)(this.Width * 0.475), (int)(this.Height * 0.64));
-            selection.Location = new Point((int)(this.Width * 0.665), (int)(this.Height * 0.76));
+            selection.Location = new Point((int)(this.Width * 0.665), (int)(this.Height * 0.755));
             confirm.Location = new Point((int)(this.Width * 0.4), (int)(this.Height * 0.87));
             cancel.Location = new Point((int)(this.Width * 0.5), (int)(this.Height * 0.87));
 
@@ -55,6 +57,11 @@ namespace UI
             comparation_none_combobox.Text = previous_image_comparation_none;
             sorting_full_combobox.Text = previous_image_sorting_full;
             sorting_none_combobox.Text = previous_image_sorting_none;
+            foreach(string str in item_name)
+            {
+                folder.Items.Add(str);
+            }
+            folder.Text = storage_path;
 
             this.clearance_full_combobox.SelectedIndex = SettingInfo.image_clean_full_selected;
             this.clearance_none_combobox.SelectedIndex = SettingInfo.image_clean_none_selected;
@@ -100,7 +107,12 @@ namespace UI
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
                 folder.Items.Add(folderBrowserDialog1.SelectedPath);
-                folder.Text = folderBrowserDialog1.SelectedPath;
+                storage_path = folderBrowserDialog1.SelectedPath;
+                if (!item_name.Contains(storage_path))
+                {
+                    item_name.Add(storage_path);
+                }
+                folder.Text = storage_path;
                 SettingInfo.save_path = folderBrowserDialog1.SelectedPath;
             }
         }

@@ -80,15 +80,14 @@
             // 
             // format_selection
             // 
-            this.format_selection.Font = new System.Drawing.Font("宋体", 10F);
+            this.format_selection.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.format_selection.FormattingEnabled = true;
             this.format_selection.Items.AddRange(new object[] {
             "jpeg",
-            "png",
-            "bmp"});
-            this.format_selection.Location = new System.Drawing.Point(434, 385);
+            "png"});
+            this.format_selection.Location = new System.Drawing.Point(426, 385);
             this.format_selection.Name = "format_selection";
-            this.format_selection.Size = new System.Drawing.Size(140, 21);
+            this.format_selection.Size = new System.Drawing.Size(157, 29);
             this.format_selection.TabIndex = 7;
             this.format_selection.Text = "jpeg";
             // 

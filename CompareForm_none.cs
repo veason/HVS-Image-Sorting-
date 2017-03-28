@@ -12,10 +12,21 @@ namespace UI
 {
     public partial class CompareForm_none : Form
     {
-        private const double size_rate = 1;
-        private const double image_size_rate = 0.4;
+        private const double image_size_rate = 0.47;
         private int id1;
         private int id2;
+
+        /*
+        //防止窗体闪烁
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;
+                return cp;
+            }
+        }*/
         public CompareForm_none(int id1, int id2)
         {
             InitializeComponent();
@@ -37,16 +48,16 @@ namespace UI
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             compare_image1.Width = compare_image1.Height = (int)(this.Width * image_size_rate);
             compare_image2.Width = compare_image2.Height = (int)(this.Width * image_size_rate);
-            compare_image1.Location = new Point((int)(this.Width * 0.05), (int)(this.Height * 0.02));
-            compare_image2.Location = new Point((int)(this.Width * 0.55), (int)(this.Height * 0.02));
+            compare_image1.Location = new Point((int)(this.Width * 0.015), (int)(this.Height * 0.02));
+            compare_image2.Location = new Point((int)(this.Width * 0.515), (int)(this.Height * 0.02));
            // hint.Location = new Point((int)(this.Width * 0.46), (int)(this.Height * 0.74));
            // score_text1.Location = new Point((int)(this.Width * 0.38), (int)(this.Height * 0.70));
-          //  score_text2.Location = new Point((int)(this.Width * 0.55), (int)(this.Height * 0.70));
-          //  op.Location = new Point((int)(this.Width * 0.49), (int)(this.Height * 0.8));
+           // score_text2.Location = new Point((int)(this.Width * 0.55), (int)(this.Height * 0.70));
+           // op.Location = new Point((int)(this.Width * 0.49), (int)(this.Height * 0.8));
             confirm.Location = new Point((int)(this.Width * 0.475), (int)(this.Height * 0.86));
 
-            int score1 = (int)(new Pic(MainForm.path_name[id1], null)).tenengrad();
-            int score2 = (int)(new Pic(MainForm.path_name[id2], null)).tenengrad();
+            int score1 = (int)(new Pic(MainForm.path_name[id1], null)).Tenengrad();
+            int score2 = (int)(new Pic(MainForm.path_name[id2], null)).Tenengrad();
             picturePanel p1 = new picturePanel();
             picturePanel p2 = new picturePanel();
             compare_image1.Controls.Add(p1);
@@ -62,9 +73,9 @@ namespace UI
 
             Graphics graphics = this.CreateGraphics();
             //绘制中线
-            float x1 = (float)(this.Width * 0.475+this.confirm.Width/2);
+            float x1 = (float)(this.Width * 0.475 + confirm.Width / 2);
             float y1 = (float)(this.Height * 0.02);
-            float x2 = (float)(this.Width * 0.475 + this.confirm.Width / 2);
+            float x2 = (float)(this.Width * 0.475 + confirm.Width / 2);
             float y2 = (float)(this.Height * 0.74);
             //注意坐标系的定义
             Pen pen = new Pen(Color.Black, 2);
@@ -72,8 +83,8 @@ namespace UI
             pen.DashPattern = new float[] { 5, 5 };
             graphics.DrawLine(pen, x1, y1, x2, y2);
 
-//             int score1 = (int)(new Pic(MainForm.path_name[id1], null)).tenengrad();
-//             int score2 = (int)(new Pic(MainForm.path_name[id2], null)).tenengrad();
+//             int score1 = (int)(new Pic(MainForm.path_name[id1], null)).Tenengrad();
+//             int score2 = (int)(new Pic(MainForm.path_name[id2], null)).Tenengrad();
 //             score_text1.Text = "得分：" +　score1.ToString();
 //             score_text2.Text = "得分："　+　score2.ToString();
 //             if (score1 > score2) 

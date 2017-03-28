@@ -23,6 +23,18 @@ namespace UI
         Bitmap temp_image;
         picturePanel p1;
         picturePanel p2;
+        private double[] threasold;
+
+        //防止窗体闪烁
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;
+                return cp;
+            }
+        }
         public CompressForm_none(string _path,string _name)
         {
             InitializeComponent();
@@ -30,7 +42,6 @@ namespace UI
             this._name = _name;
             imageformat["jpeg"] = ImageFormat.Jpeg;
             imageformat["png"] = ImageFormat.Png;
-            imageformat["bmp"] = ImageFormat.Bmp;
             radioButton1.Checked = true;
             radioButton2.Checked = false;
             SettingInfo.SELECT_COMPRESS_METHOD = SettingInfo.SELECT_COMPRESS_RATE;
@@ -42,8 +53,8 @@ namespace UI
             rate1.Text = rate_bar1.Value.ToString();
             if(radioButton1.Checked)
             {
-                temp_image = new Bitmap(MainForm.picInfo[_path].compress(rate_bar1.Value, 100, format_selection.Text));
-                ((picturePanel)(compressed_image.Controls[0])).init(temp_image, save_path);
+                temp_image = new Bitmap(MainForm.picInfo[_path].compress(100 - (Int64)rate_bar1.Value, imageformat[format_selection.Text]));
+                ((picturePanel)(compressed_image.Controls[0])).init(temp_image, MainForm.picInfo[_path].name);
             }
         }
 
@@ -52,25 +63,25 @@ namespace UI
             rate2.Text = rate_bar2.Value.ToString();
             if (radioButton2.Checked)
             {
-                int T = 6;
-                int l = 0, r = 100, mid = (l + r) >> 1;
-                double baseGrade = MainForm.picInfo[_path].tenengrad();
-                for (int i = 0; i < T; i++)
+                int l = 0, r = 100, mid;
+                while (l != r)
                 {
                     mid = (l + r) >> 1;
-                    temp_image = new Bitmap(MainForm.picInfo[_path].compress(mid, 100, format_selection.Text));
+                    temp_image = new Bitmap(MainForm.picInfo[_path].compress((Int64)mid, imageformat[format_selection.Text]));
                     Pic pic = new Pic(temp_image);
-                    double grade = pic.tenengrad();
-                    if (grade / baseGrade * 100 > rate_bar2.Value)
+                    double grade = MainForm.picInfo[_path].PSNR(pic);
+                    if (grade > threasold[rate_bar2.Value])
                     {
                         r = mid;
                     }
                     else
                     {
-                        l = mid;
+                        l = mid + 1;
                     }
                 }
-                ((picturePanel)(compressed_image.Controls[0])).init(temp_image, save_path);
+                rate_bar1.Value = 100 - l;
+                rate1.Text = rate_bar1.Value.ToString();
+                ((picturePanel)(compressed_image.Controls[0])).init(temp_image, MainForm.picInfo[_path].name);
             }
         }
 
@@ -114,7 +125,7 @@ namespace UI
 
             p1 = new picturePanel();
             uncompressed_image.Controls.Add(p1);
-            p1.init(MainForm.picInfo[_path].image, _path);
+            p1.init(MainForm.picInfo[_path].image, MainForm.picInfo[_path].name);
             p1.image_name.Font = new Font("微软雅黑", 17);
             p1.image_name.Height = 32;
             p2 = new picturePanel();
@@ -122,78 +133,19 @@ namespace UI
             p2.image_name.Font = new Font("微软雅黑", 17);
             p2.image_name.Height = 32;
 
-            if (radioButton1.Checked)
+            temp_image = new Bitmap(MainForm.picInfo[_path].compress(50, imageformat[format_selection.Text]));
+            ((picturePanel)(compressed_image.Controls[0])).init(temp_image, MainForm.picInfo[_path].name);
+
+            threasold = new double[110];
+            double TOT_MSE = 255 * 3;
+            for(int i = 0; i <= 100; i++)
             {
-                temp_image = new Bitmap(MainForm.picInfo[_path].compress(rate_bar1.Value, 100, format_selection.Text));
-                ((picturePanel)(compressed_image.Controls[0])).init(temp_image, save_path);
-            }
-            else
-            {
-                int T = 6;
-                int l = 0, r = 100, mid = (l + r) >> 1;
-                double baseGrade = MainForm.picInfo[_path].tenengrad();
-                for (int i = 0; i < T; i++)
-                {
-                    mid = (l + r) >> 1;
-                    temp_image = new Bitmap(MainForm.picInfo[_path].compress(mid, 100, format_selection.Text));
-                    Pic pic = new Pic(temp_image);
-                    double grade = pic.tenengrad();
-                    if (grade / baseGrade * 100 > rate_bar2.Value)
-                    {
-                        r = mid;
-                    }
-                    else
-                    {
-                        l = mid;
-                    }
-                }
-                ((picturePanel)(compressed_image.Controls[0])).init(temp_image, save_path);
+                threasold[i] = 10.0 * Math.Log10(65025 / (TOT_MSE * (100 - i) / 100));
             }
         }
 
         private void save_Click(object sender, EventArgs e)
         {
-            /*
-            if (SettingInfo.SELECT_COMPRESS_METHOD == SettingInfo.SELECT_COMPRESS_RATE)
-            {
-                if (rate_bar1.Value == 0)
-                {
-                    MessageBox.Show("压缩率不能为0!");
-                    return;
-                }
-                Bitmap new_image = new Bitmap(MainForm.picInfo[_path].compress(rate_bar1.Value, 100, format_selection.Text));
-                new_image.Save(SettingInfo.save_path + "\\" + _name + "compressed_image." + format_selection.Text, imageformat[format_selection.Text]);
-                ((picturePanel)(compressed_image.Controls[0])).init(new_image, _name);
-            }
-            else if (SettingInfo.SELECT_COMPRESS_METHOD == SettingInfo.SELECT_COMPRESS_SCORE)
-            {
-                if (rate_bar2.Value == 0)
-                {
-                    MessageBox.Show("质量分数不能为0!");
-                    return;
-                }
-                int T = 6;
-                int l = 0, r = 100, mid = (l + r) >> 1;
-                double baseGrade = MainForm.picInfo[_path].tenengrad();
-                for(int i= 0 ; i < T; i++)
-                {
-                    mid = (l + r) >> 1;
-                    temp_image = new Bitmap(MainForm.picInfo[_path].compress(mid, 100, format_selection.Text));
-                    Pic pic = new Pic(temp_image);
-                    double grade = pic.tenengrad();
-                    if (grade / baseGrade * 100 > rate_bar2.Value)
-                    {
-                        r = mid;
-                    }
-                    else
-                    {
-                        l = mid;
-                    }
-                }
-                ((picturePanel)(compressed_image.Controls[0])).init(temp_image, _name);
-                temp_image.Save(SettingInfo.save_path + "\\" + _name + "compressed_image." + format_selection.Text, imageformat[format_selection.Text]);
-            }
-            */
             if (!imageformat.ContainsKey(format_selection.Text))
             {
                 MessageBox.Show("不存在" + format_selection.Text + "的图片格式选项");
@@ -213,8 +165,8 @@ namespace UI
         {
             radioButton1.Checked = true;
             radioButton2.Checked = false;
-            temp_image = new Bitmap(MainForm.picInfo[_path].compress(rate_bar1.Value, 100, format_selection.Text));
-            ((picturePanel)(compressed_image.Controls[0])).init(temp_image, save_path);
+            temp_image = new Bitmap(MainForm.picInfo[_path].compress(100 - (Int64)rate_bar1.Value, imageformat[format_selection.Text]));
+            ((picturePanel)(compressed_image.Controls[0])).init(temp_image, MainForm.picInfo[_path].name);
             SettingInfo.SELECT_COMPRESS_METHOD = SettingInfo.SELECT_COMPRESS_RATE;
         }
 
@@ -222,25 +174,25 @@ namespace UI
         {
             radioButton1.Checked = false;
             radioButton2.Checked = true;
-            int T = 6;
-            int l = 0, r = 100, mid = (l + r) >> 1;
-            double baseGrade = MainForm.picInfo[_path].tenengrad();
-            for (int i = 0; i < T; i++)
+            int l = 0, r = 100, mid;
+            while(l != r)
             {
                 mid = (l + r) >> 1;
-                temp_image = new Bitmap(MainForm.picInfo[_path].compress(mid, 100, format_selection.Text));
+                temp_image = new Bitmap(MainForm.picInfo[_path].compress((Int64)mid, imageformat[format_selection.Text]));
                 Pic pic = new Pic(temp_image);
-                double grade = pic.tenengrad();
-                if (grade / baseGrade * 100 > rate_bar2.Value)
+                double grade = MainForm.picInfo[_path].PSNR(pic);
+                if (grade > threasold[rate_bar2.Value])
                 {
                     r = mid;
                 }
                 else
                 {
-                    l = mid;
+                    l = mid + 1;
                 }
             }
-            ((picturePanel)(compressed_image.Controls[0])).init(temp_image, save_path);
+            rate_bar1.Value = 100 - l;
+            rate1.Text = rate_bar1.Value.ToString();
+            ((picturePanel)(compressed_image.Controls[0])).init(temp_image, MainForm.picInfo[_path].name);
             SettingInfo.SELECT_COMPRESS_METHOD = SettingInfo.SELECT_COMPRESS_SCORE;
         }
 

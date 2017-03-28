@@ -13,11 +13,11 @@ namespace UI
          * 赋值为默认值
          */
         public static string image_clean_full = "PSNR";
-        public static string image_clean_none = "tenengrad";
+        public static string image_clean_none = "Tenengrad";
         public static string image_compress_full = "PSNR";
-        public static string image_compare_none = "tenengrad";
+        public static string image_compare_none = "Tenengrad";
         public static string image_sort_full = "PSNR";
-        public static string image_sort_none = "tenengrad";
+        public static string image_sort_none = "Tenengrad";
 
         public static int image_clean_full_selected = 0;
         public static int image_clean_none_selected = 0;

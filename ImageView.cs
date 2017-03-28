@@ -16,6 +16,7 @@ namespace UI
         private int position;
         public ImageView(string[] picList,int position)
         {
+            this.WindowState = FormWindowState.Maximized;
             this.picList = picList;
             this.position = position;
             InitializeComponent();
@@ -41,7 +42,7 @@ namespace UI
             
 
             //窗口名称是当前图片名称
-            this.Text = MainForm.picInfo[path].name;
+            this.Text = "图片浏览器 - " + MainForm.picInfo[path].name;
             
             //将所点击的图片添加到picturebox
             PictureBox image = this.pictureBox1;
@@ -100,7 +101,7 @@ namespace UI
                     this.rightButton.Visible = true;
                 }
                 string path = picList[position];
-                this.Text = MainForm.picInfo[path].name;
+                this.Text = "图片浏览器 - " + MainForm.picInfo[path].name;
                 PictureBox image = this.pictureBox1;
               
                 image.Image = MainForm.picInfo[path].image;
@@ -126,7 +127,7 @@ namespace UI
                     this.leftButton.Visible = true;
                 }
                 string path = picList[position];
-                this.Text = MainForm.picInfo[path].name;
+                this.Text = "图片浏览器 - " + MainForm.picInfo[path].name;
                 PictureBox image = this.pictureBox1;
                 
                 image.Image = MainForm.picInfo[path].image;

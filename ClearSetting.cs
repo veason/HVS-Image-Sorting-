@@ -60,7 +60,7 @@ namespace UI
                     {
                         if (!MainForm.picInfo[MainForm.path_name[i]].state_none)
                         {
-                            MainForm.picInfo[MainForm.path_name[i]].grade_none = MainForm.picInfo[MainForm.path_name[i]].tenengrad();
+                            MainForm.picInfo[MainForm.path_name[i]].grade_none = MainForm.picInfo[MainForm.path_name[i]].Tenengrad();
                             MainForm.picInfo[MainForm.path_name[i]].state_none = true;
                         }
                         sortedArray[index++] = new sortObject(MainForm.picInfo[MainForm.path_name[i]].grade_none, MainForm.path_name[i], MainForm.name[i]);
@@ -76,7 +76,7 @@ namespace UI
                         //图像全参考评分
                         if (SettingInfo.image_clean_full == "PSNR")
                         {
-                            MainForm.picInfo[MainForm.path_name[i]].grade_full = MainForm.picInfo[MainForm.path_name[i]].psnr(MainForm.picInfo[referenceImage]);
+                            MainForm.picInfo[MainForm.path_name[i]].grade_full = MainForm.picInfo[MainForm.path_name[i]].PSNR(MainForm.picInfo[referenceImage]);
                         }
                         else
                         {

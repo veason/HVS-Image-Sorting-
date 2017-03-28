@@ -109,11 +109,11 @@
     <Compile Include="CompressForm_none.Designer.cs">
       <DependentUpon>CompressForm_none.cs</DependentUpon>
     </Compile>
-    <Compile Include="groupStatement.cs">
+    <Compile Include="aboutUs.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="groupStatement.Designer.cs">
-      <DependentUpon>groupStatement.cs</DependentUpon>
+    <Compile Include="aboutUs.Designer.cs">
+      <DependentUpon>aboutUs.cs</DependentUpon>
     </Compile>
     <Compile Include="ImageDeleteComfirmForm.cs">
       <SubType>Form</SubType>
@@ -123,12 +123,6 @@
     </Compile>
     <Compile Include="picturePanel.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SelectCompressForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SelectCompressForm.Designer.cs">
-      <DependentUpon>SelectCompressForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SortingResult.cs">
       <SubType>Form</SubType>
@@ -178,8 +172,8 @@
     <EmbeddedResource Include="CompressForm_none.resx">
       <DependentUpon>CompressForm_none.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="groupStatement.resx">
-      <DependentUpon>groupStatement.cs</DependentUpon>
+    <EmbeddedResource Include="aboutUs.resx">
+      <DependentUpon>aboutUs.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ImageDeleteComfirmForm.resx">
       <DependentUpon>ImageDeleteComfirmForm.cs</DependentUpon>
@@ -201,9 +195,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="SelectCompressForm.resx">
-      <DependentUpon>SelectCompressForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="SettingForm.resx">
       <DependentUpon>SettingForm.cs</DependentUpon>
     </EmbeddedResource>

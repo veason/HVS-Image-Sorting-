@@ -159,7 +159,7 @@
             this.clearance_none_combobox.FormattingEnabled = true;
             this.clearance_none_combobox.ItemHeight = 23;
             this.clearance_none_combobox.Items.AddRange(new object[] {
-            "tenengrad"});
+            "Tenengrad"});
             this.clearance_none_combobox.Location = new System.Drawing.Point(398, 84);
             this.clearance_none_combobox.Name = "clearance_none_combobox";
             this.clearance_none_combobox.Size = new System.Drawing.Size(200, 31);
@@ -171,7 +171,7 @@
             this.compression_none_combobox.FormattingEnabled = true;
             this.compression_none_combobox.ItemHeight = 23;
             this.compression_none_combobox.Items.AddRange(new object[] {
-            "tenengrad"});
+            "Tenengrad"});
             this.compression_none_combobox.Location = new System.Drawing.Point(398, 129);
             this.compression_none_combobox.Name = "compression_none_combobox";
             this.compression_none_combobox.Size = new System.Drawing.Size(200, 31);
@@ -196,7 +196,7 @@
             this.sorting_none_combobox.FormattingEnabled = true;
             this.sorting_none_combobox.ItemHeight = 23;
             this.sorting_none_combobox.Items.AddRange(new object[] {
-            "tenengrad"});
+            "Tenengrad"});
             this.sorting_none_combobox.Location = new System.Drawing.Point(398, 224);
             this.sorting_none_combobox.Name = "sorting_none_combobox";
             this.sorting_none_combobox.Size = new System.Drawing.Size(200, 31);
@@ -204,10 +204,10 @@
             // 
             // confirm
             // 
-            this.confirm.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.confirm.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.confirm.Location = new System.Drawing.Point(366, 390);
             this.confirm.Name = "confirm";
-            this.confirm.Size = new System.Drawing.Size(75, 30);
+            this.confirm.Size = new System.Drawing.Size(80, 40);
             this.confirm.TabIndex = 15;
             this.confirm.Text = "确定";
             this.confirm.UseVisualStyleBackColor = true;
@@ -215,10 +215,10 @@
             // 
             // cancel
             // 
-            this.cancel.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cancel.Font = new System.Drawing.Font("微软雅黑", 14.25F);
             this.cancel.Location = new System.Drawing.Point(506, 390);
             this.cancel.Name = "cancel";
-            this.cancel.Size = new System.Drawing.Size(75, 30);
+            this.cancel.Size = new System.Drawing.Size(80, 40);
             this.cancel.TabIndex = 16;
             this.cancel.Text = "取消";
             this.cancel.UseVisualStyleBackColor = true;
@@ -230,7 +230,7 @@
             this.comparation_none_combobox.FormattingEnabled = true;
             this.comparation_none_combobox.ItemHeight = 23;
             this.comparation_none_combobox.Items.AddRange(new object[] {
-            "tenengrad"});
+            "Tenengrad"});
             this.comparation_none_combobox.Location = new System.Drawing.Point(398, 269);
             this.comparation_none_combobox.Name = "comparation_none_combobox";
             this.comparation_none_combobox.Size = new System.Drawing.Size(200, 31);
@@ -284,10 +284,10 @@
             // 
             // selection
             // 
-            this.selection.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.selection.Font = new System.Drawing.Font("微软雅黑", 14.25F);
             this.selection.Location = new System.Drawing.Point(618, 329);
             this.selection.Name = "selection";
-            this.selection.Size = new System.Drawing.Size(75, 30);
+            this.selection.Size = new System.Drawing.Size(120, 40);
             this.selection.TabIndex = 20;
             this.selection.Text = "浏览文件夹";
             this.selection.UseVisualStyleBackColor = true;

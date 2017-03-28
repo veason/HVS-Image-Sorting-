@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace UI
 {
-    public partial class groupStatement : Form
+    public partial class aboutUs : Form
     {
-        public groupStatement()
+        public aboutUs()
         {
             InitializeComponent();
         }

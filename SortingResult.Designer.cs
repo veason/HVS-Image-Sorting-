@@ -117,6 +117,7 @@
             this.MinimumSize = new System.Drawing.Size(1520, 774);
             this.Name = "SortingResult";
             this.Text = "排序结果";
+            this.TopMost = true;
             this.Load += new System.EventHandler(this.SortingResult_Load);
             this.Resize += new System.EventHandler(this.SortingResult_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.referenceImage)).EndInit();

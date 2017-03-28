@@ -30,6 +30,18 @@ namespace UI
         EventHandler sorted_e1; //双击单元格打开图片查看器
         EventHandler sorted_e2; //双击单元格打开图片查看器
         EventHandler sorted_e3; //双击单元格打开图片查看器
+
+        //防止窗体闪烁
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;
+                return cp;
+            }
+        }
+
         public SortingResult(int picNum, sortObject[] originArray, sortObject[] sortedArray)
         {
             InitializeComponent();

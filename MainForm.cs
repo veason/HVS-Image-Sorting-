@@ -39,8 +39,8 @@ namespace UI
         string tag = "True"; //Tag标签，用于检测被check的结点（每个被check的结点的tag属性被设置为true）
         TreeNode rootNode; //用于设置目录树根节点（我的电脑）
         bool select_all = false; //是否全选
-        public static Color unselected_color = Color.FromArgb(128, 208, 255); //图片未选择时背景颜色
-        public static Color selected_color = Color.FromArgb(92, 199, 249); //图片选择时背景颜色
+        public static Color unselected_color = Color.White; //图片未选择时背景颜色
+        public static Color selected_color = Color.Gray; //图片选择时背景颜色
         int sizeF = 5; //缩放等级，缩放等级越小图片越大
         bool control_flag = false; //记录ctrl键是否键下，用于图片缩放
         bool shift_flag = false; //记录shift键是否键下，用于连续选择
@@ -52,6 +52,17 @@ namespace UI
         EventHandler de1; //双击单元格打开图片查看器
         EventHandler de2; //双击单元格打开图片查看器
         EventHandler de3; //双击单元格打开图片查看器
+
+        //防止窗体闪烁
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;
+                return cp;
+            }
+        }
 
         //主窗口初始化变量
         public MainForm()
@@ -247,7 +258,7 @@ namespace UI
         {
             imageSortPanel.Visible = false;
             imageClearPanel.Visible = false;
-            groupStatement gs = new groupStatement();
+            aboutUs gs = new aboutUs();
             gs.Show();
         } 
 
@@ -582,7 +593,7 @@ namespace UI
             p.BackColor = unselected_color;
             p.image_name.Height = 25;
             p.image_name.Font = new Font("微软雅黑", 12);
-            //p.image.MouseDoubleClick += new MouseEventHandler(image_MouseDoubleClick);
+            p.image_name.ForeColor = Color.Black;
             p.image.Name = tot.ToString();
             result_show.Controls.Add(p, tot % 5, tot / 5);
             p.init(MainForm.picInfo[path].image, _name);
@@ -874,7 +885,7 @@ namespace UI
                 {
                     if (!picInfo[path_name[i]].state_none)
                     {
-                        picInfo[path_name[i]].grade_none = picInfo[path_name[i]].tenengrad();
+                        picInfo[path_name[i]].grade_none = picInfo[path_name[i]].Tenengrad();
                         picInfo[path_name[i]].state_none = true;
                     }
                     originArray[id] = new sortObject(picInfo[path_name[i]].grade_none, path_name[i], name[i]);
@@ -941,7 +952,7 @@ namespace UI
                     {
                         if (SettingInfo.image_sort_full == "PSNR")
                         {
-                            picInfo[path_name[i]].grade_full = picInfo[path_name[i]].psnr(picInfo[referenceImage]);
+                            picInfo[path_name[i]].grade_full = picInfo[path_name[i]].PSNR(picInfo[referenceImage]);
                         }
                         else
                         {
