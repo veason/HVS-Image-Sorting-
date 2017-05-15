@@ -37,20 +37,20 @@
             // beforeSortingHint
             // 
             this.beforeSortingHint.AutoSize = true;
-            this.beforeSortingHint.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.beforeSortingHint.Location = new System.Drawing.Point(435, 30);
+            this.beforeSortingHint.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.beforeSortingHint.Location = new System.Drawing.Point(435, 20);
             this.beforeSortingHint.Name = "beforeSortingHint";
-            this.beforeSortingHint.Size = new System.Drawing.Size(75, 28);
+            this.beforeSortingHint.Size = new System.Drawing.Size(104, 38);
             this.beforeSortingHint.TabIndex = 0;
             this.beforeSortingHint.Text = "排序前";
             // 
             // afterSortingHint
             // 
             this.afterSortingHint.AutoSize = true;
-            this.afterSortingHint.Font = new System.Drawing.Font("微软雅黑", 15.75F);
-            this.afterSortingHint.Location = new System.Drawing.Point(435, 320);
+            this.afterSortingHint.Font = new System.Drawing.Font("微软雅黑", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.afterSortingHint.Location = new System.Drawing.Point(435, 310);
             this.afterSortingHint.Name = "afterSortingHint";
-            this.afterSortingHint.Size = new System.Drawing.Size(75, 28);
+            this.afterSortingHint.Size = new System.Drawing.Size(104, 38);
             this.afterSortingHint.TabIndex = 1;
             this.afterSortingHint.Text = "排序后";
             // 

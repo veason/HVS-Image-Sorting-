@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using Microsoft.VisualBasic.FileIO;
 using System.IO;
+
 namespace HVS
 {
     public partial class ImageView : Form
@@ -27,8 +28,8 @@ namespace HVS
         {
             //控制图片大小以及按钮大小
            
-            int formWidth=this.Width;
-            int formHeight=this.Height;
+            int formWidth = this.Width;
+            int formHeight = this.Height;
             int height = (int)(((double)formHeight - 50) / 2-25);
             string path = picList[position];
             this.tableLayoutPanel1.Width = formWidth;
@@ -38,8 +39,6 @@ namespace HVS
             this.rightButton.Margin = new Padding(0, height, 0, 0);
             this.rightButton.Height = 50;
             this.TopMost = true;
-          //  this.imageButton1.Height = formHeight;
-          //  this.imageButton2.Height= formHeight;
             
 
             //窗口名称是当前图片名称
@@ -82,8 +81,6 @@ namespace HVS
             this.leftButton.Height = 50;
             this.rightButton.Margin = new Padding(0, height, 0, 0);
             this.rightButton.Height = 50;
-            //this.imageButton2.Height = formHeight;
- 
         }
 
         //上一张图片
@@ -100,7 +97,7 @@ namespace HVS
 
         public void left_shift()
         {
-            //position指第几张图片，0~length-1
+            //position指第几张图片，0 ~ length - 1
             if (position <= 0)
             {
                 this.leftButton.Visible = false;

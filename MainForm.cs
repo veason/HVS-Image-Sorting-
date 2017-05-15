@@ -18,10 +18,12 @@ namespace HVS
 {
     public partial class MainForm :CCSkinMain
     {
-        public static bool[] imageToDelete; //图片状态
-        public static int clear_ratio = 50; //图片清理率，也就是清除图片评分后百分之几的图片
         private const int SIZE = 10000; //初始化常量
         private const double size_rate = 0.85;
+        public static Color unselected_color = Color.White; //图片未选择时背景颜色
+        public static Color selected_color = Color.Gray; //图片选择时背景颜色
+
+        public static bool[] imageToDelete; //图片状态
         public static string previous_pic = null; //上一次全参考选择的图像
         public static string referenceImage = null; //参考图像
         public static string referenceImage_temp = null;
@@ -33,8 +35,7 @@ namespace HVS
         string tag = "True"; //Tag标签，用于检测被check的结点（每个被check的结点的tag属性被设置为true）
         TreeNode rootNode; //用于设置目录树根节点（我的电脑）
         bool select_all = false; //是否全选
-        public static Color unselected_color = Color.White; //图片未选择时背景颜色
-        public static Color selected_color = Color.Gray; //图片选择时背景颜色
+
         int sizeF = 5; //缩放等级，缩放等级越小图片越大
         bool control_flag = false; //记录ctrl键是否键下，用于图片缩放
         bool shift_flag = false; //记录shift键是否键下，用于连续选择
@@ -252,7 +253,7 @@ namespace HVS
         {
             imageSortPanel.Visible = false;
             imageClearPanel.Visible = false;
-            aboutUs gs = new aboutUs();
+            AboutUs gs = new AboutUs();
             gs.Show();
         } 
 
@@ -665,13 +666,11 @@ namespace HVS
             DoDragDrop(e.Item, DragDropEffects.Move);
         }
 
-        //result_show控件拖入事件
         private void result_show_DragEnter(object sender, DragEventArgs e)
         {
             e.Effect = DragDropEffects.Move;
         }
 
-        //result_show控件转入释放事件：遍历目录树所有结点，将其中被check的图片添加到result_show中
         private void result_show_DragDrop(object sender, DragEventArgs e)
         {
             int i = MainInfo.tot;
@@ -725,7 +724,7 @@ namespace HVS
                         }
                     }
                     e.Node.Parent.Checked = bol;
-                    ////记得如果父节点被选中或取消，记得设置它的tag哦
+                    //记得如果父节点被选中或取消，记得设置它的tag哦
                     if (bol)
                     {
                         e.Node.Parent.Tag = tag;

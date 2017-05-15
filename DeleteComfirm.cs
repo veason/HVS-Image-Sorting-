@@ -15,7 +15,7 @@ using System.Collections;
 
 namespace HVS
 {
-    public partial class DeleteComfirmForm : Form
+    public partial class DeleteComfirm : Form
     {
         private int delete_rate;
         private const double size_rate = 0.9;
@@ -38,7 +38,7 @@ namespace HVS
             }
         }
 
-        public DeleteComfirmForm()
+        public DeleteComfirm()
         {
             InitializeComponent();
             e1 = new EventHandler(item_double_click);
@@ -46,7 +46,7 @@ namespace HVS
             e3 = new EventHandler(label_double_click);
         }
 
-        public DeleteComfirmForm(int delete_rate, MainForm mf, SortObject[] sortedArray)
+        public DeleteComfirm(int delete_rate, MainForm mf, SortObject[] sortedArray)
         {
             InitializeComponent();
             this.delete_rate = delete_rate;

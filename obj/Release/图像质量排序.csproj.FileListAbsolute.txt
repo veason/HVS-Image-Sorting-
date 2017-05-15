@@ -197,7 +197,6 @@ C:\Users\Administrator\Desktop\project\ImageSorting\obj\Release\HVS.ClearSetting
 C:\Users\Administrator\Desktop\project\ImageSorting\obj\Release\HVS.ClearSetting_NR.resources
 C:\Users\Administrator\Desktop\project\ImageSorting\obj\Release\HVS.Compare_NR.resources
 C:\Users\Administrator\Desktop\project\ImageSorting\obj\Release\HVS.aboutUs.resources
-C:\Users\Administrator\Desktop\project\ImageSorting\obj\Release\HVS.deleteComfirmForm.resources
 C:\Users\Administrator\Desktop\project\ImageSorting\obj\Release\HVS.ImageView.resources
 C:\Users\Administrator\Desktop\project\ImageSorting\obj\Release\HVS.MainForm.resources
 C:\Users\Administrator\Desktop\project\ImageSorting\obj\Release\HVS.Properties.Resources.resources
@@ -205,3 +204,4 @@ C:\Users\Administrator\Desktop\project\ImageSorting\obj\Release\HVS.SettingForm.
 C:\Users\Administrator\Desktop\project\ImageSorting\obj\Release\HVS.SortingProgress.resources
 C:\Users\Administrator\Desktop\project\ImageSorting\obj\Release\HVS.SortingResult.resources
 C:\Users\Administrator\Desktop\project\ImageSorting\obj\Release\HVS.Compress_FR.resources
+C:\Users\Administrator\Desktop\project\ImageSorting\obj\Release\HVS.DeleteComfirm.resources

@@ -177,7 +177,7 @@ namespace HVS
             {
                 picturePanel p = new picturePanel();
                 p.init(MainInfo.picInfo[_path].image, MainInfo.picInfo[_path].name);
-                p.image_name.Font = new Font("微软雅黑", 17);
+                p.image_name.Font = new Font("微软雅黑", 18);
                 p.image_name.Height = 32;
             }
             if (_path == null)

@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace HVS
 {
-    public partial class aboutUs : Form
+    public partial class AboutUs : Form
     {
-        public aboutUs()
+        public AboutUs()
         {
             InitializeComponent();
         }

@@ -124,13 +124,25 @@ namespace HVS
                     }
                 default:
                     {
-                        if (SettingInfo.dllHelper.NR_methods.ContainsKey(algorithm))
+                        try
                         {
-                            object reflectInstance = Activator.CreateInstance(SettingInfo.dllHelper.NR_methods[algorithm]);
-                            MethodInfo methodInfo = SettingInfo.dllHelper.NR_methods[algorithm].GetMethod("NR_method",
-                                new Type[] { typeof(int[, ,]), typeof(int), typeof(int) });
-                            return (double)methodInfo.Invoke(reflectInstance,
-                                new object[] { image, height, width });
+                            if (SettingInfo.dllHelper.NR_methods.ContainsKey(algorithm))
+                            {
+                                object reflectInstance = Activator.CreateInstance(SettingInfo.dllHelper.NR_methods[algorithm]);
+                                MethodInfo methodInfo = SettingInfo.dllHelper.NR_methods[algorithm].GetMethod("NR_method", new Type[] { typeof(int[, ,]), typeof(int), typeof(int) });
+                                if (methodInfo != null)
+                                {
+                                    return (double)methodInfo.Invoke(reflectInstance, new object[] { image, height, width });
+                                }
+                                else
+                                {
+
+                                }
+                            }
+                        }
+                        catch(Exception e)
+                        {
+                            Console.WriteLine(e);
                         }
                         return -1;
                     }
@@ -153,11 +165,23 @@ namespace HVS
                     {
                         if (SettingInfo.dllHelper.NR_methods.ContainsKey(algorithm))
                         {
-                            object reflectInstance = Activator.CreateInstance(SettingInfo.dllHelper.NR_methods[algorithm]);
-                            MethodInfo methodInfo = SettingInfo.dllHelper.NR_methods[algorithm].GetMethod("NR_grade",
-                                new Type[] { typeof(double) });
-                            return (int)methodInfo.Invoke(reflectInstance,
-                                new object[] { result });
+                            try
+                            {
+                                object reflectInstance = Activator.CreateInstance(SettingInfo.dllHelper.NR_methods[algorithm]);
+                                MethodInfo methodInfo = SettingInfo.dllHelper.NR_methods[algorithm].GetMethod("NR_grade", new Type[] { typeof(double) });
+                                if (methodInfo != null)
+                                {
+                                    return (int)methodInfo.Invoke(reflectInstance, new object[] { result });
+                                }
+                                else
+                                {
+
+                                }
+                            }
+                            catch(Exception e)
+                            {
+                                Console.WriteLine(e);
+                            }
                         }
                         return -1;
                     }

@@ -1,6 +1,6 @@
 ﻿namespace HVS
 {
-    partial class aboutUs
+    partial class AboutUs
     {
         /// <summary>
         /// Required designer variable.

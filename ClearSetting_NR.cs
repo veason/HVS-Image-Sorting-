@@ -51,7 +51,7 @@ namespace HVS
                 }
 
                 Array.Sort(sortedArray, new sortObjectComparer());
-                DeleteComfirmForm imageDeleteComfirmForm = new DeleteComfirmForm(clearingRatioBar.Value, mf, sortedArray);
+                DeleteComfirm imageDeleteComfirmForm = new DeleteComfirm(clearingRatioBar.Value, mf, sortedArray);
                 imageDeleteComfirmForm.Show();
             }
             else
@@ -80,7 +80,7 @@ namespace HVS
                 }
 
                 Array.Sort(sortedArray, new sortObjectComparer());
-                DeleteComfirmForm imageDeleteComfirmForm = new DeleteComfirmForm(100, mf, sortedArray);
+                DeleteComfirm imageDeleteComfirmForm = new DeleteComfirm(100, mf, sortedArray);
                 imageDeleteComfirmForm.Show();
             }
         }

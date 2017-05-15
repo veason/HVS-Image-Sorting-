@@ -1,6 +1,6 @@
 ﻿namespace HVS
 {
-    partial class DeleteComfirmForm
+    partial class DeleteComfirm
     {
         /// <summary>
         /// Required designer variable.

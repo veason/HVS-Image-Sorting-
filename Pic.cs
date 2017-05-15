@@ -23,7 +23,6 @@ namespace HVS
         public double grade_none; //图像无参考得分
         public double grade_full; //图像全参考得分
         public int[, ,] rgb; //图像rgb
-        public double[,] gray; //图像灰度值
 
         public unsafe Pic(Bitmap image)
         {
@@ -36,7 +35,6 @@ namespace HVS
             int extra = stribe - width * 3;
             rgb = new int[3, height, width];
             //指针操作图像，C#里处理图像最快的方法，将图像的rgb值先读入一个数组
-            gray = new double[height, width];
             for (int i = 0; i < height; i++)
             {
                 for (int k = 0; k < width; k++, ptr += 3)
@@ -44,7 +42,6 @@ namespace HVS
                     rgb[0, i, k] = *(ptr);
                     rgb[1, i, k] = *(ptr + 1);
                     rgb[2, i, k] = *(ptr + 2);
-                    gray[i, k] = rgb[0, i, k] * 0.114 + rgb[1, i, k] * 0.587 + rgb[2, i, k] * 0.299;
                 }
                 ptr += extra;
             }
@@ -65,7 +62,6 @@ namespace HVS
             int extra = stribe - width * 3;
             rgb = new int[3, height, width];
             //指针操作图像，C#里处理图像最快的方法，将图像的rgb值先读入一个数组
-            gray = new double[height, width];
             for (int i = 0; i < height; i++)
             {
                 for (int k = 0; k < width; k++, ptr += 3)
@@ -73,7 +69,6 @@ namespace HVS
                     rgb[0, i, k] = *(ptr);
                     rgb[1, i, k] = *(ptr + 1);
                     rgb[2, i, k] = *(ptr + 2);
-                    gray[i, k] = rgb[0, i, k] * 0.114 + rgb[1, i, k] * 0.587 + rgb[2, i, k] * 0.299;
                 }
                 ptr += extra;
             }

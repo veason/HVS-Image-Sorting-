@@ -31,23 +31,6 @@ namespace HVS
             return 10.0 * Math.Log10(65025 / MSE);
         }
 
-        public static int PSNR_grade(int[, ,] image1, int[, ,] image2, int height, int width)
-        {
-            double result = PSNR(image1, image2, height, width);
-            if(result<=19.0)
-            {
-                return 0;
-            }
-            else if(result>=51.0)
-            {
-                return 100;
-            }
-            else
-            {
-                return (int)((result - 19) * 3.125);
-            }
-        }
-
         public static int PSNR_grade(double result)
         {
             if (result <= 19.0)
@@ -114,14 +97,13 @@ namespace HVS
                 }
             }
 
-            int[] lbp1 = new int[59];
-            int[] lbp2 = new int[59];
             double[,] gray1 = new double[height, width];
             double[,] gray2 = new double[height, width];
-            for (int i = 0; i < 59; i++)
-            {
-                lbp1[i] = lbp2[i] = 0;
-            }
+            int tempHeight = height - 1;
+            int tempWidth = width - 1;
+            int pattern1;
+            int pattern2;
+            int result = 0;
 
             for (int i = 0; i < height; i++)
             {
@@ -131,59 +113,39 @@ namespace HVS
                     gray2[i, k] = image2[0, i, k] * 0.114 + image2[1, i, k] * 0.587 + image2[2, i, k] * 0.299;
                 }
             }
-            int tempHeight = height - 1;
-            int tempWidth = width - 1;
-            int pattern1;
-            int pattern2;
-            int result = 0;
+
             for (int i = 1; i < tempHeight; i++)
             {
                 for (int k = 1; k < tempWidth; k++)
                 {
                     pattern1 = 0;
-                    if (gray1[i, k] > gray1[i - 1, k - 1]) pattern1 += 1;
-                    if (gray1[i, k] > gray1[i - 1, k]) pattern1 += 2;
-                    if (gray1[i, k] > gray1[i - 1, k + 1]) pattern1 += 4;
-                    if (gray1[i, k] > gray1[i, k + 1]) pattern1 += 8;
-                    if (gray1[i, k] > gray1[i + 1, k + 1]) pattern1 += 16;
-                    if (gray1[i, k] > gray1[i + 1, k]) pattern1 += 32;
-                    if (gray1[i, k] > gray1[i + 1, k - 1]) pattern1 += 64;
-                    if (gray1[i, k] > gray1[i, k - 1]) pattern1 += 128;
-                    lbp1[value[pattern1]]++;
+                    if (gray1[i, k] > gray1[i - 1, k - 1]) pattern1 |= 1;
+                    if (gray1[i, k] > gray1[i - 1, k]) pattern1 |= 2;
+                    if (gray1[i, k] > gray1[i - 1, k + 1]) pattern1 |= 4;
+                    if (gray1[i, k] > gray1[i, k + 1]) pattern1 |= 8;
+                    if (gray1[i, k] > gray1[i + 1, k + 1]) pattern1 |= 16;
+                    if (gray1[i, k] > gray1[i + 1, k]) pattern1 |= 32;
+                    if (gray1[i, k] > gray1[i + 1, k - 1]) pattern1 |= 64;
+                    if (gray1[i, k] > gray1[i, k - 1]) pattern1 |= 128;
 
                     pattern2 = 0;
-                    if (gray2[i, k] > gray2[i - 1, k - 1]) pattern2 += 1;
-                    if (gray2[i, k] > gray2[i - 1, k]) pattern2 += 2;
-                    if (gray2[i, k] > gray2[i - 1, k + 1]) pattern2 += 4;
-                    if (gray2[i, k] > gray2[i, k + 1]) pattern2 += 8;
-                    if (gray2[i, k] > gray2[i + 1, k + 1]) pattern2 += 16;
-                    if (gray2[i, k] > gray2[i + 1, k]) pattern2 += 32;
-                    if (gray2[i, k] > gray2[i + 1, k - 1]) pattern2 += 64;
-                    if (gray2[i, k] > gray2[i, k - 1]) pattern2 += 128;
-                    lbp2[value[pattern2]]++;
+                    if (gray2[i, k] > gray2[i - 1, k - 1]) pattern2 |= 1;
+                    if (gray2[i, k] > gray2[i - 1, k]) pattern2 |= 2;
+                    if (gray2[i, k] > gray2[i - 1, k + 1]) pattern2 |= 4;
+                    if (gray2[i, k] > gray2[i, k + 1]) pattern2 |= 8;
+                    if (gray2[i, k] > gray2[i + 1, k + 1]) pattern2 |= 16;
+                    if (gray2[i, k] > gray2[i + 1, k]) pattern2 |= 32;
+                    if (gray2[i, k] > gray2[i + 1, k - 1]) pattern2 |= 64;
+                    if (gray2[i, k] > gray2[i, k - 1]) pattern2 |= 128;
 
-                    if (pattern1 == pattern2)
+                    if (value[pattern1] == value[pattern2])
                     {
                         result++;
                     }
                 }
             }
 
-            int sum = 0;
-            for (int i = 0; i < 59; i++)
-            {
-                if (lbp1[i] == lbp2[i])
-                {
-                    sum++;
-                }
-            }
             return (double)result / ((height - 2) * (width - 2));
-        }
-
-        public static int LBP_grade(int[, ,] image1, int[, ,] image2, int height, int width)
-        {
-            double result = LBP(image1, image2, height, width);
-            return (int)(result * 100);
         }
 
         public static int LBP_grade(double result)
@@ -207,11 +169,23 @@ namespace HVS
                     {
                         if (SettingInfo.dllHelper.FR_methods.ContainsKey(algorithm))
                         {
-                            object reflectInstance = Activator.CreateInstance(SettingInfo.dllHelper.FR_methods[algorithm]);
-                            MethodInfo methodInfo = SettingInfo.dllHelper.FR_methods[algorithm].GetMethod("FR_method",
-                                new Type[] { typeof(int[, ,]), typeof(int[, ,]), typeof(int), typeof(int) });
-                            return (double)methodInfo.Invoke(reflectInstance,
-                                new object[] { image1, image2, height, width });
+                            try
+                            {
+                                object reflectInstance = Activator.CreateInstance(SettingInfo.dllHelper.FR_methods[algorithm]);
+                                MethodInfo methodInfo = SettingInfo.dllHelper.FR_methods[algorithm].GetMethod("FR_method", new Type[] { typeof(int[, ,]), typeof(int[, ,]), typeof(int), typeof(int) });
+                                if (methodInfo != null)
+                                {
+                                    return (double)methodInfo.Invoke(reflectInstance, new object[] { image1, image2, height, width });
+                                }
+                                else
+                                {
+
+                                }
+                            }
+                            catch(Exception e)
+                            {
+                                Console.WriteLine(e);
+                            }
                         }
                         return -1;
                     }
@@ -234,11 +208,23 @@ namespace HVS
                     {
                         if (SettingInfo.dllHelper.FR_methods.ContainsKey(algorithm))
                         {
-                            object reflectInstance = Activator.CreateInstance(SettingInfo.dllHelper.FR_methods[algorithm]);
-                            MethodInfo methodInfo = SettingInfo.dllHelper.FR_methods[algorithm].GetMethod("FR_grade",
-                                new Type[] { typeof(double) });
-                            return (int)methodInfo.Invoke(reflectInstance,
-                                new object[] { result });
+                            try
+                            {
+                                object reflectInstance = Activator.CreateInstance(SettingInfo.dllHelper.FR_methods[algorithm]);
+                                MethodInfo methodInfo = SettingInfo.dllHelper.FR_methods[algorithm].GetMethod("FR_grade", new Type[] { typeof(double) });
+                                if (methodInfo != null)
+                                {
+                                    return (int)methodInfo.Invoke(reflectInstance, new object[] { result });
+                                }
+                                else
+                                {
+
+                                }
+                            }
+                            catch(Exception e)
+                            {
+                                Console.WriteLine(e);
+                            }
                         }
                         return -1;
                     }

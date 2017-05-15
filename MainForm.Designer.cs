@@ -254,8 +254,8 @@ namespace HVS
             this.splitContainer2.Panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(211)))), ((int)(((byte)(255)))));
             this.splitContainer2.Panel2.Controls.Add(this.tableLayoutPanel2);
             this.splitContainer2.Panel2.Controls.Add(this.tableLayoutPanel3);
-            this.splitContainer2.Size = new System.Drawing.Size(1219, 487);
-            this.splitContainer2.SplitterDistance = 924;
+            this.splitContainer2.Size = new System.Drawing.Size(1219, 512);
+            this.splitContainer2.SplitterDistance = 923;
             this.splitContainer2.SplitterWidth = 1;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -371,8 +371,8 @@ namespace HVS
             this.resultPanel.Margin = new System.Windows.Forms.Padding(0);
             this.resultPanel.Name = "resultPanel";
             this.resultPanel.RowCount = 1;
-            this.resultPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 548F));
-            this.resultPanel.Size = new System.Drawing.Size(922, 507);
+            this.resultPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 549F));
+            this.resultPanel.Size = new System.Drawing.Size(921, 532);
             this.resultPanel.TabIndex = 1;
             this.resultPanel.Click += new System.EventHandler(this.resultPanel_Click);
             this.resultPanel.DragDrop += new System.Windows.Forms.DragEventHandler(this.result_show_DragDrop);
@@ -394,12 +394,12 @@ namespace HVS
             this.tableLayoutPanel2.Controls.Add(this.selectALL, 2, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.tableLayoutPanel2.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 430);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 455);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(294, 57);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(295, 57);
             this.tableLayoutPanel2.TabIndex = 2;
             // 
             // deleteImage
@@ -412,11 +412,11 @@ namespace HVS
             this.deleteImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.deleteImage.ButtonImage = ((System.Drawing.Image)(resources.GetObject("deleteImage.ButtonImage")));
             this.deleteImage.ButtonText = "";
-            this.deleteImage.Location = new System.Drawing.Point(242, 3);
+            this.deleteImage.Location = new System.Drawing.Point(244, 3);
             this.deleteImage.MouseClickImage = null;
             this.deleteImage.MouseOverImage = ((System.Drawing.Image)(resources.GetObject("deleteImage.MouseOverImage")));
             this.deleteImage.Name = "deleteImage";
-            this.deleteImage.Size = new System.Drawing.Size(49, 51);
+            this.deleteImage.Size = new System.Drawing.Size(48, 51);
             this.deleteImage.TabIndex = 2;
             this.deleteImage.Click += new LT.WinForm.ImageButton.ImageButton.ClickEventHandler(this.deleteImage_Click);
             // 
@@ -434,7 +434,7 @@ namespace HVS
             this.addImageSet.MouseClickImage = null;
             this.addImageSet.MouseOverImage = ((System.Drawing.Image)(resources.GetObject("addImageSet.MouseOverImage")));
             this.addImageSet.Name = "addImageSet";
-            this.addImageSet.Size = new System.Drawing.Size(46, 51);
+            this.addImageSet.Size = new System.Drawing.Size(47, 51);
             this.addImageSet.TabIndex = 1;
             this.addImageSet.Click += new LT.WinForm.ImageButton.ImageButton.ClickEventHandler(this.addImageSet_Click);
             // 
@@ -448,11 +448,11 @@ namespace HVS
             this.selectALL.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.selectALL.ButtonImage = ((System.Drawing.Image)(resources.GetObject("selectALL.ButtonImage")));
             this.selectALL.ButtonText = "";
-            this.selectALL.Location = new System.Drawing.Point(190, 3);
+            this.selectALL.Location = new System.Drawing.Point(191, 3);
             this.selectALL.MouseClickImage = null;
             this.selectALL.MouseOverImage = ((System.Drawing.Image)(resources.GetObject("selectALL.MouseOverImage")));
             this.selectALL.Name = "selectALL";
-            this.selectALL.Size = new System.Drawing.Size(46, 51);
+            this.selectALL.Size = new System.Drawing.Size(47, 51);
             this.selectALL.TabIndex = 0;
             this.selectALL.Click += new LT.WinForm.ImageButton.ImageButton.ClickEventHandler(this.selectAll_Click);
             // 
@@ -469,7 +469,7 @@ namespace HVS
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 93F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(485, 424);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(489, 449);
             this.tableLayoutPanel3.TabIndex = 3;
             // 
             // treeView1
@@ -493,7 +493,7 @@ namespace HVS
             this.treeView1.Margin = new System.Windows.Forms.Padding(0);
             this.treeView1.Name = "treeView1";
             this.treeView1.SelectedImageIndex = 0;
-            this.treeView1.Size = new System.Drawing.Size(485, 424);
+            this.treeView1.Size = new System.Drawing.Size(489, 449);
             this.treeView1.TabIndex = 0;
             this.treeView1.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterCheck);
             this.treeView1.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterExpand);

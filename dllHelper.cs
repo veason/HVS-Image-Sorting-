@@ -59,7 +59,7 @@ namespace HVS
                         }
                         catch (Exception e)
                         {
-                            Console.WriteLine(e.ToString());
+                            Console.WriteLine(e);
                         }
                     }
                 }
@@ -95,7 +95,7 @@ namespace HVS
                         }
                         catch (Exception e)
                         {
-                            Console.WriteLine(e.ToString());
+                            Console.WriteLine(e);
                         }
                     }
                 }
@@ -131,7 +131,7 @@ namespace HVS
                         }
                         catch (Exception e)
                         {
-                            Console.WriteLine(e.ToString());
+                            Console.WriteLine(e);
                         }
                     }
                 }

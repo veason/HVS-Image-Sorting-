@@ -116,17 +116,17 @@
     <Compile Include="Compress_FR.Designer.cs">
       <DependentUpon>Compress_FR.cs</DependentUpon>
     </Compile>
-    <Compile Include="aboutUs.cs">
+    <Compile Include="AboutUs.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="aboutUs.Designer.cs">
-      <DependentUpon>aboutUs.cs</DependentUpon>
+    <Compile Include="AboutUs.Designer.cs">
+      <DependentUpon>AboutUs.cs</DependentUpon>
     </Compile>
-    <Compile Include="DeleteComfirmForm.cs">
+    <Compile Include="DeleteComfirm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DeleteComfirmForm.Designer.cs">
-      <DependentUpon>DeleteComfirmForm.cs</DependentUpon>
+    <Compile Include="DeleteComfirm.Designer.cs">
+      <DependentUpon>DeleteComfirm.cs</DependentUpon>
     </Compile>
     <Compile Include="dllHelper.cs" />
     <Compile Include="MainInfo.cs" />
@@ -186,11 +186,11 @@
     <EmbeddedResource Include="Compress_FR.resx">
       <DependentUpon>Compress_FR.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="aboutUs.resx">
-      <DependentUpon>aboutUs.cs</DependentUpon>
+    <EmbeddedResource Include="AboutUs.resx">
+      <DependentUpon>AboutUs.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DeleteComfirmForm.resx">
-      <DependentUpon>DeleteComfirmForm.cs</DependentUpon>
+    <EmbeddedResource Include="DeleteComfirm.resx">
+      <DependentUpon>DeleteComfirm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ImageView.resx">
       <DependentUpon>ImageView.cs</DependentUpon>

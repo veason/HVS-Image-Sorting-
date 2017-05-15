@@ -7,7 +7,6 @@ using System.Windows.Forms;
 
 namespace HVS
 {
-    //主类和界面入口
     static class Program
     {
         /// <summary>
@@ -16,9 +15,16 @@ namespace HVS
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            try
+            {
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new MainForm());
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
     }
 }
